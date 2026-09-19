@@ -49,7 +49,7 @@
         </nav>
 
         <nav class="menu-group contact-nav" id="contact-nav">
-          <a class="menu-link" href="mailto:hello@jackroy.co">EMAIL</a>
+          <a class="menu-link" href="mailto:hello@jackroy.studio">EMAIL</a>
           <a class="menu-link" href="#" target="_blank" rel="noreferrer">LINKEDIN</a>
           <a class="menu-link" href="#" target="_blank" rel="noreferrer">@RACKJOY</a>
         </nav>
@@ -263,7 +263,7 @@
 
       contact: `
         <div class="text-block">
-          <p><a href="mailto:hello@jackroy.co">hello@jackroy.co</a></p>
+          <p><a href="mailto:hello@jackroy.studio">hello@jackroy.studio</a></p>
         </div>
       `
     };
@@ -330,6 +330,15 @@
       });
     }
 
+    // Sets a per-item stagger delay via a CSS custom property so any
+    // number of list items animate in sequence — no hardcoded nth-child
+    // rules to run out of in the stylesheet.
+    function applyStaggerDelays(items, step = 0.05, start = 0.05) {
+      items.forEach((item, i) => {
+        item.style.setProperty("--item-delay", `${start + i * step}s`);
+      });
+    }
+
     function renderStaticPage(page) {
 
   projectGallery.innerHTML = `
@@ -348,6 +357,10 @@
       projectGallery.className = "project-gallery";
       projectGallery.scrollTop = 0;
       bindFooterLinks();
+
+      if (page === "services") {
+        applyStaggerDelays(projectGallery.querySelectorAll(".services-list li"));
+      }
     }
 
     function applyImageFade() {
@@ -850,6 +863,60 @@
       if (cursorDot) {
         cursorDot.style.left = `${e.clientX}px`;
         cursorDot.style.top = `${e.clientY}px`;
+      }
+    });
+
+    // Cursor states: a small scale-up over links/buttons/images, and a
+    // hidden dot (native text cursor shows through instead) over plain
+    // reading copy like captions and paragraphs.
+    function isInteractiveTarget(el) {
+      return el && el.closest && el.closest("a, button, img");
+    }
+
+    function isTextTarget(el) {
+      return el && el.closest && el.closest(
+        "p, .caption, .caption-below, .caption-wide, .editorial-caption, .indent, .bullet-list li, .mobile-caption, .fixed-text-paragraph, .mobile-editorial-text, .text-block p, .services-list li"
+      );
+    }
+
+    document.addEventListener("mouseover", (e) => {
+      if (!cursorDot) return;
+
+      if (isInteractiveTarget(e.target)) {
+        cursorDot.classList.add("is-hover");
+        cursorDot.classList.remove("is-text");
+      } else if (isTextTarget(e.target)) {
+        cursorDot.classList.add("is-text");
+        cursorDot.classList.remove("is-hover");
+      }
+    });
+
+    document.addEventListener("mouseout", (e) => {
+      if (!cursorDot) return;
+
+      if (isInteractiveTarget(e.target) && !isInteractiveTarget(e.relatedTarget)) {
+        cursorDot.classList.remove("is-hover");
+      }
+
+      if (isTextTarget(e.target) && !isTextTarget(e.relatedTarget)) {
+        cursorDot.classList.remove("is-text");
+      }
+    });
+
+    // Basic deterrent against casual right-click / drag saving of images.
+    // Note: this only stops the easy paths (right-click menu, drag-out).
+    // It can't fully prevent someone determined via dev tools or a
+    // screenshot, since the images still have to be sent to the browser
+    // to be displayed.
+    document.addEventListener("contextmenu", (e) => {
+      if (e.target.tagName === "IMG") {
+        e.preventDefault();
+      }
+    });
+
+    document.addEventListener("dragstart", (e) => {
+      if (e.target.tagName === "IMG") {
+        e.preventDefault();
       }
     });
 
