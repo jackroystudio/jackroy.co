@@ -48,10 +48,10 @@
           <button class="menu-link" data-category="text" type="button">Event</button>
         </nav>
 
-        <nav class="menu-group contact-nav" id="contact-nav">
-          <a class="menu-link" href="mailto:hello@jackroy.studio">EMAIL</a>
-          <a class="menu-link" href="#" target="_blank" rel="noreferrer">LINKEDIN</a>
-          <a class="menu-link" href="#" target="_blank" rel="noreferrer">@RACKJOY</a>
+        <nav class="menu-group page-nav" id="page-nav">
+          <button class="menu-link" data-page="services" type="button">Services</button>
+          <button class="menu-link" data-page="profile" type="button">Profile</button>
+          <button class="menu-link" data-page="contact" type="button">Contact</button>
         </nav>
       </aside>
 
@@ -263,7 +263,7 @@
 
       contact: `
         <div class="text-block">
-          <p><a href="mailto:hello@jackroy.studio">hello@jackroy.studio</a></p>
+          <p><a href="mailto:contact@jackroy.co">contact@jackroy.co</a></p>
         </div>
       `
     };
@@ -299,9 +299,9 @@
           </div>
 
           <div class="footer-col footer-col-2">
-            <button class="footer-link" data-page="services" type="button">Services</button><br>
-            <button class="footer-link" data-page="profile" type="button">Profile</button><br>
-            <button class="footer-link" data-page="contact" type="button">Contact</button>
+            <a class="footer-link" href="mailto:contact@jackroy.co">Email</a><br>
+            <a class="footer-link" href="https://www.linkedin.com/in/jackroy/" target="_blank" rel="noreferrer">LinkedIn</a><br>
+            <a class="footer-link" href="https://www.instagram.com/rackjoy/" target="_blank" rel="noreferrer">@rackjoy</a>
           </div>
 
           <div class="footer-col footer-col-3">
@@ -313,20 +313,20 @@
       `;
     }
 
+    function goToStaticPage(page) {
+      currentCategory = null;
+      currentProjectIndex = null;
+      previousMobileCategory = null;
+
+      renderProjects(false);
+      renderStaticPage(page);
+      updateCategoryButtons();
+      updateMobileMenuUI();
+    }
+
     function bindFooterLinks() {
-      document.querySelectorAll(".footer-link").forEach((button) => {
-        button.addEventListener("click", () => {
-          const page = button.dataset.page;
-
-          currentCategory = null;
-          currentProjectIndex = null;
-          previousMobileCategory = null;
-
-          renderProjects(false);
-          renderStaticPage(page);
-          updateCategoryButtons();
-          updateMobileMenuUI();
-        });
+      document.querySelectorAll(".footer-link[data-page]").forEach((button) => {
+        button.addEventListener("click", () => goToStaticPage(button.dataset.page));
       });
     }
 
@@ -839,6 +839,10 @@
         renderProjects(false);
         renderGallery();
       }
+    });
+
+    document.querySelectorAll("#page-nav [data-page]").forEach((button) => {
+      button.addEventListener("click", () => goToStaticPage(button.dataset.page));
     });
 
     mobileMenuButton.addEventListener("click", () => {
