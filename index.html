@@ -281,10 +281,8 @@
       return window.matchMedia("(max-width: 768px)").matches;
     }
 
-    let currentCategory = isMobile() ? null : "spatial";
-    let currentProjectIndex = isMobile()
-      ? null
-      : portfolioData.spatial.findIndex((p) => p.title === "Thistles");
+    let currentCategory = null;
+    let currentProjectIndex = null;
 
     let mobileMenuOpen = isMobile();
     let mobileMode = isMobile() ? "landing" : "desktop";
@@ -937,14 +935,6 @@
       } else {
         mobileMode = "desktop";
         mobileMenuOpen = false;
-
-        if (!currentCategory) {
-          currentCategory = "spatial";
-        }
-
-        if (currentProjectIndex === null) {
-          currentProjectIndex = portfolioData[currentCategory].length - 1;
-        }
 
         renderProjects(false);
         renderGallery();
