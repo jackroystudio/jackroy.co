@@ -24,7 +24,7 @@ body {
   --glass-blur: blur(10px);
 
   /* White border shown on nav buttons when not hovered */
-  --edge: #ffffff;
+  --edge: #787276;
 
   --space-2xs: 6px;
   --space-xs: 10px;
