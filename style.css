@@ -20,7 +20,7 @@ body {
 
   /* Semi-transparent nav buttons.
      Change 0.55 for more/less opacity, and 10px for more/less blur. */
-  --glass: rgba(var(--paper-rgb), 0.55);
+  --glass: rgba(var(--paper-rgb), 0.45);
   --glass-blur: blur(10px);
 
   --space-2xs: 6px;
