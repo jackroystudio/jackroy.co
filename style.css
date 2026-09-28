@@ -1,4 +1,4 @@
-/* FULL UPDATED STYLE.CSS WITH TEXT ALIGN + SLIDE FIX */
+/* FULL UPDATED STYLE.CSS WITH SEMI-TRANSPARENT NAV BUTTONS */
 
 * {
   box-sizing: border-box;
@@ -17,6 +17,11 @@ body {
   --paper: #FAF9F6;
   --paper-rgb: 250, 249, 246;
   --ink: #121212;
+
+  /* Semi-transparent nav buttons.
+     Change 0.55 for more/less opacity, and 10px for more/less blur. */
+  --glass: rgba(var(--paper-rgb), 0.55);
+  --glass-blur: blur(10px);
 
   --space-2xs: 6px;
   --space-xs: 10px;
@@ -195,7 +200,9 @@ p,
 .site-header button#home-button {
   appearance: none;
   -webkit-appearance: none;
-  background: var(--paper);
+  background: var(--glass);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
   border: none;
   padding: 1px 5px 2px 5px;
   margin: 0;
@@ -265,7 +272,9 @@ p,
 .project-link {
   appearance: none;
   -webkit-appearance: none;
-  background: var(--paper);
+  background: var(--glass);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
   border: none;
   padding: 1px 5px 2px 5px;
   margin: 0;
@@ -307,12 +316,14 @@ p,
 .menu-link.active,
 .project-link.active {
   background: var(--ink);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
   color: var(--paper);
   box-shadow: none;
 }
 
 .menu-link.selected-category {
-  background: transparent;
+  background: var(--glass);
   color: var(--ink);
   box-shadow: inset 0 0 0 1px var(--ink);
 }
@@ -321,6 +332,8 @@ p,
 .project-link.active:hover,
 .menu-link.selected-category:hover {
   background: var(--ink);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
   color: var(--paper);
   box-shadow: none;
 }
@@ -959,6 +972,8 @@ p,
   .site-header button#home-button {
     padding: 0;
     background: transparent;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
     box-shadow: none;
     cursor: pointer;
     font-size: 10px;
@@ -1045,6 +1060,8 @@ p,
     justify-content: center;
     padding: 2px 7px 3px 7px;
     background: transparent;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
     box-shadow: none;
     cursor: pointer;
     line-height: 1.15;
