@@ -870,15 +870,23 @@
       "#36949d", "#1982c4", "#4267ac", "#6a4c93", "#b5179e"
     ];
 
-    let lastSprinkleX = null;
+        let lastSprinkleX = null;
     let lastSprinkleY = null;
-    const SPRINKLE_MIN_DISTANCE = 14;
+    const SPRINKLE_MIN_DISTANCE = 7;
 
     function spawnSprinkle(x, y) {
       const sprinkle = document.createElement("div");
       sprinkle.className = "cursor-sprinkle";
-      sprinkle.style.left = `${x}px`;
-      sprinkle.style.top = `${y}px`;
+
+      // Small random jitter so sprinkles don't sit in a perfectly
+      // straight line, and a random size for a more scattered look.
+      const jitterX = Math.random() * 10 - 5;
+      const jitterY = Math.random() * 10 - 5;
+      const size = 6 + Math.random() * 6;
+
+      sprinkle.style.left = `${x + jitterX}px`;
+      sprinkle.style.top = `${y + jitterY}px`;
+      sprinkle.style.setProperty("--sprinkle-size", `${size}px`);
       sprinkle.style.background =
         sprinkleColors[Math.floor(Math.random() * sprinkleColors.length)];
       sprinkle.style.setProperty("--sprinkle-rotate", `${Math.floor(Math.random() * 360)}deg`);
