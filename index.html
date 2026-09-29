@@ -18,7 +18,10 @@
 </head>
 
 <body>
-  <div class="cursor-dot"></div>
+  <!-- Custom cursor -->
+  <div class="custom-cursor" aria-hidden="true">
+    <span class="custom-cursor-label"></span>
+  </div>
 
   <main class="layout">
     <header class="site-header">
@@ -272,7 +275,8 @@
     const projectList = document.getElementById("project-list");
     const projectGallery = document.getElementById("project-gallery");
     const homeButton = document.getElementById("home-button");
-    const cursorDot = document.querySelector(".cursor-dot");
+    const customCursor = document.querySelector(".custom-cursor");
+    const customCursorLabel = document.querySelector(".custom-cursor-label");
     const mobileMenuButton = document.getElementById("mobile-menu-button");
     const navPanel = document.getElementById("nav-panel");
     const mobileBackdrop = document.getElementById("mobile-backdrop");
@@ -305,7 +309,6 @@
           <div class="footer-col footer-col-3">
             275 Broome Street<br>
             New York, NY 10002
-            
           </div>
         </footer>
       `;
@@ -328,9 +331,6 @@
       });
     }
 
-    // Sets a per-item stagger delay via a CSS custom property so any
-    // number of list items animate in sequence — no hardcoded nth-child
-    // rules to run out of in the stylesheet.
     function applyStaggerDelays(items, step = 0.05, start = 0.05) {
       items.forEach((item, i) => {
         item.style.setProperty("--item-delay", `${start + i * step}s`);
@@ -338,18 +338,14 @@
     }
 
     function renderStaticPage(page) {
+      projectGallery.innerHTML = `
+        <div class="text-page-layout shift-right">
+          ${staticPages[page]}
+        </div>
 
-  projectGallery.innerHTML = `
+        <div class="footer-spacer"></div>
 
-    <div class="text-page-layout shift-right">
-
-      ${staticPages[page]}
-
-    </div>
-
-    <div class="footer-spacer"></div>
-
-    ${renderFooter()}
+        ${renderFooter()}
       `;
 
       projectGallery.className = "project-gallery";
@@ -861,18 +857,50 @@
       closeMobileMenu();
     });
 
+    /* =========================================================
+       CUSTOM CURSOR
+       ========================================================= */
+
+    let cursorX = window.innerWidth / 2;
+    let cursorY = window.innerHeight / 2;
+    let targetX = cursorX;
+    let targetY = cursorY;
+
+    let cursorVisible = false;
+
     window.addEventListener("mousemove", (e) => {
-      if (cursorDot) {
-        cursorDot.style.left = `${e.clientX}px`;
-        cursorDot.style.top = `${e.clientY}px`;
+      targetX = e.clientX;
+      targetY = e.clientY;
+
+      if (!cursorVisible && !isMobile()) {
+        cursorVisible = true;
+        customCursor.classList.add("is-visible");
       }
     });
 
-    // Cursor states: a small scale-up over links/buttons/images, and a
-    // hidden dot (native text cursor shows through instead) over plain
-    // reading copy like captions and paragraphs.
-    function isInteractiveTarget(el) {
-      return el && el.closest && el.closest("a, button, img");
+    window.addEventListener("mouseleave", () => {
+      cursorVisible = false;
+      customCursor.classList.remove("is-visible");
+    });
+
+    function animateCursor() {
+      cursorX += (targetX - cursorX) * 0.18;
+      cursorY += (targetY - cursorY) * 0.18;
+
+      customCursor.style.transform =
+        `translate3d(${cursorX}px, ${cursorY}px, 0) translate(-50%, -50%)`;
+
+      requestAnimationFrame(animateCursor);
+    }
+
+    animateCursor();
+
+    function getCursorTarget(el) {
+      if (!el || !el.closest) return null;
+
+      return el.closest(
+        "img, a, button, .project-link, .menu-link, #home-button, .footer-link"
+      );
     }
 
     function isTextTarget(el) {
@@ -881,35 +909,83 @@
       );
     }
 
-    document.addEventListener("mouseover", (e) => {
-      if (!cursorDot) return;
+    function setCursorState(target) {
+      if (!customCursor || isMobile()) return;
 
-      if (isInteractiveTarget(e.target)) {
-        cursorDot.classList.add("is-hover");
-        cursorDot.classList.remove("is-text");
+      customCursor.classList.remove(
+        "is-view",
+        "is-hover",
+        "is-text"
+      );
+
+      customCursorLabel.textContent = "";
+
+      if (!target) {
+        return;
+      }
+
+      if (target.tagName === "IMG") {
+        customCursor.classList.add("is-view");
+        customCursorLabel.textContent = "VIEW";
+        return;
+      }
+
+      if (target.matches("#home-button")) {
+        customCursor.classList.add("is-hover");
+        customCursorLabel.textContent = "HOME";
+        return;
+      }
+
+      if (target.matches("a, button, .project-link, .menu-link, .footer-link")) {
+        customCursor.classList.add("is-hover");
+        return;
+      }
+    }
+
+    document.addEventListener("mouseover", (e) => {
+      if (isMobile()) return;
+
+      const target = getCursorTarget(e.target);
+
+      if (target) {
+        setCursorState(target);
       } else if (isTextTarget(e.target)) {
-        cursorDot.classList.add("is-text");
-        cursorDot.classList.remove("is-hover");
+        customCursor.classList.remove("is-view", "is-hover");
+        customCursor.classList.add("is-text");
+        customCursorLabel.textContent = "";
+      } else {
+        customCursor.classList.remove("is-view", "is-hover", "is-text");
+        customCursorLabel.textContent = "";
       }
     });
 
     document.addEventListener("mouseout", (e) => {
-      if (!cursorDot) return;
+      if (isMobile()) return;
 
-      if (isInteractiveTarget(e.target) && !isInteractiveTarget(e.relatedTarget)) {
-        cursorDot.classList.remove("is-hover");
+      if (!e.relatedTarget) {
+        customCursor.classList.remove("is-view", "is-hover", "is-text");
+        customCursorLabel.textContent = "";
+        return;
       }
 
-      if (isTextTarget(e.target) && !isTextTarget(e.relatedTarget)) {
-        cursorDot.classList.remove("is-text");
+      const nextTarget = getCursorTarget(e.relatedTarget);
+
+      if (nextTarget) {
+        setCursorState(nextTarget);
+      } else if (isTextTarget(e.relatedTarget)) {
+        customCursor.classList.remove("is-view", "is-hover");
+        customCursor.classList.add("is-text");
+        customCursorLabel.textContent = "";
+      } else {
+        customCursor.classList.remove("is-view", "is-hover", "is-text");
+        customCursorLabel.textContent = "";
       }
     });
 
-    // Basic deterrent against casual right-click / drag saving of images.
-    // Note: this only stops the easy paths (right-click menu, drag-out).
-    // It can't fully prevent someone determined via dev tools or a
-    // screenshot, since the images still have to be sent to the browser
-    // to be displayed.
+    /* =========================================================
+       IMAGE PROTECTION
+       ========================================================= */
+
     document.addEventListener("contextmenu", (e) => {
       if (e.target.tagName === "IMG") {
         e.preventDefault();
@@ -924,6 +1000,8 @@
 
     window.addEventListener("resize", () => {
       if (isMobile()) {
+        customCursor.classList.remove("is-visible");
+
         if (mobileMode === "desktop") {
           goToMobileLanding();
         } else {
