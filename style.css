@@ -1,4 +1,4 @@
-/* FULL UPDATED STYLE.CSS WITH SEMI-TRANSPARENT NAV BUTTONS */
+/* FULL UPDATED STYLE.CSS WITH CUSTOM CURSOR */
 
 * {
   box-sizing: border-box;
@@ -18,15 +18,10 @@ body {
   --paper-rgb: 250, 249, 246;
   --ink: #121212;
 
-  /* Semi-transparent nav buttons.
-     Change 0.55 for more/less opacity, and 10px for more/less blur. */
   --glass: rgba(var(--paper-rgb), 0.55);
   --glass-blur: blur(10px);
 
-  /* Soft shadow used to define nav button edges at rest (no hard border) */
   --edge: 0 1px 6px rgba(0, 0, 0, 0.18);
-
-  /* White border shown on nav buttons when not hovered */
   --edge: #ffffff;
 
   --space-2xs: 6px;
@@ -83,27 +78,98 @@ button:focus-visible,
   box-shadow: inset 0 0 0 1px var(--ink);
 }
 
-.cursor-dot {
+
+/* =========================================================
+   CUSTOM CURSOR
+   ========================================================= */
+
+.custom-cursor {
   position: fixed;
   top: 0;
   left: 0;
-  width: 8px;
-  height: 8px;
+
+  width: 9px;
+  height: 9px;
+
   background: var(--ink);
   border-radius: 50%;
+
   pointer-events: none;
-  transform: translate(-50%, -50%);
-  transition: transform 0.18s ease, opacity 0.18s ease;
-  z-index: 9999;
+  z-index: 99999;
+
+  opacity: 0;
+
+  will-change: transform, width, height, opacity;
+
+  transition:
+    width 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    height 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.18s ease,
+    background-color 0.28s ease;
 }
 
-.cursor-dot.is-hover {
-  transform: translate(-50%, -50%) scale(1.15);
+.custom-cursor.is-visible {
+  opacity: 1;
 }
 
-.cursor-dot.is-text {
+.custom-cursor-label {
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 8px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.2px;
+  text-transform: uppercase;
+
+  color: var(--paper);
+
+  opacity: 0;
+  transform: scale(0.8);
+
+  transition:
+    opacity 0.18s ease,
+    transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.custom-cursor.is-hover {
+  width: 30px;
+  height: 30px;
+}
+
+.custom-cursor.is-view {
+  width: 68px;
+  height: 68px;
+}
+
+.custom-cursor.is-view .custom-cursor-label,
+.custom-cursor.is-hover #custom-cursor-label {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.custom-cursor.is-hover .custom-cursor-label {
   opacity: 0;
 }
+
+.custom-cursor.is-view .custom-cursor-label {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.custom-cursor.is-text {
+  opacity: 0;
+}
+
+
+/* =========================================================
+   TEXT CURSOR
+   ========================================================= */
 
 p,
 .caption,
@@ -119,6 +185,11 @@ p,
 .services-list li {
   cursor: text;
 }
+
+
+/* =========================================================
+   LAYOUT
+   ========================================================= */
 
 .layout {
   position: relative;
@@ -948,6 +1019,11 @@ p,
   padding: 0;
 }
 
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
 @media (max-width: 768px) {
   html,
   body {
@@ -960,7 +1036,7 @@ p,
     overflow-y: visible;
   }
 
-  .cursor-dot {
+  .custom-cursor {
     display: none;
   }
 
