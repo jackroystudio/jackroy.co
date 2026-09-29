@@ -328,9 +328,6 @@
       });
     }
 
-    // Sets a per-item stagger delay via a CSS custom property so any
-    // number of list items animate in sequence — no hardcoded nth-child
-    // rules to run out of in the stylesheet.
     function applyStaggerDelays(items, step = 0.05, start = 0.05) {
       items.forEach((item, i) => {
         item.style.setProperty("--item-delay", `${start + i * step}s`);
@@ -868,9 +865,6 @@
       }
     });
 
-    // Rainbow sprinkle trail: spawns small colored squares behind the
-    // cursor as it moves, each fading and shrinking away on its own.
-    // Throttled by distance travelled so it doesn't flood the DOM.
     const sprinkleColors = [
       "#ff595e", "#ff924c", "#ffca3a", "#8ac926",
       "#36949d", "#1982c4", "#4267ac", "#6a4c93", "#b5179e"
@@ -912,9 +906,6 @@
       }
     });
 
-    // Cursor states: a small scale-up over links/buttons/images, and a
-    // hidden dot (native text cursor shows through instead) over plain
-    // reading copy like captions and paragraphs.
     function isInteractiveTarget(el) {
       return el && el.closest && el.closest("a, button, img");
     }
@@ -949,11 +940,6 @@
       }
     });
 
-    // Basic deterrent against casual right-click / drag saving of images.
-    // Note: this only stops the easy paths (right-click menu, drag-out).
-    // It can't fully prevent someone determined via dev tools or a
-    // screenshot, since the images still have to be sent to the browser
-    // to be displayed.
     document.addEventListener("contextmenu", (e) => {
       if (e.target.tagName === "IMG") {
         e.preventDefault();
