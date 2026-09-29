@@ -26,9 +26,6 @@ body {
   /* Soft shadow used to define nav button edges at rest (no hard border) */
   --edge: 0 1px 6px rgba(0, 0, 0, 0.18);
 
-  /* White border shown on nav buttons when not hovered */
-  --edge: #ffffff;
-
   --space-2xs: 6px;
   --space-xs: 10px;
   --space-s: 16px;
