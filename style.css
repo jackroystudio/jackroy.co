@@ -23,9 +23,6 @@ body {
   --glass: rgba(var(--paper-rgb), 0.55);
   --glass-blur: blur(10px);
 
-  /* Soft shadow used to define nav button edges at rest (no hard border) */
-  --edge: 0 1px 6px rgba(0, 0, 0, 0.18);
-
   --space-2xs: 6px;
   --space-xs: 10px;
   --space-s: 16px;
@@ -107,8 +104,8 @@ button:focus-visible,
   position: fixed;
   top: 0;
   left: 0;
-  width: var(--sprinkle-size, 8px);
-  height: var(--sprinkle-size, 8px);
+  width: var(--sprinkle-size, 6px);
+  height: var(--sprinkle-size, 6px);
   border-radius: 2px;
   pointer-events: none;
   z-index: 9998;
@@ -238,7 +235,7 @@ p,
   cursor: none;
   pointer-events: auto;
   color: var(--ink);
-  box-shadow: var(--edge);
+  box-shadow: none;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 10px;
   font-style: normal;
@@ -315,7 +312,7 @@ p,
   z-index: 31;
   pointer-events: auto;
   color: var(--ink);
-  box-shadow: var(--edge);
+  box-shadow: none;
   transition: box-shadow 0.15s ease;
 }
 
