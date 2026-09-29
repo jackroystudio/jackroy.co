@@ -254,7 +254,7 @@
 
       profile: `
         <div class="text-block">
-          <p>Jack Roy is an independent spatial design studio based in New York, working across temporary installations, permanent environments, window displays, exhibitions and events, and retail spaces.</p>
+          <p>Jack Roy is an independent spatial design studio based in New York, working across temporary installations, permanent environments, window displays, exhibitions, and retail spaces.</p>
           <p>The studio develops spatial concepts that are precise, atmospheric, and materially considered. Each project is approached as a complete experience, bringing together research, narrative, object, architecture, and visual language to create environments that feel distinctive and memorable.</p>
           <p>Services span creative strategy, concept development, spatial design, visualisation, technical design, production coordination, and installation delivery. From early ideas through to final execution, the studio works closely with clients, collaborators, makers, and fabricators to maintain clarity, cohesion, and detail at every stage.</p>
           <p>Working across scales and contexts, the studio is interested in spaces that encourage attention, movement, and participation. The work is defined by restraint, atmosphere, strong visual direction, and a commitment to thoughtful execution.</p>
@@ -865,33 +865,39 @@
       }
     });
 
+    // Rainbow sprinkle trail: spawns small colored squares directly on
+    // the path the cursor just travelled (no sideways jitter), filling
+    // in gaps during fast movement so it reads as one continuous trail
+    // rather than scattered dots. Color is picked randomly per dot from
+    // your palette below.
     const sprinkleColors = [
       "#c7f2c6", "#958eff", "#dbfe02", "#46de86",
       "#a8c5e6", "#fbceeb", "#f4502a", "#f78bcc", "#3b94ff"
     ];
+    const SPRINKLE_STEP = 6; // px between each trail dot - smaller = denser trail
 
-    let lastSprinkleX = null;
-    let lastSprinkleY = null;
-    const SPRINKLE_MIN_DISTANCE = 7;
+    function randomSprinkleColor() {
+      return sprinkleColors[Math.floor(Math.random() * sprinkleColors.length)];
+    }
 
     function spawnSprinkle(x, y) {
       const sprinkle = document.createElement("div");
       sprinkle.className = "cursor-sprinkle";
 
-      const jitterX = Math.random() * 10 - 5;
-      const jitterY = Math.random() * 10 - 5;
       const size = 4 + Math.random() * 3;
 
-      sprinkle.style.left = `${x + jitterX}px`;
-      sprinkle.style.top = `${y + jitterY}px`;
+      sprinkle.style.left = `${x}px`;
+      sprinkle.style.top = `${y}px`;
       sprinkle.style.setProperty("--sprinkle-size", `${size}px`);
-      sprinkle.style.background =
-        sprinkleColors[Math.floor(Math.random() * sprinkleColors.length)];
+      sprinkle.style.background = randomSprinkleColor();
       sprinkle.style.setProperty("--sprinkle-rotate", `${Math.floor(Math.random() * 360)}deg`);
 
       sprinkle.addEventListener("animationend", () => sprinkle.remove());
       document.body.appendChild(sprinkle);
     }
+
+    let lastSprinkleX = null;
+    let lastSprinkleY = null;
 
     window.addEventListener("mousemove", (e) => {
       if (isMobile()) return;
@@ -899,19 +905,60 @@
       if (lastSprinkleX === null) {
         lastSprinkleX = e.clientX;
         lastSprinkleY = e.clientY;
+        spawnSprinkle(e.clientX, e.clientY);
         return;
       }
 
       const dx = e.clientX - lastSprinkleX;
       const dy = e.clientY - lastSprinkleY;
+      const distance = Math.sqrt(dx * dx + dy * dy);
 
-      if (Math.sqrt(dx * dx + dy * dy) >= SPRINKLE_MIN_DISTANCE) {
-        spawnSprinkle(e.clientX, e.clientY);
+      if (distance >= SPRINKLE_STEP) {
+        const steps = Math.floor(distance / SPRINKLE_STEP);
+
+        for (let i = 1; i <= steps; i++) {
+          const t = i / steps;
+          spawnSprinkle(lastSprinkleX + dx * t, lastSprinkleY + dy * t);
+        }
+
         lastSprinkleX = e.clientX;
         lastSprinkleY = e.clientY;
       }
     });
 
+    // Click burst: a small radial pop of sprinkles outward from wherever
+    // you click, as a fun payoff on top of the trail.
+    document.addEventListener("click", (e) => {
+      if (isMobile()) return;
+
+      const burstCount = 8;
+
+      for (let i = 0; i < burstCount; i++) {
+        const angle = (Math.PI * 2 * i) / burstCount + Math.random() * 0.3;
+        const distance = 30 + Math.random() * 20;
+        const bx = Math.cos(angle) * distance;
+        const by = Math.sin(angle) * distance;
+
+        const burst = document.createElement("div");
+        burst.className = "cursor-sprinkle cursor-burst";
+
+        const size = 5 + Math.random() * 4;
+
+        burst.style.left = `${e.clientX}px`;
+        burst.style.top = `${e.clientY}px`;
+        burst.style.setProperty("--sprinkle-size", `${size}px`);
+        burst.style.setProperty("--burst-x", `${bx}px`);
+        burst.style.setProperty("--burst-y", `${by}px`);
+        burst.style.background = randomSprinkleColor();
+
+        burst.addEventListener("animationend", () => burst.remove());
+        document.body.appendChild(burst);
+      }
+    });
+
+    // Cursor states: a small scale-up over links/buttons/images, and a
+    // hidden dot (native text cursor shows through instead) over plain
+    // reading copy like captions and paragraphs.
     function isInteractiveTarget(el) {
       return el && el.closest && el.closest("a, button, img");
     }
@@ -946,6 +993,11 @@
       }
     });
 
+    // Basic deterrent against casual right-click / drag saving of images.
+    // Note: this only stops the easy paths (right-click menu, drag-out).
+    // It can't fully prevent someone determined via dev tools or a
+    // screenshot, since the images still have to be sent to the browser
+    // to be displayed.
     document.addEventListener("contextmenu", (e) => {
       if (e.target.tagName === "IMG") {
         e.preventDefault();
