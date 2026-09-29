@@ -107,23 +107,23 @@ button:focus-visible,
   position: fixed;
   top: 0;
   left: 0;
-  width: 4px;
-  height: 4px;
-  border-radius: 1px;
+  width: var(--sprinkle-size, 8px);
+  height: var(--sprinkle-size, 8px);
+  border-radius: 2px;
   pointer-events: none;
   z-index: 9998;
   transform: translate(-50%, -50%) rotate(0deg);
-  animation: sprinkleFade 0.6s ease-out forwards;
+  animation: sprinkleFade 0.85s ease-out forwards;
 }
 
 @keyframes sprinkleFade {
   0% {
-    opacity: 0.9;
+    opacity: 1;
     transform: translate(-50%, -50%) rotate(var(--sprinkle-rotate, 0deg)) scale(1);
   }
   100% {
     opacity: 0;
-    transform: translate(-50%, -50%) rotate(var(--sprinkle-rotate, 0deg)) scale(0.3) translateY(10px);
+    transform: translate(-50%, -50%) rotate(var(--sprinkle-rotate, 0deg)) scale(0.25) translateY(16px);
   }
 }
 
