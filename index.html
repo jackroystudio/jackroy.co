@@ -152,6 +152,7 @@
           title: "Wynn Hamlyn",
           year: "2021",
           layout: "editorial-scroll-overlay",
+          sprinkleColors: ["#f5ff00", "#e8ff61", "#dbfe02", "#c6ff00", "#f9ffb0"],
           overlayText: [
             "The arrangement proceeds less as a singular display than as a measured sequence of views. Planes, apertures, and shallow thresholds are composed to guide attention laterally, so that the field is read in fragments rather than all at once. The work proposes a retail environment as something closer to a magazine spread: paced, cropped, and layered, with each transition carrying as much weight as the object itself.",
             "Surfaces remain deliberately calm. Material changes are slight but consequential, allowing light, reflection, and edge conditions to generate difference. What appears centered at first begins to shift as one moves, and the visual order opens into a softer, less fixed structure. The installation relies on this tension between control and drift, between geometry and atmosphere, to produce a mode of looking that feels both staged and provisional.",
@@ -178,6 +179,7 @@
           title: "Thistles",
           year: "2025",
           layout: "right-stack-small",
+          sprinkleColors: ["#d0efff", "#a9dfff", "#8ecbff", "#5fb8ff", "#bfe3ff"],
           images: [
             { src: "https://picsum.photos/1200/900?random=211", caption: "Lorem Ipsum is simply dummy text of the printing and typesetting industry." },
             { src: "https://picsum.photos/1200/1400?random=212", caption: "Detail of display and circulation." }
@@ -315,6 +317,7 @@
       currentCategory = null;
       currentProjectIndex = null;
       previousMobileCategory = null;
+      activeSprinkleColors = defaultSprinkleColors;
 
       renderProjects(false);
       renderStaticPage(page);
@@ -731,6 +734,8 @@
 
     function renderGallery() {
       if (currentProjectIndex === null || !currentCategory) {
+        activeSprinkleColors = defaultSprinkleColors;
+
         projectGallery.innerHTML = `
           <div class="home-footer-spacer"></div>
           ${renderFooter()}
@@ -743,6 +748,7 @@
       }
 
       const project = portfolioData[currentCategory][currentProjectIndex];
+      activeSprinkleColors = project.sprinkleColors || defaultSprinkleColors;
 
       projectGallery.className = "project-gallery";
 
@@ -870,14 +876,19 @@
     // in gaps during fast movement so it reads as one continuous trail
     // rather than scattered dots. Color is picked randomly per dot from
     // your palette below.
-    const sprinkleColors = [
+    const defaultSprinkleColors = [
       "#c7f2c6", "#958eff", "#dbfe02", "#46de86",
       "#a8c5e6", "#fbceeb", "#f4502a", "#f78bcc", "#3b94ff"
     ];
+
+    // Swapped out per-project (see renderGallery) when a project defines
+    // its own sprinkleColors array; falls back to the default otherwise.
+    let activeSprinkleColors = defaultSprinkleColors;
+
     const SPRINKLE_STEP = 10; // px between each trail dot - smaller = denser trail
 
     function randomSprinkleColor() {
-      return sprinkleColors[Math.floor(Math.random() * sprinkleColors.length)];
+      return activeSprinkleColors[Math.floor(Math.random() * activeSprinkleColors.length)];
     }
 
     function spawnSprinkle(x, y) {
