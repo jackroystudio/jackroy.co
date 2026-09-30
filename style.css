@@ -1,4 +1,4 @@
-/* FULL UPDATED STYLE.CSS WITH SEMI-TRANSPARENT NAV BUTTONS */
+/* FULL UPDATED STYLE.CSS */
 
 * {
   box-sizing: border-box;
@@ -18,8 +18,6 @@ body {
   --paper-rgb: 250, 249, 246;
   --ink: #121212;
 
-  /* Semi-transparent nav buttons.
-     Change 0.55 for more/less opacity, and 10px for more/less blur. */
   --glass: rgba(var(--paper-rgb), 0.55);
   --glass-blur: blur(10px);
 
@@ -77,6 +75,10 @@ button:focus-visible,
   box-shadow: inset 0 0 0 1px var(--ink);
 }
 
+/* =========================================================
+   CUSTOM CURSOR
+   ========================================================= */
+
 .cursor-dot {
   position: fixed;
   top: 0;
@@ -85,10 +87,18 @@ button:focus-visible,
   height: 8px;
   background: var(--ink);
   border-radius: 1px;
+
+  /* FIX: never allow the cursor to interfere with clicking */
   pointer-events: none;
+
   transform: translate(-50%, -50%);
   transition: transform 0.18s ease, opacity 0.18s ease;
-  z-index: 9999;
+
+  /* FIX: keep cursor above absolutely everything */
+  z-index: 99999;
+
+  /* FIX: make initial state explicitly visible */
+  opacity: 1;
 }
 
 .cursor-dot.is-hover {
@@ -99,7 +109,6 @@ button:focus-visible,
   opacity: 0;
 }
 
-/* Rainbow sprinkle trail left behind the square cursor as it moves */
 .cursor-sprinkle {
   position: fixed;
   top: 0;
@@ -107,8 +116,12 @@ button:focus-visible,
   width: var(--sprinkle-size, 6px);
   height: var(--sprinkle-size, 6px);
   border-radius: 2px;
+
   pointer-events: none;
-  z-index: 9998;
+
+  /* FIX: below cursor, but above page */
+  z-index: 99998;
+
   transform: translate(-50%, -50%) rotate(0deg);
   animation: sprinkleFade 0.85s ease-out forwards;
 }
@@ -116,11 +129,19 @@ button:focus-visible,
 @keyframes sprinkleFade {
   0% {
     opacity: 1;
-    transform: translate(-50%, -50%) rotate(var(--sprinkle-rotate, 0deg)) scale(1);
+    transform:
+      translate(-50%, -50%)
+      rotate(var(--sprinkle-rotate, 0deg))
+      scale(1);
   }
+
   100% {
     opacity: 0;
-    transform: translate(-50%, -50%) rotate(var(--sprinkle-rotate, 0deg)) scale(0.25) translateY(16px);
+    transform:
+      translate(-50%, -50%)
+      rotate(var(--sprinkle-rotate, 0deg))
+      scale(0.25)
+      translateY(16px);
   }
 }
 
@@ -139,12 +160,21 @@ p,
   cursor: text;
 }
 
+/* =========================================================
+   MAIN LAYOUT
+   ========================================================= */
+
 .layout {
   position: relative;
   width: 100vw;
   height: 100vh;
 }
 
+/*
+  FIX:
+  Keep the gallery in its own low stacking layer.
+  Navigation is deliberately placed above it below.
+*/
 .stage {
   position: fixed;
   inset: 0;
@@ -152,12 +182,23 @@ p,
   overflow: hidden;
 }
 
+/* =========================================================
+   HEADER
+   ========================================================= */
+
 .site-header {
   position: fixed;
   top: 14px;
   left: 16px;
-  z-index: 50;
+
+  /*
+    FIX:
+    Header must always remain above gallery content.
+  */
+  z-index: 1000;
+
   pointer-events: none;
+
   display: flex;
   align-items: center;
   gap: 14px;
@@ -193,7 +234,10 @@ p,
   width: 28px;
   height: 1px;
   background: var(--ink);
-  transition: transform 0.18s ease, opacity 0.18s ease, top 0.18s ease;
+  transition:
+    transform 0.18s ease,
+    opacity 0.18s ease,
+    top 0.18s ease;
 }
 
 .mobile-menu-button span:nth-child(1) {
@@ -250,19 +294,33 @@ p,
   box-shadow: inset 0 0 0 1px var(--ink);
 }
 
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
 .mobile-backdrop {
   display: none;
 }
 
+/*
+  FIX:
+  Raise the entire navigation above the gallery.
+*/
 .nav-panel {
   position: relative;
-  z-index: 30;
+  z-index: 1000;
 }
 
 .col {
   position: fixed;
   top: 94px;
-  z-index: 30;
+
+  /*
+    FIX:
+    Higher than every gallery element.
+  */
+  z-index: 1001;
+
   background: transparent;
 }
 
@@ -308,9 +366,15 @@ p,
   text-decoration: none;
   align-self: flex-start;
   cursor: none;
+
+  /*
+    FIX:
+    Explicitly above gallery and clickable.
+  */
   position: relative;
-  z-index: 31;
+  z-index: 1002;
   pointer-events: auto;
+
   color: var(--ink);
   box-shadow: none;
   transition: box-shadow 0.15s ease;
@@ -364,6 +428,10 @@ p,
   box-shadow: none;
 }
 
+/* =========================================================
+   PROJECT LIST
+   ========================================================= */
+
 .project-list {
   height: calc(100vh - 110px);
   width: max-content;
@@ -395,13 +463,20 @@ p,
   outline: none;
   opacity: 0;
   transform: translateY(2px);
+
+  /*
+    FIX:
+    Project links remain clickable.
+  */
   pointer-events: auto;
 }
 
 .project-link.is-visible {
   opacity: 1;
   transform: translateY(0);
-  transition: opacity 0.35s ease, transform 0.35s ease;
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease;
 }
 
 .project-title,
@@ -414,12 +489,23 @@ p,
   white-space: nowrap;
 }
 
+/* =========================================================
+   GALLERY
+   ========================================================= */
+
 .project-gallery {
   position: absolute;
   inset: 0;
   overflow-y: auto;
   overflow-x: visible;
   background: transparent;
+
+  /*
+    FIX:
+    Keep gallery below navigation.
+  */
+  z-index: 1;
+
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
@@ -447,6 +533,10 @@ p,
 .project-gallery img.is-loaded {
   opacity: 1;
 }
+
+/* =========================================================
+   TEXT / CAPTIONS
+   ========================================================= */
 
 .caption,
 .fixed-text-paragraph,
@@ -477,6 +567,10 @@ p,
   text-align-last: left;
 }
 
+/* =========================================================
+   RIGHT STACK
+   ========================================================= */
+
 .gallery-right {
   display: flex;
   flex-direction: column;
@@ -506,6 +600,10 @@ p,
   width: min(480px, 100%);
 }
 
+/* =========================================================
+   RANDOM SCATTER
+   ========================================================= */
+
 .gallery-random {
   position: relative;
   width: 100%;
@@ -519,6 +617,10 @@ p,
   height: auto;
   max-width: none;
 }
+
+/* =========================================================
+   CENTERED LARGE
+   ========================================================= */
 
 .gallery-centered-large {
   display: flex;
@@ -540,6 +642,10 @@ p,
   height: auto;
 }
 
+/* =========================================================
+   EDITORIAL
+   ========================================================= */
+
 .gallery-editorial-scroll {
   position: relative;
   width: 100%;
@@ -559,7 +665,9 @@ p,
   width: 100%;
   height: auto;
   filter: grayscale(100%);
-  transition: filter 0.2s ease, opacity 0.4s ease;
+  transition:
+    filter 0.2s ease,
+    opacity 0.4s ease;
   cursor: pointer;
 }
 
@@ -588,6 +696,10 @@ p,
   margin-top: 14px;
 }
 
+/* =========================================================
+   TWO COLUMN
+   ========================================================= */
+
 .gallery-two-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -603,6 +715,10 @@ p,
   width: 100%;
   height: auto;
 }
+
+/* =========================================================
+   STAGGERED STACK
+   ========================================================= */
 
 .gallery-staggered {
   display: flex;
@@ -654,6 +770,10 @@ p,
   width: min(620px, 100%);
 }
 
+/* =========================================================
+   EDITORIAL CAPTION
+   ========================================================= */
+
 .editorial-caption {
   max-width: 300px;
   font-family: "Merriweather", serif;
@@ -696,6 +816,10 @@ p,
   left: 0;
 }
 
+/* =========================================================
+   MONUMENT
+   ========================================================= */
+
 .gallery-monument {
   display: flex;
   flex-direction: column;
@@ -714,6 +838,10 @@ p,
   width: 100%;
   height: auto;
 }
+
+/* =========================================================
+   CAPTION LED
+   ========================================================= */
 
 .gallery-caption-led {
   display: flex;
@@ -736,6 +864,10 @@ p,
   margin-left: auto;
 }
 
+/* =========================================================
+   DIPTYCH
+   ========================================================= */
+
 .gallery-diptych {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -752,6 +884,10 @@ p,
   height: auto;
 }
 
+/* =========================================================
+   TEXT PAGE
+   ========================================================= */
+
 .text-effect-wrap {
   width: min(700px, calc(100vw - 220px));
   margin-left: auto;
@@ -761,6 +897,10 @@ p,
   line-height: 13px;
   letter-spacing: 0.6px;
 }
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
 
 .site-footer {
   display: grid;
@@ -827,6 +967,10 @@ p,
 .footer-spacer {
   height: calc(100vh - 220px);
 }
+
+/* =========================================================
+   STATIC PAGES
+   ========================================================= */
 
 .text-page-layout {
   width: min(700px, calc(100vw - 220px));
@@ -932,6 +1076,10 @@ p,
   }
 }
 
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
 .gallery-mobile-linear {
   width: 100%;
   min-height: 100vh;
@@ -993,6 +1141,7 @@ p,
     left: 32px;
     right: 32px;
     gap: 18px;
+    z-index: 1000;
   }
 
   .site-header button#home-button {
@@ -1037,11 +1186,13 @@ p,
 
   .nav-panel {
     position: relative;
-    z-index: 25;
+    z-index: 1000;
     width: 100%;
     min-height: 100vh;
     background: var(--paper);
-    transition: opacity 0.24s ease, transform 0.24s ease;
+    transition:
+      opacity 0.24s ease,
+      transform 0.24s ease;
   }
 
   .col {
@@ -1052,6 +1203,7 @@ p,
     max-width: none;
     pointer-events: auto;
     background: transparent;
+    z-index: 1001;
   }
 
   .col-1,
@@ -1075,7 +1227,9 @@ p,
   .page-nav {
     margin-top: 64px;
     gap: var(--space-xs);
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition:
+      opacity 0.3s ease,
+      transform 0.3s ease;
   }
 
   .menu-link,
@@ -1092,6 +1246,7 @@ p,
     cursor: pointer;
     line-height: 1.15;
     vertical-align: top;
+    z-index: 1002;
   }
 
   .menu-link:hover,
@@ -1177,6 +1332,7 @@ p,
     inset: auto;
     overflow: visible;
     min-height: 100vh;
+    z-index: 1;
   }
 
   .gallery-mobile-linear {
@@ -1243,7 +1399,9 @@ p,
 
   .nav-panel,
   .project-gallery {
-    transition: opacity 0.28s ease, transform 0.28s ease;
+    transition:
+      opacity 0.28s ease,
+      transform 0.28s ease;
   }
 
   body.mobile-landing .mobile-menu-button {
@@ -1323,6 +1481,7 @@ p,
     grid-template-columns: 130px minmax(0, 1fr);
     column-gap: 34px;
     align-items: start;
+    z-index: 1000;
   }
 
   body.mobile-project-open.mobile-menu-open .nav-panel {
