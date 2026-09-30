@@ -81,6 +81,7 @@
           title: "Kartell",
           year: "2019",
           layout: "caption-led",
+          sprinkleColors: ["#ff2ec4", "#ff5fd8", "#ff0aa8", "#f5ff00", "#dbfe02", "#f9ffb0"],
           images: [
             { src: "https://picsum.photos/1200/800?random=811", caption: "Product arrangement across a continuous field." },
             { src: "https://picsum.photos/1000/1300?random=812", caption: "Display composition with graphic emphasis." }
@@ -141,6 +142,7 @@
           title: "Fornasetti",
           year: "2020",
           layout: "two-column-grid",
+          sprinkleColors: ["#e8e8e8", "#c4c4c4", "#9e9e9e", "#787878", "#525252", "#2e2e2e"],
           images: [
             { src: "https://picsum.photos/1000/1300?random=511", caption: "Grid view one" },
             { src: "https://picsum.photos/1000/1300?random=512", caption: "Grid view two" },
@@ -212,6 +214,7 @@
           title: "Helmut Lang",
           year: "2018",
           layout: "right-stack",
+          sprinkleColors: ["#ff2ec4", "#ff5fd8", "#ff0aa8", "#ff8be0", "#ff36b8"],
           images: [
             { src: "https://picsum.photos/1200/900?random=1011", caption: "Window elevation" },
             { src: "https://picsum.photos/1200/1400?random=1012", caption: "Interior-facing display detail." }
@@ -331,6 +334,9 @@
       });
     }
 
+    // Sets a per-item stagger delay via a CSS custom property so any
+    // number of list items animate in sequence — no hardcoded nth-child
+    // rules to run out of in the stylesheet.
     function applyStaggerDelays(items, step = 0.05, start = 0.05) {
       items.forEach((item, i) => {
         item.style.setProperty("--item-delay", `${start + i * step}s`);
