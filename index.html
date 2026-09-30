@@ -77,6 +77,7 @@
             { src: "https://picsum.photos/900/1200?random=902", caption: "Material and display study" }
           ]
         },
+
         {
           title: "Kartell",
           year: "2019",
@@ -87,6 +88,7 @@
             { src: "https://picsum.photos/1000/1300?random=812", caption: "Display composition with graphic emphasis." }
           ]
         },
+
         {
           title: "Marc Jacobs x New York Magazine",
           year: "2019",
@@ -95,6 +97,7 @@
             { src: "https://picsum.photos/1400/1800?random=711", caption: "Single-image presentation with editorial scale." }
           ]
         },
+
         {
           title: "Marni",
           year: "2019",
@@ -138,6 +141,7 @@
             { src: "https://picsum.photos/1300/800?random=613", caption: "Wide-format view of the installation." }
           ]
         },
+
         {
           title: "Fornasetti",
           year: "2020",
@@ -150,6 +154,7 @@
             { src: "https://picsum.photos/1000/1300?random=514", caption: "Grid view four" }
           ]
         },
+
         {
           title: "Wynn Hamlyn",
           year: "2021",
@@ -166,6 +171,7 @@
             { src: "https://picsum.photos/1600/1200?random=413" }
           ]
         },
+
         {
           title: "Glassons",
           year: "2024",
@@ -177,27 +183,46 @@
             { src: "https://picsum.photos/460/640?random=314" }
           ]
         },
+
         {
           title: "Thistles",
           year: "2025",
           layout: "right-stack-small",
           sprinkleColors: ["#d0efff", "#a9dfff", "#8ecbff", "#5fb8ff", "#bfe3ff"],
           images: [
-            { src: "https://picsum.photos/1200/900?random=211", caption: "Lorem Ipsum is simply dummy text of the printing and typesetting industry." },
-            { src: "https://picsum.photos/1200/1400?random=212", caption: "Detail of display and circulation." }
+            {
+              src: "https://picsum.photos/1200/900?random=211",
+              caption: "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+            },
+            {
+              src: "https://picsum.photos/1200/1400?random=212",
+              caption: "Detail of display and circulation."
+            }
           ]
         },
+
         {
+          /*
+            NEW PROJECT
+
+            Important:
+            These image URLs are intentionally different from Marni's
+            random=611 / 612 / 613 images.
+          */
           title: "Thistles x HTown",
           year: "2026",
           layout: "staggered-stack",
           images: [
-            { src: "https://picsum.photos/1200/900?random=611", caption: "Layered arrangement with offset rhythm." },
             {
-              src: "https://picsum.photos/900/1200?random=612",
+              src: "https://picsum.photos/1200/900?random=221",
+              caption: "Layered arrangement with offset rhythm."
+            },
+            {
+              src: "https://picsum.photos/900/1200?random=222",
               captionHtml: `
                 <div class="editorial-caption">
                   <p class="section-title">PRODUCT DESCRIPTION:</p>
+
                   <p class="indent">
                     The Executive Shirt has a relaxed fit with drop shoulders and a rounded hem.
                     Featuring a button placket, spread collar, back yoke pleats and a chest pocket.
@@ -205,11 +230,13 @@
                   </p>
 
                   <p class="section-title">SIZE AND FIT:</p>
+
                   <p class="indent">
                     Relaxed fit. Model is 188 cm and wearing size medium. Please see measurements on the last slide.
                   </p>
 
                   <p class="section-title">PRODUCT DETAILS:</p>
+
                   <ul class="bullet-list">
                     <li>Fabric made in Portugal</li>
                     <li>Garment made in Portugal</li>
@@ -220,6 +247,7 @@
                   </ul>
 
                   <p class="section-title">STYLED WITH:</p>
+
                   <p class="indent">
                     Classic Trousers – Grey Check<br>
                     Event Derby – Dark Brown Blush
@@ -227,7 +255,10 @@
                 </div>
               `
             },
-            { src: "https://picsum.photos/1300/800?random=613", caption: "Wide-format view of the installation." }
+            {
+              src: "https://picsum.photos/1300/800?random=223",
+              caption: "Wide-format view of the installation."
+            }
           ]
         }
       ],
@@ -244,6 +275,7 @@
             { src: "https://picsum.photos/1000/1300?random=1034", caption: "Window study four" }
           ]
         },
+
         {
           title: "Fruits x Opening Ceremony",
           year: "2017",
@@ -253,6 +285,7 @@
             { src: "https://picsum.photos/1200/1500?random=1022", caption: "Secondary view with vertical emphasis." }
           ]
         },
+
         {
           title: "Helmut Lang",
           year: "2018",
@@ -303,8 +336,11 @@
       profile: `
         <div class="text-block">
           <p>Jack Roy is an independent spatial design studio based in New York, working across temporary installations, permanent environments, window displays, exhibitions, and retail spaces.</p>
+
           <p>The studio develops spatial concepts that are precise, atmospheric, and materially considered. Each project is approached as a complete experience, bringing together research, narrative, object, architecture, and visual language to create environments that feel distinctive and memorable.</p>
+
           <p>Services span creative strategy, concept development, spatial design, visualisation, technical design, production coordination, and installation delivery. From early ideas through to final execution, the studio works closely with clients, collaborators, makers, and fabricators to maintain clarity, cohesion, and detail at every stage.</p>
+
           <p>Working across scales and contexts, the studio is interested in spaces that encourage attention, movement, and participation. The work is defined by restraint, atmosphere, strong visual direction, and a commitment to thoughtful execution.</p>
         </div>
       `,
@@ -336,6 +372,20 @@
     let mobileMode = isMobile() ? "landing" : "desktop";
     let previousMobileCategory = null;
 
+    const defaultSprinkleColors = [
+      "#c7f2c6",
+      "#958eff",
+      "#dbfe02",
+      "#46de86",
+      "#a8c5e6",
+      "#fbceeb",
+      "#f4502a",
+      "#f78bcc",
+      "#3b94ff"
+    ];
+
+    let activeSprinkleColors = defaultSprinkleColors;
+
     function renderFooter() {
       return `
         <footer class="site-footer">
@@ -353,7 +403,6 @@
           <div class="footer-col footer-col-3">
             275 Broome Street<br>
             New York, NY 10002
-            
           </div>
         </footer>
       `;
@@ -377,9 +426,6 @@
       });
     }
 
-    // Sets a per-item stagger delay via a CSS custom property so any
-    // number of list items animate in sequence — no hardcoded nth-child
-    // rules to run out of in the stylesheet.
     function applyStaggerDelays(items, step = 0.05, start = 0.05) {
       items.forEach((item, i) => {
         item.style.setProperty("--item-delay", `${start + i * step}s`);
@@ -387,18 +433,14 @@
     }
 
     function renderStaticPage(page) {
+      projectGallery.innerHTML = `
+        <div class="text-page-layout shift-right">
+          ${staticPages[page]}
+        </div>
 
-  projectGallery.innerHTML = `
+        <div class="footer-spacer"></div>
 
-    <div class="text-page-layout shift-right">
-
-      ${staticPages[page]}
-
-    </div>
-
-    <div class="footer-spacer"></div>
-
-    ${renderFooter()}
+        ${renderFooter()}
       `;
 
       projectGallery.className = "project-gallery";
@@ -419,7 +461,11 @@
         if (img.complete) {
           requestAnimationFrame(() => img.classList.add("is-loaded"));
         } else {
-          img.addEventListener("load", () => img.classList.add("is-loaded"), { once: true });
+          img.addEventListener(
+            "load",
+            () => img.classList.add("is-loaded"),
+            { once: true }
+          );
         }
       });
     }
@@ -428,12 +474,14 @@
       categoryButtons.forEach((btn) => {
         btn.classList.toggle(
           "active",
-          btn.dataset.category === currentCategory && currentProjectIndex !== null
+          btn.dataset.category === currentCategory &&
+          currentProjectIndex !== null
         );
 
         btn.classList.toggle(
           "selected-category",
-          btn.dataset.category === currentCategory && currentProjectIndex === null
+          btn.dataset.category === currentCategory &&
+          currentProjectIndex === null
         );
       });
     }
@@ -449,12 +497,30 @@
         return;
       }
 
-      document.body.classList.toggle("mobile-landing", mobileMode === "landing");
-      document.body.classList.toggle("mobile-category-list", mobileMode === "category");
-      document.body.classList.toggle("mobile-project-open", mobileMode === "project");
-      document.body.classList.toggle("mobile-menu-open", mobileMenuOpen);
+      document.body.classList.toggle(
+        "mobile-landing",
+        mobileMode === "landing"
+      );
 
-      mobileMenuButton.setAttribute("aria-expanded", String(mobileMenuOpen));
+      document.body.classList.toggle(
+        "mobile-category-list",
+        mobileMode === "category"
+      );
+
+      document.body.classList.toggle(
+        "mobile-project-open",
+        mobileMode === "project"
+      );
+
+      document.body.classList.toggle(
+        "mobile-menu-open",
+        mobileMenuOpen
+      );
+
+      mobileMenuButton.setAttribute(
+        "aria-expanded",
+        String(mobileMenuOpen)
+      );
     }
 
     function updateMobileMenuUI() {
@@ -467,23 +533,37 @@
       }
 
       const shouldShowHamburger = mobileMode === "project";
-      mobileMenuButton.classList.toggle("is-visible", shouldShowHamburger);
+
+      mobileMenuButton.classList.toggle(
+        "is-visible",
+        shouldShowHamburger
+      );
 
       navPanel.classList.toggle("open", mobileMenuOpen);
-      mobileBackdrop.classList.toggle("open", mobileMenuOpen && mobileMode === "project");
-      mobileMenuButton.classList.toggle("open", mobileMenuOpen && mobileMode === "project");
+
+      mobileBackdrop.classList.toggle(
+        "open",
+        mobileMenuOpen && mobileMode === "project"
+      );
+
+      mobileMenuButton.classList.toggle(
+        "open",
+        mobileMenuOpen && mobileMode === "project"
+      );
 
       updateMobileStates();
     }
 
     function openMobileMenu() {
       if (!isMobile()) return;
+
       mobileMenuOpen = true;
       updateMobileMenuUI();
     }
 
     function closeMobileMenu() {
       if (!isMobile()) return;
+
       mobileMenuOpen = false;
       updateMobileMenuUI();
     }
@@ -494,6 +574,7 @@
       previousMobileCategory = null;
       mobileMode = "landing";
       mobileMenuOpen = false;
+
       renderProjects(false);
       renderGallery();
       updateCategoryButtons();
@@ -506,6 +587,7 @@
       previousMobileCategory = category;
       mobileMode = "category";
       mobileMenuOpen = false;
+
       renderProjects(false);
       renderGallery();
       updateCategoryButtons();
@@ -518,6 +600,7 @@
       previousMobileCategory = category;
       mobileMode = "project";
       mobileMenuOpen = false;
+
       renderProjects(false);
       renderGallery();
       updateCategoryButtons();
@@ -543,38 +626,48 @@
 
       const projects = portfolioData[currentCategory];
 
-      projects.slice().reverse().forEach((project, i) => {
-        const index = projects.length - 1 - i;
-        const button = document.createElement("button");
+      projects
+        .slice()
+        .reverse()
+        .forEach((project, i) => {
+          const index = projects.length - 1 - i;
+          const button = document.createElement("button");
 
-        button.className = "project-link";
-        button.type = "button";
+          button.className = "project-link";
+          button.type = "button";
 
-        if (index === currentProjectIndex) button.classList.add("active");
-        if (!animate) button.classList.add("is-visible");
+          if (index === currentProjectIndex) {
+            button.classList.add("active");
+          }
 
-        button.innerHTML = `
-          <span class="project-title">${project.title}</span>
-          <span class="project-year">${project.year}</span>
-        `;
+          if (!animate) {
+            button.classList.add("is-visible");
+          }
 
-        button.addEventListener("click", () => {
-          if (isMobile()) {
-            openMobileProject(currentCategory, index);
-          } else {
-            currentProjectIndex = index;
-            renderProjects(false);
-            renderGallery();
-            updateCategoryButtons();
+          button.innerHTML = `
+            <span class="project-title">${project.title}</span>
+            <span class="project-year">${project.year}</span>
+          `;
+
+          button.addEventListener("click", () => {
+            if (isMobile()) {
+              openMobileProject(currentCategory, index);
+            } else {
+              currentProjectIndex = index;
+              renderProjects(false);
+              renderGallery();
+              updateCategoryButtons();
+            }
+          });
+
+          projectList.appendChild(button);
+
+          if (animate) {
+            setTimeout(() => {
+              button.classList.add("is-visible");
+            }, i * 60);
           }
         });
-
-        projectList.appendChild(button);
-
-        if (animate) {
-          setTimeout(() => button.classList.add("is-visible"), i * 60);
-        }
-      });
     }
 
     function renderRightStack(project) {
@@ -797,7 +890,9 @@
       }
 
       const project = portfolioData[currentCategory][currentProjectIndex];
-      activeSprinkleColors = project.sprinkleColors || defaultSprinkleColors;
+
+      activeSprinkleColors =
+        project.sprinkleColors || defaultSprinkleColors;
 
       projectGallery.className = "project-gallery";
 
@@ -808,7 +903,10 @@
           attachWynnImageToggle();
         }
 
-        projectGallery.insertAdjacentHTML("beforeend", renderFooter());
+        projectGallery.insertAdjacentHTML(
+          "beforeend",
+          renderFooter()
+        );
 
         projectGallery.scrollTop = 0;
         bindFooterLinks();
@@ -818,35 +916,59 @@
 
       if (project.layout === "right-stack") {
         projectGallery.innerHTML = renderRightStack(project);
+
       } else if (project.layout === "right-stack-small") {
-        projectGallery.classList.add("small-mode", "no-top-gap-right");
+        projectGallery.classList.add(
+          "small-mode",
+          "no-top-gap-right"
+        );
         projectGallery.innerHTML = renderRightStack(project);
+
       } else if (project.layout === "random-scatter") {
         projectGallery.classList.add("glassons-lock");
         projectGallery.innerHTML = renderRandomScatter(project);
+
       } else if (project.layout === "centered-large") {
         projectGallery.innerHTML = renderCenteredLarge(project);
+
       } else if (project.layout === "editorial-scroll-overlay") {
-        projectGallery.innerHTML = renderEditorialScrollOverlay(project);
+        projectGallery.innerHTML =
+          renderEditorialScrollOverlay(project);
         attachWynnImageToggle();
+
       } else if (project.layout === "two-column-grid") {
-        projectGallery.innerHTML = renderTwoColumnGrid(project);
+        projectGallery.innerHTML =
+          renderTwoColumnGrid(project);
+
       } else if (project.layout === "staggered-stack") {
-        projectGallery.innerHTML = renderStaggeredStack(project);
+        projectGallery.innerHTML =
+          renderStaggeredStack(project);
+
       } else if (project.layout === "single-monument") {
         projectGallery.classList.add("no-top-gap-monument");
-        projectGallery.innerHTML = renderSingleMonument(project);
+        projectGallery.innerHTML =
+          renderSingleMonument(project);
+
       } else if (project.layout === "caption-led") {
-        projectGallery.innerHTML = renderCaptionLed(project);
+        projectGallery.innerHTML =
+          renderCaptionLed(project);
+
       } else if (project.layout === "diptych") {
-        projectGallery.innerHTML = renderDiptych(project);
+        projectGallery.innerHTML =
+          renderDiptych(project);
+
       } else if (project.layout === "text-page") {
-        projectGallery.innerHTML = renderTextPage(project);
+        projectGallery.innerHTML =
+          renderTextPage(project);
+
       } else {
         projectGallery.innerHTML = "";
       }
 
-      projectGallery.insertAdjacentHTML("beforeend", renderFooter());
+      projectGallery.insertAdjacentHTML(
+        "beforeend",
+        renderFooter()
+      );
 
       projectGallery.scrollTop = 0;
       bindFooterLinks();
@@ -860,13 +982,17 @@
         if (isMobile()) {
           if (mobileMode === "landing") {
             goToMobileCategory(selectedCategory);
-          } else if (mobileMode === "category" || mobileMode === "project") {
+          } else if (
+            mobileMode === "category" ||
+            mobileMode === "project"
+          ) {
             goToMobileCategory(selectedCategory);
             openMobileMenu();
           }
         } else {
           currentCategory = selectedCategory;
-          currentProjectIndex = portfolioData[currentCategory].length - 1;
+          currentProjectIndex =
+            portfolioData[currentCategory].length - 1;
 
           renderProjects(true);
           renderGallery();
@@ -883,7 +1009,10 @@
         currentProjectIndex = null;
 
         categoryButtons.forEach((b) => {
-          b.classList.remove("active", "selected-category");
+          b.classList.remove(
+            "active",
+            "selected-category"
+          );
         });
 
         renderProjects(false);
@@ -891,16 +1020,24 @@
       }
     });
 
-    document.querySelectorAll("#page-nav [data-page]").forEach((button) => {
-      button.addEventListener("click", () => goToStaticPage(button.dataset.page));
-    });
+    document
+      .querySelectorAll("#page-nav [data-page]")
+      .forEach((button) => {
+        button.addEventListener("click", () => {
+          goToStaticPage(button.dataset.page);
+        });
+      });
 
     mobileMenuButton.addEventListener("click", () => {
       if (!isMobile()) return;
 
       mobileMenuOpen = !mobileMenuOpen;
 
-      if (mobileMenuOpen && !currentCategory && previousMobileCategory) {
+      if (
+        mobileMenuOpen &&
+        !currentCategory &&
+        previousMobileCategory
+      ) {
         currentCategory = previousMobileCategory;
         renderProjects(false);
       }
@@ -920,39 +1057,43 @@
       }
     });
 
-    // Rainbow sprinkle trail: spawns small colored squares directly on
-    // the path the cursor just travelled (no sideways jitter), filling
-    // in gaps during fast movement so it reads as one continuous trail
-    // rather than scattered dots. Color is picked randomly per dot from
-    // your palette below.
-    const defaultSprinkleColors = [
-      "#c7f2c6", "#958eff", "#dbfe02", "#46de86",
-      "#a8c5e6", "#fbceeb", "#f4502a", "#f78bcc", "#3b94ff"
-    ];
-
-    // Swapped out per-project (see renderGallery) when a project defines
-    // its own sprinkleColors array; falls back to the default otherwise.
-    let activeSprinkleColors = defaultSprinkleColors;
-
-    const SPRINKLE_STEP = 10; // px between each trail dot - smaller = denser trail
+    const SPRINKLE_STEP = 10;
 
     function randomSprinkleColor() {
-      return activeSprinkleColors[Math.floor(Math.random() * activeSprinkleColors.length)];
+      return activeSprinkleColors[
+        Math.floor(
+          Math.random() * activeSprinkleColors.length
+        )
+      ];
     }
 
     function spawnSprinkle(x, y) {
-      const sprinkle = document.createElement("div");
+      const sprinkle =
+        document.createElement("div");
+
       sprinkle.className = "cursor-sprinkle";
 
       const size = 4 + Math.random() * 3;
 
       sprinkle.style.left = `${x}px`;
       sprinkle.style.top = `${y}px`;
-      sprinkle.style.setProperty("--sprinkle-size", `${size}px`);
-      sprinkle.style.background = randomSprinkleColor();
-      sprinkle.style.setProperty("--sprinkle-rotate", `${Math.floor(Math.random() * 360)}deg`);
+      sprinkle.style.setProperty(
+        "--sprinkle-size",
+        `${size}px`
+      );
+      sprinkle.style.background =
+        randomSprinkleColor();
 
-      sprinkle.addEventListener("animationend", () => sprinkle.remove());
+      sprinkle.style.setProperty(
+        "--sprinkle-rotate",
+        `${Math.floor(Math.random() * 360)}deg`
+      );
+
+      sprinkle.addEventListener(
+        "animationend",
+        () => sprinkle.remove()
+      );
+
       document.body.appendChild(sprinkle);
     }
 
@@ -971,14 +1112,22 @@
 
       const dx = e.clientX - lastSprinkleX;
       const dy = e.clientY - lastSprinkleY;
-      const distance = Math.sqrt(dx * dx + dy * dy);
+      const distance = Math.sqrt(
+        dx * dx + dy * dy
+      );
 
       if (distance >= SPRINKLE_STEP) {
-        const steps = Math.floor(distance / SPRINKLE_STEP);
+        const steps = Math.floor(
+          distance / SPRINKLE_STEP
+        );
 
         for (let i = 1; i <= steps; i++) {
           const t = i / steps;
-          spawnSprinkle(lastSprinkleX + dx * t, lastSprinkleY + dy * t);
+
+          spawnSprinkle(
+            lastSprinkleX + dx * t,
+            lastSprinkleY + dy * t
+          );
         }
 
         lastSprinkleX = e.clientX;
@@ -986,89 +1135,141 @@
       }
     });
 
-    // Click burst: a small radial pop of sprinkles outward from wherever
-    // you click, as a fun payoff on top of the trail.
     document.addEventListener("click", (e) => {
       if (isMobile()) return;
 
       const burstCount = 8;
 
       for (let i = 0; i < burstCount; i++) {
-        const angle = (Math.PI * 2 * i) / burstCount + Math.random() * 0.3;
-        const distance = 30 + Math.random() * 20;
+        const angle =
+          (Math.PI * 2 * i) / burstCount +
+          Math.random() * 0.3;
+
+        const distance =
+          30 + Math.random() * 20;
+
         const bx = Math.cos(angle) * distance;
         const by = Math.sin(angle) * distance;
 
-        const burst = document.createElement("div");
-        burst.className = "cursor-sprinkle cursor-burst";
+        const burst =
+          document.createElement("div");
 
-        const size = 5 + Math.random() * 4;
+        burst.className =
+          "cursor-sprinkle cursor-burst";
+
+        const size =
+          5 + Math.random() * 4;
 
         burst.style.left = `${e.clientX}px`;
         burst.style.top = `${e.clientY}px`;
-        burst.style.setProperty("--sprinkle-size", `${size}px`);
-        burst.style.setProperty("--burst-x", `${bx}px`);
-        burst.style.setProperty("--burst-y", `${by}px`);
-        burst.style.background = randomSprinkleColor();
 
-        burst.addEventListener("animationend", () => burst.remove());
+        burst.style.setProperty(
+          "--sprinkle-size",
+          `${size}px`
+        );
+
+        burst.style.setProperty(
+          "--burst-x",
+          `${bx}px`
+        );
+
+        burst.style.setProperty(
+          "--burst-y",
+          `${by}px`
+        );
+
+        burst.style.background =
+          randomSprinkleColor();
+
+        burst.addEventListener(
+          "animationend",
+          () => burst.remove()
+        );
+
         document.body.appendChild(burst);
       }
     });
 
-    // Cursor states: a small scale-up over links/buttons/images, and a
-    // hidden dot (native text cursor shows through instead) over plain
-    // reading copy like captions and paragraphs.
     function isInteractiveTarget(el) {
-      return el && el.closest && el.closest("a, button, img");
-    }
-
-    function isTextTarget(el) {
-      return el && el.closest && el.closest(
-        "p, .caption, .caption-below, .caption-wide, .editorial-caption, .indent, .bullet-list li, .mobile-caption, .fixed-text-paragraph, .mobile-editorial-text, .text-block p, .services-list li"
+      return (
+        el &&
+        el.closest &&
+        el.closest("a, button, img")
       );
     }
 
-    document.addEventListener("mouseover", (e) => {
-      if (!cursorDot) return;
+    function isTextTarget(el) {
+      return (
+        el &&
+        el.closest &&
+        el.closest(
+          "p, .caption, .caption-below, .caption-wide, .editorial-caption, .indent, .bullet-list li, .mobile-caption, .fixed-text-paragraph, .mobile-editorial-text, .text-block p, .services-list li"
+        )
+      );
+    }
 
-      if (isInteractiveTarget(e.target)) {
-        cursorDot.classList.add("is-hover");
-        cursorDot.classList.remove("is-text");
-      } else if (isTextTarget(e.target)) {
-        cursorDot.classList.add("is-text");
-        cursorDot.classList.remove("is-hover");
+    document.addEventListener(
+      "mouseover",
+      (e) => {
+        if (!cursorDot) return;
+
+        if (isInteractiveTarget(e.target)) {
+          cursorDot.classList.add("is-hover");
+          cursorDot.classList.remove("is-text");
+        } else if (isTextTarget(e.target)) {
+          cursorDot.classList.add("is-text");
+          cursorDot.classList.remove("is-hover");
+        } else {
+          cursorDot.classList.remove(
+            "is-hover",
+            "is-text"
+          );
+        }
       }
-    });
+    );
 
-    document.addEventListener("mouseout", (e) => {
-      if (!cursorDot) return;
+    document.addEventListener(
+      "mouseout",
+      (e) => {
+        if (!cursorDot) return;
 
-      if (isInteractiveTarget(e.target) && !isInteractiveTarget(e.relatedTarget)) {
-        cursorDot.classList.remove("is-hover");
+        if (
+          isInteractiveTarget(e.target) &&
+          !isInteractiveTarget(e.relatedTarget)
+        ) {
+          cursorDot.classList.remove(
+            "is-hover"
+          );
+        }
+
+        if (
+          isTextTarget(e.target) &&
+          !isTextTarget(e.relatedTarget)
+        ) {
+          cursorDot.classList.remove(
+            "is-text"
+          );
+        }
       }
+    );
 
-      if (isTextTarget(e.target) && !isTextTarget(e.relatedTarget)) {
-        cursorDot.classList.remove("is-text");
+    document.addEventListener(
+      "contextmenu",
+      (e) => {
+        if (e.target.tagName === "IMG") {
+          e.preventDefault();
+        }
       }
-    });
+    );
 
-    // Basic deterrent against casual right-click / drag saving of images.
-    // Note: this only stops the easy paths (right-click menu, drag-out).
-    // It can't fully prevent someone determined via dev tools or a
-    // screenshot, since the images still have to be sent to the browser
-    // to be displayed.
-    document.addEventListener("contextmenu", (e) => {
-      if (e.target.tagName === "IMG") {
-        e.preventDefault();
+    document.addEventListener(
+      "dragstart",
+      (e) => {
+        if (e.target.tagName === "IMG") {
+          e.preventDefault();
+        }
       }
-    });
-
-    document.addEventListener("dragstart", (e) => {
-      if (e.target.tagName === "IMG") {
-        e.preventDefault();
-      }
-    });
+    );
 
     window.addEventListener("resize", () => {
       if (isMobile()) {
