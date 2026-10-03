@@ -1,1555 +1,1325 @@
-/* FULL UPDATED STYLE.CSS */
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html,
-body {
-  width: 100%;
-  height: 100%;
-  overflow-x: hidden;
-}
-
-:root {
-  --paper: #FAF9F6;
-  --paper-rgb: 250, 249, 246;
-  --ink: #121212;
-
-  --glass: rgba(var(--paper-rgb), 0.55);
-  --glass-blur: blur(10px);
-
-  --space-2xs: 6px;
-  --space-xs: 10px;
-  --space-s: 16px;
-  --space-m: 20px;
-  --space-l: 28px;
-  --space-xl: 36px;
-  --space-2xl: 56px;
-}
-
-body {
-  background: var(--paper);
-  color: var(--ink);
-  font-family: "Merriweather", serif;
-  font-size: 10px;
-  font-weight: 400;
-  line-height: 13px;
-  letter-spacing: 0.6px;
-  overflow-y: hidden;
-  cursor: none;
-  font-kerning: normal;
-  font-feature-settings: "kern" 1, "liga" 1, "clig" 1;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-button,
-a {
-  font: inherit;
-  color: inherit;
-  outline: none;
-  box-shadow: none;
-  text-decoration: none;
-}
-
-button:focus,
-.menu-link:focus,
-.project-link:focus,
-.site-header button:focus,
-.mobile-menu-button:focus,
-.footer-link:focus {
-  outline: none;
-}
-
-button:focus-visible,
-.menu-link:focus-visible,
-.project-link:focus-visible,
-.site-header button:focus-visible,
-.mobile-menu-button:focus-visible,
-.footer-link:focus-visible {
-  outline: none;
-  box-shadow: inset 0 0 0 1px var(--ink);
-}
-
-/* =========================================================
-   CUSTOM CURSOR
-   ========================================================= */
-
-.cursor-dot {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 8px;
-  height: 8px;
-  background: var(--ink);
-  border-radius: 1px;
-
-  /* FIX: never allow the cursor to interfere with clicking */
-  pointer-events: none;
-
-  transform: translate(-50%, -50%);
-  transition: transform 0.18s ease, opacity 0.18s ease;
-
-  /* FIX: keep cursor above absolutely everything */
-  z-index: 99999;
-
-  /* FIX: make initial state explicitly visible */
-  opacity: 1;
-}
-
-.cursor-dot.is-hover {
-  transform: translate(-50%, -50%) scale(1.15);
-}
-
-.cursor-dot.is-text {
-  opacity: 0;
-}
-
-.cursor-sprinkle {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: var(--sprinkle-size, 6px);
-  height: var(--sprinkle-size, 6px);
-  border-radius: 2px;
-
-  pointer-events: none;
-
-  /* FIX: below cursor, but above page */
-  z-index: 99998;
-
-  transform: translate(-50%, -50%) rotate(0deg);
-  animation: sprinkleFade 0.85s ease-out forwards;
-}
-
-@keyframes sprinkleFade {
-  0% {
-    opacity: 1;
-    transform:
-      translate(-50%, -50%)
-      rotate(var(--sprinkle-rotate, 0deg))
-      scale(1);
-  }
-
-  100% {
-    opacity: 0;
-    transform:
-      translate(-50%, -50%)
-      rotate(var(--sprinkle-rotate, 0deg))
-      scale(0.25)
-      translateY(16px);
-  }
-}
-
-p,
-.caption,
-.caption-below,
-.caption-wide,
-.editorial-caption,
-.indent,
-.bullet-list li,
-.mobile-caption,
-.fixed-text-paragraph,
-.mobile-editorial-text,
-.text-block p,
-.services-list li {
-  cursor: text;
-}
-
-/* =========================================================
-   MAIN LAYOUT
-   ========================================================= */
-
-.layout {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-}
-
-/*
-  FIX:
-  Keep the gallery in its own low stacking layer.
-  Navigation is deliberately placed above it below.
-*/
-.stage {
-  position: fixed;
-  inset: 0;
-  z-index: 1;
-  overflow: hidden;
-}
-
-/* =========================================================
-   HEADER
-   ========================================================= */
-
-.site-header {
-  position: fixed;
-  top: 14px;
-  left: 16px;
-
-  /*
-    FIX:
-    Header must always remain above gallery content.
-  */
-  z-index: 1000;
-
-  pointer-events: none;
-
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-
-.mobile-menu-button {
-  display: none;
-  appearance: none;
-  -webkit-appearance: none;
-  background: transparent;
-  border: none;
-  width: 28px;
-  height: 24px;
-  padding: 0;
-  margin: 0;
-  cursor: pointer;
-  pointer-events: auto;
-  position: relative;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.22s ease, visibility 0.22s ease;
-}
-
-.mobile-menu-button.is-visible {
-  opacity: 1;
-  visibility: visible;
-}
-
-.mobile-menu-button span {
-  display: block;
-  position: absolute;
-  left: 0;
-  width: 28px;
-  height: 1px;
-  background: var(--ink);
-  transition:
-    transform 0.18s ease,
-    opacity 0.18s ease,
-    top 0.18s ease;
-}
-
-.mobile-menu-button span:nth-child(1) {
-  top: 4px;
-}
-
-.mobile-menu-button span:nth-child(2) {
-  top: 11px;
-}
-
-.mobile-menu-button span:nth-child(3) {
-  top: 18px;
-}
-
-.mobile-menu-button.open span:nth-child(1) {
-  top: 11px;
-  transform: rotate(45deg);
-}
-
-.mobile-menu-button.open span:nth-child(2) {
-  opacity: 0;
-}
-
-.mobile-menu-button.open span:nth-child(3) {
-  top: 11px;
-  transform: rotate(-45deg);
-}
-
-.site-header button#home-button {
-  appearance: none;
-  -webkit-appearance: none;
-  background: var(--glass);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
-  border: none;
-  padding: 1px 5px 2px 5px;
-  margin: 0;
-  text-align: left;
-  cursor: none;
-  pointer-events: auto;
-  color: var(--ink);
-  box-shadow: none;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 10px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 15px;
-  letter-spacing: 0.18px;
-  text-transform: uppercase;
-  transition: box-shadow 0.15s ease;
-}
-
-.site-header button#home-button:hover {
-  box-shadow: inset 0 0 0 1px var(--ink);
-}
-
-/* =========================================================
-   NAVIGATION
-   ========================================================= */
-
-.mobile-backdrop {
-  display: none;
-}
-
-/*
-  FIX:
-  Raise the entire navigation above the gallery.
-*/
-.nav-panel {
-  position: relative;
-  z-index: 1000;
-}
-
-.col {
-  position: fixed;
-  top: 94px;
-
-  /*
-    FIX:
-    Higher than every gallery element.
-  */
-  z-index: 1001;
-
-  background: transparent;
-}
-
-.col-1 {
-  left: 16px;
-  width: 150px;
-  pointer-events: none;
-}
-
-.col-2 {
-  left: 204px;
-  width: max-content;
-  max-width: 620px;
-  pointer-events: none;
-}
-
-.menu-group {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--space-2xs);
-}
-
-.category-nav {
-  margin-bottom: var(--space-2xl);
-}
-
-.page-nav {
-  margin-top: 0;
-}
-
-.menu-link,
-.project-link {
-  appearance: none;
-  -webkit-appearance: none;
-  background: var(--glass);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
-  border: none;
-  padding: 1px 5px 2px 5px;
-  margin: 0;
-  text-align: left;
-  text-decoration: none;
-  align-self: flex-start;
-  cursor: none;
-
-  /*
-    FIX:
-    Explicitly above gallery and clickable.
-  */
-  position: relative;
-  z-index: 1002;
-  pointer-events: auto;
-
-  color: var(--ink);
-  box-shadow: none;
-  transition: box-shadow 0.15s ease;
-}
-
-.menu-link,
-.project-link,
-.project-title,
-.project-year {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 10px;
-  font-style: normal;
-  line-height: 15px;
-  letter-spacing: 0.18px;
-  text-transform: uppercase;
-  font-weight: 400;
-}
-
-.page-nav .menu-link,
-.site-header button#home-button {
-  font-weight: 700;
-}
-
-.menu-link:hover,
-.project-link:hover {
-  box-shadow: inset 0 0 0 1px var(--ink);
-}
-
-.menu-link.active,
-.project-link.active {
-  background: var(--ink);
-  -webkit-backdrop-filter: none;
-  backdrop-filter: none;
-  color: var(--paper);
-  box-shadow: none;
-}
-
-.menu-link.selected-category {
-  background: var(--glass);
-  color: var(--ink);
-  box-shadow: inset 0 0 0 1px var(--ink);
-}
-
-.menu-link.active:hover,
-.project-link.active:hover,
-.menu-link.selected-category:hover {
-  background: var(--ink);
-  -webkit-backdrop-filter: none;
-  backdrop-filter: none;
-  color: var(--paper);
-  box-shadow: none;
-}
-
-/* =========================================================
-   PROJECT LIST
-   ========================================================= */
-
-.project-list {
-  height: calc(100vh - 110px);
-  width: max-content;
-  max-width: 620px;
-  overflow-y: auto;
-  overflow-x: visible;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--space-2xs);
-  padding: 0;
-  background: transparent;
-  pointer-events: none;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-.project-list::-webkit-scrollbar {
-  display: none;
-}
-
-.project-link {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0;
-  width: auto;
-  max-width: 100%;
-  outline: none;
-  opacity: 0;
-  transform: translateY(2px);
-
-  /*
-    FIX:
-    Project links remain clickable.
-  */
-  pointer-events: auto;
-}
-
-.project-link.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-  transition:
-    opacity 0.35s ease,
-    transform 0.35s ease;
-}
-
-.project-title,
-.project-year {
-  display: block;
-  text-align: left;
-}
-
-.project-title {
-  white-space: nowrap;
-}
-
-/* =========================================================
-   GALLERY
-   ========================================================= */
-
-.project-gallery {
-  position: absolute;
-  inset: 0;
-  overflow-y: auto;
-  overflow-x: visible;
-  background: transparent;
-
-  /*
-    FIX:
-    Keep gallery below navigation.
-  */
-  z-index: 1;
-
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-.project-gallery::-webkit-scrollbar {
-  display: none;
-}
-
-.project-gallery.glassons-lock {
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-
-.project-gallery img {
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none;
-  -webkit-user-drag: none;
-  user-drag: none;
-  -webkit-touch-callout: none;
-}
-
-.project-gallery img.is-loaded {
-  opacity: 1;
-}
-
-/* =========================================================
-   TEXT / CAPTIONS
-   ========================================================= */
-
-.caption,
-.fixed-text-paragraph,
-.text-effect-wrap,
-.caption-below,
-.mobile-editorial-text,
-.mobile-caption {
-  font-family: "Merriweather", serif;
-  font-size: 10px;
-  font-weight: 400;
-  line-height: 13px;
-  letter-spacing: 0.6px;
-  color: var(--ink);
-  text-transform: none;
-}
-
-.caption {
-  width: 100%;
-  margin-top: var(--space-2xs);
-  text-align: justify;
-  text-align-last: left;
-}
-
-.caption-below {
-  margin-top: var(--space-2xs);
-  max-width: 320px;
-  text-align: justify;
-  text-align-last: left;
-}
-
-/* =========================================================
-   RIGHT STACK
-   ========================================================= */
-
-.gallery-right {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: var(--space-m);
-  width: 100%;
-  min-height: 100vh;
-  padding: 54px 16px 16px 16px;
-}
-
-.gallery-right .gallery-item {
-  width: min(700px, 100%);
-  margin-left: auto;
-}
-
-.gallery-right img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-.project-gallery.no-top-gap-right .gallery-right {
-  padding-top: 0;
-}
-
-.small-mode .gallery-item {
-  width: min(480px, 100%);
-}
-
-/* =========================================================
-   RANDOM SCATTER
-   ========================================================= */
-
-.gallery-random {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  overflow: hidden;
-}
-
-.random-img {
-  position: absolute;
-  display: block;
-  height: auto;
-  max-width: none;
-}
-
-/* =========================================================
-   CENTERED LARGE
-   ========================================================= */
-
-.gallery-centered-large {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-xl);
-  width: 100%;
-  min-height: 100vh;
-  padding: 54px 16px 16px 16px;
-}
-
-.centered-large-item {
-  width: min(900px, 100%);
-}
-
-.gallery-centered-large img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-/* =========================================================
-   EDITORIAL
-   ========================================================= */
-
-.gallery-editorial-scroll {
-  position: relative;
-  width: 100%;
-  min-height: 100vh;
-  padding: 54px 0 24px 0;
-}
-
-.editorial-item {
-  width: 80vw;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 26px;
-}
-
-.editorial-item img {
-  display: block;
-  width: 100%;
-  height: auto;
-  filter: grayscale(100%);
-  transition:
-    filter 0.2s ease,
-    opacity 0.4s ease;
-
-  /* FIX: let the custom square cursor show instead of the
-     native browser hand/pointer icon when hovering images */
-  cursor: none;
-}
-
-.editorial-item img.is-color,
-.wynn-image.is-color {
-  filter: grayscale(0%);
-}
-
-.fixed-text-paragraph {
-  position: fixed;
-  top: 18px;
-  right: 18px;
-  width: min(360px, 26vw);
-  font-size: 18px;
-  line-height: 1.12;
-  letter-spacing: 0.5px;
-  text-align: justify;
-  text-justify: inter-word;
-  opacity: 0.85;
-  z-index: 40;
-  pointer-events: none;
-}
-
-.fixed-text-paragraph p + p,
-.mobile-editorial-text p + p {
-  margin-top: 14px;
-}
-
-/* FIX: optional per-project effect so overlay text stays legible
-   over both light and dark parts of a photo. Opt in by setting
-   textBlend: true on a project in portfolioData. */
-.fixed-text-paragraph.blend-text,
-.mobile-editorial-text.blend-text {
-  color: #ffffff;
-  opacity: 1;
-  mix-blend-mode: difference;
-}
-
-/* =========================================================
-   TWO COLUMN
-   ========================================================= */
-
-.gallery-two-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--space-l);
-  width: min(980px, calc(100vw - 220px));
-  margin-left: auto;
-  min-height: 100vh;
-  padding: 54px 16px 16px 16px;
-}
-
-.grid-item img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-/* =========================================================
-   STAGGERED STACK
-   ========================================================= */
-
-.gallery-staggered {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-l);
-  width: 100%;
-  min-height: 100vh;
-  padding: 54px 16px 16px 16px;
-}
-
-.gallery-staggered .gallery-item {
-  width: min(760px, 100%);
-}
-
-.gallery-staggered img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-.stagger-0 {
-  margin-left: auto;
-  margin-bottom: var(--space-2xl);
-}
-
-.stagger-1 {
-  margin-left: 80px;
-  display: grid;
-  grid-template-columns: minmax(0, 420px) 300px;
-  column-gap: 32px;
-  align-items: start;
-}
-
-.stagger-1 img {
-  width: 100%;
-  display: block;
-}
-
-.stagger-1 .caption {
-  margin-top: 0;
-  max-width: 300px;
-  line-height: 13px;
-  text-align: justify;
-  text-align-last: left;
-}
-
-.stagger-2 {
-  margin-left: auto;
-  width: min(620px, 100%);
-}
-
-/* =========================================================
-   EDITORIAL CAPTION
-   ========================================================= */
-
-.editorial-caption {
-  max-width: 300px;
-  font-family: "Merriweather", serif;
-  font-size: 10px;
-  line-height: 13px;
-  letter-spacing: 0.6px;
-  text-align: left;
-}
-
-.section-title {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  text-transform: uppercase;
-  letter-spacing: 0.18px;
-  font-size: 10px;
-  margin-bottom: 6px;
-}
-
-.indent {
-  margin-left: 14px;
-  margin-bottom: 14px;
-  text-align: justify;
-  text-align-last: left;
-}
-
-.bullet-list {
-  list-style: none;
-  margin-left: 14px;
-  margin-bottom: 14px;
-}
-
-.bullet-list li {
-  position: relative;
-  margin-bottom: 4px;
-  padding-left: 10px;
-}
-
-.bullet-list li::before {
-  content: "·";
-  position: absolute;
-  left: 0;
-}
-
-/* =========================================================
-   MONUMENT
-   ========================================================= */
-
-.gallery-monument {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  min-height: 100vh;
-  padding: 0 16px 16px 16px;
-}
-
-.monument-item {
-  width: min(1000px, 84vw);
-}
-
-.gallery-monument img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-/* =========================================================
-   CAPTION LED
-   ========================================================= */
-
-.gallery-caption-led {
-  display: flex;
-  flex-direction: column;
-  gap: 34px;
-  width: min(760px, 100%);
-  margin-left: auto;
-  min-height: 100vh;
-  padding: 54px 16px 16px 16px;
-}
-
-.caption-led-item img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-.caption-wide {
-  max-width: 360px;
-  margin-left: auto;
-}
-
-/* =========================================================
-   DIPTYCH
-   ========================================================= */
-
-.gallery-diptych {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 22px;
-  width: min(1100px, calc(100vw - 220px));
-  margin-left: auto;
-  min-height: 100vh;
-  padding: 54px 16px 16px 16px;
-}
-
-.diptych-item img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-/* =========================================================
-   TEXT PAGE
-   ========================================================= */
-
-.text-effect-wrap {
-  width: min(700px, calc(100vw - 220px));
-  margin-left: auto;
-  min-height: 100vh;
-  padding: 54px 16px 16px 16px;
-  font-size: 10px;
-  line-height: 13px;
-  letter-spacing: 0.6px;
-}
-
-/* =========================================================
-   FOOTER
-   ========================================================= */
-
-.site-footer {
-  display: grid;
-  grid-template-columns: 150px 320px 1fr;
-  column-gap: 38px;
-  align-items: start;
-  width: 100%;
-  margin-top: 140px;
-  padding: 18px 16px 28px 16px;
-  border-top: 1px solid var(--ink);
-  font-family: "Merriweather", serif;
-  font-size: 10px;
-  font-weight: 400;
-  line-height: 13px;
-  letter-spacing: 0.6px;
-  color: var(--ink);
-  text-transform: none;
-  position: relative;
-  z-index: 60;
-  pointer-events: auto;
-}
-
-.footer-col-1 {
-  grid-column: 1;
-}
-
-.footer-col-2 {
-  grid-column: 2;
-}
-
-.footer-col-3 {
-  grid-column: 3;
-  text-align: right;
-  justify-self: end;
-}
-
-.footer-link {
-  appearance: none;
-  -webkit-appearance: none;
-  background: transparent;
-  border: none;
-  padding: 0;
-  margin: 0;
-  color: var(--ink);
-  font-family: "Merriweather", serif;
-  font-size: 10px;
-  font-weight: 400;
-  line-height: 13px;
-  letter-spacing: 0.6px;
-  text-align: left;
-  text-transform: none;
-  cursor: none;
-  pointer-events: auto;
-}
-
-.footer-link:hover {
-  text-decoration: none;
-}
-
-.home-footer-spacer {
-  height: 100vh;
-}
-
-.footer-spacer {
-  height: calc(100vh - 220px);
-}
-
-/* =========================================================
-   STATIC PAGES
-   ========================================================= */
-
-.text-page-layout {
-  width: min(700px, calc(100vw - 220px));
-  margin-left: 204px;
-  padding-top: 120px;
-  padding-bottom: 80px;
-  font-family: "Merriweather", serif;
-  font-size: 10px;
-  line-height: 13px;
-  letter-spacing: 0.6px;
-  color: var(--ink);
-  opacity: 0;
-  transform: translateY(6px);
-  animation: textFadeIn 0.5s ease forwards;
-}
-
-.services-page-layout {
-  width: min(700px, calc(100vw - 32px));
-  margin-left: 16px;
-  padding-top: 94px;
-}
-
-.text-block p {
-  margin-bottom: 14px;
-  text-align: justify;
-  text-align-last: left;
-  opacity: 0;
-  transform: translateY(6px);
-  animation: textFadeIn 0.5s ease forwards;
-}
-
-.text-block p:nth-child(1) {
-  animation-delay: 0.05s;
-}
-
-.text-block p:nth-child(2) {
-  animation-delay: 0.1s;
-}
-
-.text-block p:nth-child(3) {
-  animation-delay: 0.15s;
-}
-
-.text-block p:nth-child(4) {
-  animation-delay: 0.2s;
-}
-
-.text-list {
-  list-style: none;
-}
-
-.text-list li {
-  margin-bottom: 6px;
-}
-
-.services-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2xs);
-  padding: 0;
-  margin: 0;
-}
-
-.services-list li {
-  position: relative;
-  padding-left: 12px;
-  opacity: 0;
-  transform: translateY(6px);
-  animation: textFadeIn 0.5s ease forwards;
-}
-
-.services-list li::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 4px;
-  width: 4px;
-  height: 4px;
-  background: var(--ink);
-  border-radius: 50%;
-  opacity: 0;
-  transform: translateY(2px);
-  animation: dotFadeIn 0.4s ease forwards;
-}
-
-.services-list li,
-.services-list li::before {
-  animation-delay: var(--item-delay, 0s);
-}
-
-@keyframes textFadeIn {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes dotFadeIn {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* =========================================================
-   MOBILE
-   ========================================================= */
-
-.gallery-mobile-linear {
-  width: 100%;
-  min-height: 100vh;
-  padding: 64px 16px 24px 16px;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-m);
-}
-
-.mobile-linear-item img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-.mobile-caption {
-  margin-top: 8px;
-  max-width: none;
-}
-
-.mobile-editorial-text {
-  font-size: 12px;
-  line-height: 1.35;
-  letter-spacing: 0.4px;
-  max-width: 100%;
-  padding-bottom: 8px;
-}
-
-.mobile-text-wrap {
-  width: 100%;
-  margin-left: 0;
-  min-height: 0;
-  padding: 0;
-}
-
-@media (max-width: 768px) {
-  html,
-  body {
-    height: auto;
-    min-height: 100%;
-  }
-
-  body {
-    cursor: auto;
-    overflow-y: visible;
-  }
-
-  .cursor-dot {
-    display: none;
-  }
-
-  .layout {
-    min-height: 100vh;
-    height: auto;
-  }
-
-  .site-header {
-    top: 58px;
-    left: 32px;
-    right: 32px;
-    gap: 18px;
-    z-index: 1000;
-  }
-
-  .site-header button#home-button {
-    padding: 0;
-    background: transparent;
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
-    box-shadow: none;
-    cursor: pointer;
-    font-size: 10px;
-    line-height: 15px;
-    letter-spacing: 0.18px;
-  }
-
-  .site-header button#home-button:hover {
-    box-shadow: none;
-  }
-
-  .mobile-menu-button {
-    display: block;
-    cursor: pointer;
-  }
-
-  .footer-link {
-    cursor: pointer;
-  }
-
-  .mobile-backdrop {
-    display: block;
-    position: fixed;
-    inset: 0;
-    background: rgba(var(--paper-rgb), 0);
-    pointer-events: none;
-    transition: background 0.24s ease;
-    z-index: 24;
-  }
-
-  .mobile-backdrop.open {
-    background: rgba(var(--paper-rgb), 0.35);
-    pointer-events: auto;
-  }
-
-  .nav-panel {
-    position: relative;
-    z-index: 1000;
-    width: 100%;
-    min-height: 100vh;
-    background: var(--paper);
-    transition:
-      opacity 0.24s ease,
-      transform 0.24s ease;
-  }
-
-  .col {
-    position: static;
-    top: auto;
-    left: auto;
-    width: 100%;
-    max-width: none;
-    pointer-events: auto;
-    background: transparent;
-    z-index: 1001;
-  }
-
-  .col-1,
-  .col-2 {
-    width: 100%;
-    min-width: 0;
-  }
-
-  .col-2 {
-    margin-top: 0;
-  }
-
-  .menu-group {
-    gap: var(--space-xs);
-  }
-
-  .category-nav {
-    margin-bottom: 64px;
-  }
-
-  .page-nav {
-    margin-top: 64px;
-    gap: var(--space-xs);
-    transition:
-      opacity 0.3s ease,
-      transform 0.3s ease;
-  }
-
-  .menu-link,
-  .project-link {
-    display: inline-flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-    padding: 2px 7px 3px 7px;
-    background: transparent;
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
-    box-shadow: none;
-    cursor: pointer;
-    line-height: 1.15;
-    vertical-align: top;
-    z-index: 1002;
-  }
-
-  .menu-link:hover,
-  .project-link:hover {
-    background: transparent;
-    color: var(--ink);
-    box-shadow: none;
-  }
-
-  .menu-link.active,
-  .project-link.active,
-  .menu-link.selected-category {
-    background: var(--ink);
-    color: var(--paper);
-    padding: 2px 7px 3px 7px;
-  }
-
-  .menu-link.active:hover,
-  .project-link.active:hover,
-  .menu-link.selected-category:hover {
-    background: var(--ink);
-    color: var(--paper);
-    box-shadow: none;
-  }
-
-  .menu-link,
-  .project-link,
-  .project-title,
-  .project-year {
-    font-size: 10px;
-    line-height: 1.15;
-    letter-spacing: 0.18px;
-  }
-
-  .page-nav .menu-link,
-  .site-header button#home-button {
-    font-weight: 700;
-  }
-
-  .project-list {
-    width: 100%;
-    max-width: 100%;
-    height: auto;
-    overflow: visible;
-    gap: var(--space-xs);
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    pointer-events: none;
-  }
-
-  .project-link {
-    width: 100%;
-    max-width: 100%;
-    pointer-events: auto;
-  }
-
-  .project-title,
-  .project-year {
-    display: block;
-    max-width: 100%;
-  }
-
-  .project-title {
-    white-space: normal;
-    word-break: break-word;
-    overflow-wrap: anywhere;
-  }
-
-  .project-link .project-title + .project-year {
-    margin-top: 1px;
-  }
-
-  .stage {
-    position: relative;
-    inset: auto;
-    z-index: 1;
-    min-height: 100vh;
-  }
-
-  .project-gallery {
-    position: relative;
-    inset: auto;
-    overflow: visible;
-    min-height: 100vh;
-    z-index: 1;
-  }
-
-  .gallery-mobile-linear {
-    padding: 120px 32px 28px 32px;
-    gap: 24px;
-  }
-
-  .mobile-linear-item img {
-    display: block;
-    width: 100%;
-    height: auto;
-  }
-
-  .mobile-caption {
-    margin-top: 8px;
-    text-align: justify;
-    text-align-last: left;
-    font-size: 10px;
-    line-height: 13px;
-    letter-spacing: 0.6px;
-  }
-
-  .mobile-editorial-text {
-    font-size: 10px;
-    line-height: 13px;
-    letter-spacing: 0.6px;
-    padding-bottom: 4px;
-  }
-
-  .mobile-editorial-text p + p {
-    margin-top: 12px;
-  }
-
-  .text-effect-wrap.mobile-text-wrap {
-    padding: 120px 32px 28px 32px;
-  }
-
-  .text-page-layout {
-    width: 100%;
-    margin-left: 0;
-    padding: 120px 32px 40px 32px;
-  }
-
-  .services-page-layout {
-    width: 100%;
-    margin-left: 0;
-    padding: 110px 32px 40px 32px;
-  }
-
-  .site-footer {
-    grid-template-columns: 1fr;
-    row-gap: 18px;
-    margin-top: 80px;
-    padding: 18px 32px 28px 32px;
-  }
-
-  .footer-col-1,
-  .footer-col-2,
-  .footer-col-3 {
-    grid-column: 1;
-    text-align: left;
-    justify-self: start;
-  }
-
-  .nav-panel,
-  .project-gallery {
-    transition:
-      opacity 0.28s ease,
-      transform 0.28s ease;
-  }
-
-  body.mobile-landing .mobile-menu-button {
-    display: none;
-  }
-
-  body.mobile-landing .site-header {
-    top: 58px;
-    left: 32px;
-    right: 32px;
-  }
-
-  body.mobile-landing .site-header button#home-button {
-    padding: 0;
-    font-size: 10px;
-    line-height: 15px;
-    letter-spacing: 0.18px;
-  }
-
-  body.mobile-landing .nav-panel {
-    display: block;
-    opacity: 1;
-    transform: translateY(0);
-    padding: 110px 32px 32px 32px;
-  }
-
-  body.mobile-landing .project-list {
-    display: none;
-  }
-
-  body.mobile-landing .project-gallery {
-    display: block;
-  }
-
-  body.mobile-category-list .mobile-menu-button {
-    display: none;
-  }
-
-  body.mobile-category-list .nav-panel {
-    opacity: 1;
-    transform: translateY(0);
-    padding: 110px 32px 32px 32px;
-    display: grid;
-    grid-template-columns: 130px minmax(0, 1fr);
-    column-gap: 34px;
-    align-items: start;
-  }
-
-  body.mobile-category-list .project-list {
-    display: flex;
-  }
-
-  body.mobile-category-list .project-gallery {
-    display: none;
-  }
-
-  body.mobile-project-open .mobile-menu-button {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-  }
-
-  body.mobile-project-open .project-gallery {
-    display: block;
-  }
-
-  body.mobile-project-open .nav-panel {
-    position: fixed;
-    inset: 0;
-    padding: 110px 32px 32px 32px;
-    overflow-y: auto;
-    opacity: 0;
-    transform: translateY(-12px);
-    pointer-events: none;
-    background: var(--paper);
-    display: grid;
-    grid-template-columns: 130px minmax(0, 1fr);
-    column-gap: 34px;
-    align-items: start;
-    z-index: 1000;
-  }
-
-  body.mobile-project-open.mobile-menu-open .nav-panel {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-  }
-
-  body.mobile-project-open .page-nav {
-    opacity: 0;
-    transform: translateY(-12px);
-    pointer-events: none;
-  }
-
-  body.mobile-project-open.mobile-menu-open .page-nav {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-    transition-delay: 0.08s;
-  }
-
-  body.mobile-project-open .project-list {
-    display: flex;
-  }
-
-  .gallery-random,
-  .gallery-right,
-  .gallery-centered-large,
-  .gallery-editorial-scroll,
-  .gallery-two-grid,
-  .gallery-staggered,
-  .gallery-monument,
-  .gallery-caption-led,
-  .gallery-diptych,
-  .text-effect-wrap {
-    display: block;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    min-height: 0;
-  }
-
-  .stagger-0,
-  .stagger-1,
-  .stagger-2 {
-    margin-left: 0;
-    width: 100%;
-    transform: none;
-    display: block;
-  }
-
-  .stagger-1 .caption,
-  .stagger-1 .editorial-caption {
-    transform: none;
-    max-width: none;
-    margin-top: 8px;
-  }
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jack Roy</title>
+
+  <link rel="icon" type="image/png" href="https://i.postimg.cc/pL57wq3M/favicon.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div class="cursor-dot"></div>
+
+  <main class="layout">
+    <header class="site-header">
+      <button
+        id="mobile-menu-button"
+        class="mobile-menu-button"
+        type="button"
+        aria-label="Toggle menu"
+        aria-expanded="false"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <button id="home-button" type="button">JACK ROY</button>
+    </header>
+
+    <div id="mobile-backdrop" class="mobile-backdrop"></div>
+
+    <div id="nav-panel" class="nav-panel">
+      <aside class="col col-1">
+        <nav class="menu-group category-nav">
+          <button class="menu-link" data-category="spatial" type="button">Spatial</button>
+          <button class="menu-link" data-category="window" type="button">Window</button>
+          <button class="menu-link" data-category="exhibition" type="button">Exhibition</button>
+          <button class="menu-link" data-category="text" type="button">Event</button>
+        </nav>
+
+        <nav class="menu-group page-nav" id="page-nav">
+          <button class="menu-link" data-page="services" type="button">Services</button>
+          <button class="menu-link" data-page="profile" type="button">Profile</button>
+          <button class="menu-link" data-page="contact" type="button">Contact</button>
+        </nav>
+      </aside>
+
+      <section class="col col-2">
+        <div id="project-list" class="project-list"></div>
+      </section>
+    </div>
+
+    <section class="stage">
+      <div id="project-gallery" class="project-gallery"></div>
+    </section>
+  </main>
+
+  <script>
+    const portfolioData = {
+      spatial: [
+        {
+          title: "Martine Rose",
+          year: "2017",
+          layout: "diptych",
+          sprinkleColors: ["#39FF14", "#C8A2C8"],
+          images: [
+            { src: "images/MartineR-photo1.webp", caption: "Retail installation view" },
+            { src: "images/MartineR-photo2.webp", caption: "Material and display study" }
+          ]
+        },
+
+        {
+          title: "Helmut Lang Re-Edition",
+          year: "2017",
+          layout: "right-stack",
+          sprinkleColors: ["#ff2ec4", "#ff5fd8", "#ff0aa8", "#ff8be0", "#ff36b8"],
+          images: [
+            { src: "images/HLANG-photo1.webp", caption: "Interior Display Unit" },
+            { src: "images/HLANG-Window.webp", caption: "Window Treatment" },
+            { src: "images/HLANG-photo2.webp", caption: "Display Unit Detail" }
+          ]
+        },
+
+        {
+          title: "Kartell x ettore sottsass",
+          year: "2019",
+          layout: "caption-led",
+          sprinkleColors: ["#ff2ec4", "#ff5fd8", "#ff0aa8", "#f5ff00", "#dbfe02", "#f9ffb0"],
+          images: [
+            { src: "https://picsum.photos/1200/800?random=811", caption: "Product arrangement across a continuous field." },
+            { src: "https://picsum.photos/1000/1300?random=812", caption: "Display composition with graphic emphasis." }
+          ]
+        },
+
+        {
+          title: "Marc Jacobs x New York Magazine",
+          year: "2019",
+          layout: "single-monument",
+          images: [
+            { src: "https://picsum.photos/1400/1800?random=711", caption: "Single-image presentation with editorial scale." }
+          ]
+        },
+
+        {
+          title: "FLOS",
+          year: "2019",
+          layout: "editorial-scroll-overlay",
+          sprinkleColors: ["#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff"],
+          textBlend: true,
+          overlayText: [
+            "FLOS Arrangements by Michael Anastassiades",
+            `I have always been fascinated with the parallel that exists between Lighting and Jewelry. Starting from the simple fact of how each piece relates to human scale: one is designed to be worn on the body whereas the other is made to decorate the space someone occupies. I'm challenged by how the delicate nature of something small can be translated spatially and still manage to retain its preciousness in the way materials are presented. It is no coincidence that the word "pendant" has a double meaning: it is both as a piece of jewelry that hangs from a chain worn around the neck, and a light designed to hang from the ceiling. - Michael Anastassiades`,
+            "New York, 2019"
+          ],
+          images: [
+            { src: "images/FLOS-photo1.webp" },
+            { src: "images/FLOS-photo2.webp" }
+          ]
+        },
+
+        {
+          title: "Marni",
+          year: "2019",
+          layout: "staggered-stack",
+          images: [
+            { src: "https://picsum.photos/1200/900?random=611", caption: "Layered arrangement with offset rhythm." },
+            {
+              src: "https://picsum.photos/900/1200?random=612",
+              captionHtml: `
+                <div class="editorial-caption">
+                  <p class="section-title">PRODUCT DESCRIPTION:</p>
+                  <p class="indent">
+                    The Executive Shirt has a relaxed fit with drop shoulders and a rounded hem.
+                    Featuring a button placket, spread collar, back yoke pleats and a chest pocket.
+                    Cut from a garment washed organic cotton poplin with a soft hand feel in a vibrant blue.
+                  </p>
+
+                  <p class="section-title">SIZE AND FIT:</p>
+                  <p class="indent">
+                    Relaxed fit. Model is 188 cm and wearing size medium. Please see measurements on the last slide.
+                  </p>
+
+                  <p class="section-title">PRODUCT DETAILS:</p>
+                  <ul class="bullet-list">
+                    <li>Fabric made in Portugal</li>
+                    <li>Garment made in Portugal</li>
+                    <li>100% cotton</li>
+                    <li>Garment washed</li>
+                    <li>Ivory resin buttons</li>
+                    <li>Machine wash cold</li>
+                  </ul>
+
+                  <p class="section-title">STYLED WITH:</p>
+                  <p class="indent">
+                    Classic Trousers – Grey Check<br>
+                    Event Derby – Dark Brown Blush
+                  </p>
+                </div>
+              `
+            },
+            { src: "https://picsum.photos/1300/800?random=613", caption: "Wide-format view of the installation." }
+          ]
+        },
+
+        {
+          title: "Fornasetti",
+          year: "2020",
+          layout: "two-column-grid",
+          sprinkleColors: ["#e8e8e8", "#c4c4c4", "#9e9e9e", "#787878", "#525252", "#2e2e2e"],
+          images: [
+            { src: "https://picsum.photos/1000/1300?random=511", caption: "Grid view one" },
+            { src: "https://picsum.photos/1000/1300?random=512", caption: "Grid view two" },
+            { src: "https://picsum.photos/1000/1300?random=513", caption: "Grid view three" },
+            { src: "https://picsum.photos/1000/1300?random=514", caption: "Grid view four" }
+          ]
+        },
+
+        {
+          title: "Wynn Hamlyn",
+          year: "2021",
+          layout: "editorial-scroll-overlay",
+          sprinkleColors: ["#f5ff00", "#e8ff61", "#dbfe02", "#c6ff00", "#f9ffb0"],
+          overlayText: [
+            "The arrangement proceeds less as a singular display than as a measured sequence of views. Planes, apertures, and shallow thresholds are composed to guide attention laterally, so that the field is read in fragments rather than all at once. The work proposes a retail environment as something closer to a magazine spread: paced, cropped, and layered, with each transition carrying as much weight as the object itself.",
+            "Surfaces remain deliberately calm. Material changes are slight but consequential, allowing light, reflection, and edge conditions to generate difference. What appears centered at first begins to shift as one moves, and the visual order opens into a softer, less fixed structure. The installation relies on this tension between control and drift, between geometry and atmosphere, to produce a mode of looking that feels both staged and provisional.",
+            "Rather than presenting product as isolated highlight, the composition treats image, object, and architecture as a shared visual language. The page-like text column anchors the work in an editorial register, while the sequence of images expands and contracts in scale, building a rhythm that is spatial as much as graphic. In this sense the project sits somewhere between display system, publication layout, and room."
+          ],
+          images: [
+            { src: "https://picsum.photos/1600/1100?random=411" },
+            { src: "https://picsum.photos/1600/2100?random=412" },
+            { src: "https://picsum.photos/1600/1200?random=413" }
+          ]
+        },
+
+        {
+          title: "Glassons",
+          year: "2024",
+          layout: "random-scatter",
+          images: [
+            { src: "https://picsum.photos/650/900?random=311" },
+            { src: "https://picsum.photos/520/700?random=312" },
+            { src: "https://picsum.photos/760/560?random=313" },
+            { src: "https://picsum.photos/460/640?random=314" }
+          ]
+        },
+
+        {
+          title: "Thistles",
+          year: "2025",
+          layout: "right-stack-small",
+          sprinkleColors: ["#d0efff", "#a9dfff", "#8ecbff", "#5fb8ff", "#bfe3ff"],
+          images: [
+            {
+              src: "https://picsum.photos/1200/900?random=211",
+              caption: "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+            },
+            {
+              src: "https://picsum.photos/1200/1400?random=212",
+              caption: "Detail of display and circulation."
+            }
+          ]
+        },
+
+        {
+          title: "Thistles x HTown",
+          year: "2026",
+          layout: "staggered-stack",
+          sprinkleColors: ["#d0efff", "#a9dfff", "#8ecbff", "#5fb8ff", "#bfe3ff"],
+          images: [
+            {
+              src: "images/thistles-htown-overview-photo1.webp",
+              caption: "A temporary retail environment designed for the Thistles x HTown collaboration. Exploring a balance between product display, architectural rhythm, and brand identity, creating an environment that is both functional and visually considered."
+            },
+            {
+              src: "images/thistles-htown-closeup-photo3.webp",
+              captionHtml: `
+                <div class="editorial-caption">
+                  <p class="section-title">SPATIAL CONCEPT:</p>
+
+                  <p class="indent">
+                    The installation uses mass and subtraction to create a sequence of framed product displays. Recessed apertures introduce depth and light into the structure, creating a contrast between the architectural framework and the objects within it.
+                  </p>
+
+                  <p class="section-title">DESIGN ELEMENTS:</p>
+
+                  <ul class="bullet-list">
+                    <li>Product displayed within illuminated recessed shelving</li>
+                    <li>Garment made in Portugal</li>
+                    <li>100% cotton</li>
+                    <li>Garment washed</li>
+                    <li>Ivory resin buttons</li>
+                    <li>Machine wash cold</li>
+                  </ul>
+
+                  <p class="section-title">STYLED WITH:</p>
+
+                  <p class="indent">
+                    2026<br>
+                    London, United Kingdom
+                  </p>
+                </div>
+              `
+            },
+            {
+              src: "images/thistles-htown-photo2.webp",
+              caption: "Wide-format view of the installation."
+            }
+          ]
+        }
+      ],
+
+      window: [
+        {
+          title: "Helmut Lang / Pleats Please",
+          year: "2016",
+          layout: "two-column-grid",
+          images: [
+            { src: "https://picsum.photos/1000/1300?random=1031", caption: "Window study one" },
+            { src: "https://picsum.photos/1000/1300?random=1032", caption: "Window study two" },
+            { src: "https://picsum.photos/1000/1300?random=1033", caption: "Window study three" },
+            { src: "https://picsum.photos/1000/1300?random=1034", caption: "Window study four" }
+          ]
+        },
+
+        {
+          title: "Fruits x Opening Ceremony",
+          year: "2017",
+          layout: "centered-large",
+          images: [
+            { src: "https://picsum.photos/1400/1000?random=1021", caption: "Primary window composition." },
+            { src: "https://picsum.photos/1200/1500?random=1022", caption: "Secondary view with vertical emphasis." }
+          ]
+        },
+
+        {
+          title: "FLOS",
+          year: "2018",
+          layout: "right-stack",
+          sprinkleColors: ["#ff2ec4", "#ff5fd8", "#ff0aa8", "#ff8be0", "#ff36b8"],
+          images: [
+            { src: "https://picsum.photos/1200/900?random=1011", caption: "Window elevation" },
+            { src: "https://picsum.photos/1200/1400?random=1012", caption: "Interior-facing display detail." }
+          ]
+        }
+      ],
+
+      exhibition: [
+        {
+          title: "Annotated Display System with Reading Table and Wall Works",
+          year: "2022",
+          layout: "centered-large",
+          images: [
+            { src: "https://picsum.photos/1400/1000?random=1111", caption: "Exhibition overview." }
+          ]
+        }
+      ],
+
+      text: [
+        {
+          title: "Boids Text",
+          year: "2024",
+          layout: "text-page",
+          text: "In the temperate and tropical regions where the principal food of the species was vegetable, prehistoric survival depended not only on hunting but on seeds, roots, sprouts, shoots, leaves, berries, fruits, grains, mollusks, fish and other small forms of gathered life."
+        }
+      ]
+    };
+
+    const staticPages = {
+      services: `
+        <ul class="services-list">
+          <li>Concept and development</li>
+          <li>Strategy and planning</li>
+          <li>Design development</li>
+          <li>Rendering and visualisation</li>
+          <li>Technical design</li>
+          <li>Project management</li>
+          <li>Production coordination</li>
+          <li>Installation and site delivery</li>
+        </ul>
+      `,
+
+      profile: `
+        <div class="text-block">
+          <p>Jack Roy is an independent spatial design studio based in New York, working across temporary installations, permanent environments, window displays, exhibitions, and retail spaces.</p>
+
+          <p>The studio develops spatial concepts that are precise, atmospheric, and materially considered. Each project is approached as a complete experience, bringing together research, narrative, object, architecture, and visual language to create environments that feel distinctive and memorable.</p>
+
+          <p>Services span creative strategy, concept development, spatial design, visualisation, technical design, production coordination, and installation delivery. From early ideas through to final execution, the studio works closely with clients, collaborators, makers, and fabricators to maintain clarity, cohesion, and detail at every stage.</p>
+
+          <p>Working across scales and contexts, the studio is interested in spaces that encourage attention, movement, and participation. The work is defined by restraint, atmosphere, strong visual direction, and a commitment to thoughtful execution.</p>
+        </div>
+      `,
+
+      contact: `
+        <div class="text-block">
+          <p><a href="mailto:contact@jackroy.co">contact@jackroy.co</a></p>
+        </div>
+      `
+    };
+
+    const categoryButtons = document.querySelectorAll(".category-nav .menu-link");
+    const projectList = document.getElementById("project-list");
+    const projectGallery = document.getElementById("project-gallery");
+    const homeButton = document.getElementById("home-button");
+    const cursorDot = document.querySelector(".cursor-dot");
+    const mobileMenuButton = document.getElementById("mobile-menu-button");
+    const navPanel = document.getElementById("nav-panel");
+    const mobileBackdrop = document.getElementById("mobile-backdrop");
+
+    function isMobile() {
+      return window.matchMedia("(max-width: 768px)").matches;
+    }
+
+    let currentCategory = null;
+    let currentProjectIndex = null;
+
+    let mobileMenuOpen = isMobile();
+    let mobileMode = isMobile() ? "landing" : "desktop";
+    let previousMobileCategory = null;
+
+    const defaultSprinkleColors = [
+      "#c7f2c6",
+      "#958eff",
+      "#dbfe02",
+      "#46de86",
+      "#a8c5e6",
+      "#fbceeb",
+      "#f4502a",
+      "#f78bcc",
+      "#3b94ff"
+    ];
+
+    let activeSprinkleColors = defaultSprinkleColors;
+
+    function renderFooter() {
+      return `
+        <footer class="site-footer">
+          <div class="footer-col footer-col-1">
+            © 2026 Jack Roy<br>
+            All rights reserved.
+          </div>
+
+          <div class="footer-col footer-col-2">
+            <a class="footer-link" href="mailto:contact@jackroy.co">Email</a><br>
+            <a class="footer-link" href="https://www.linkedin.com/in/jackroy/" target="_blank" rel="noreferrer">LinkedIn</a><br>
+            <a class="footer-link" href="https://www.instagram.com/rackjoy/" target="_blank" rel="noreferrer">@rackjoy</a>
+          </div>
+
+          <div class="footer-col footer-col-3">
+            275 Broome Street<br>
+            New York, NY 10002
+          </div>
+        </footer>
+      `;
+    }
+
+    function goToStaticPage(page) {
+      currentCategory = null;
+      currentProjectIndex = null;
+      previousMobileCategory = null;
+      activeSprinkleColors = defaultSprinkleColors;
+
+      renderProjects(false);
+      renderStaticPage(page);
+      updateCategoryButtons();
+      updateMobileMenuUI();
+    }
+
+    function bindFooterLinks() {
+      document.querySelectorAll(".footer-link[data-page]").forEach((button) => {
+        button.addEventListener("click", () => goToStaticPage(button.dataset.page));
+      });
+    }
+
+    function applyStaggerDelays(items, step = 0.05, start = 0.05) {
+      items.forEach((item, i) => {
+        item.style.setProperty("--item-delay", `${start + i * step}s`);
+      });
+    }
+
+    function renderStaticPage(page) {
+      projectGallery.innerHTML = `
+        <div class="text-page-layout shift-right">
+          ${staticPages[page]}
+        </div>
+
+        <div class="footer-spacer"></div>
+
+        ${renderFooter()}
+      `;
+
+      projectGallery.className = "project-gallery";
+      projectGallery.scrollTop = 0;
+      bindFooterLinks();
+
+      if (page === "services") {
+        applyStaggerDelays(projectGallery.querySelectorAll(".services-list li"));
+      }
+    }
+
+    function applyImageFade() {
+      const images = projectGallery.querySelectorAll("img");
+
+      images.forEach((img) => {
+        img.classList.remove("is-loaded");
+
+        if (img.complete) {
+          requestAnimationFrame(() => img.classList.add("is-loaded"));
+        } else {
+          img.addEventListener(
+            "load",
+            () => img.classList.add("is-loaded"),
+            { once: true }
+          );
+        }
+      });
+    }
+
+    function updateCategoryButtons() {
+      categoryButtons.forEach((btn) => {
+        btn.classList.toggle(
+          "active",
+          btn.dataset.category === currentCategory &&
+          currentProjectIndex !== null
+        );
+
+        btn.classList.toggle(
+          "selected-category",
+          btn.dataset.category === currentCategory &&
+          currentProjectIndex === null
+        );
+      });
+    }
+
+    function updateMobileStates() {
+      if (!isMobile()) {
+        document.body.classList.remove(
+          "mobile-landing",
+          "mobile-category-list",
+          "mobile-project-open",
+          "mobile-menu-open"
+        );
+        return;
+      }
+
+      document.body.classList.toggle(
+        "mobile-landing",
+        mobileMode === "landing"
+      );
+
+      document.body.classList.toggle(
+        "mobile-category-list",
+        mobileMode === "category"
+      );
+
+      document.body.classList.toggle(
+        "mobile-project-open",
+        mobileMode === "project"
+      );
+
+      document.body.classList.toggle(
+        "mobile-menu-open",
+        mobileMenuOpen
+      );
+
+      mobileMenuButton.setAttribute(
+        "aria-expanded",
+        String(mobileMenuOpen)
+      );
+    }
+
+    function updateMobileMenuUI() {
+      if (!isMobile()) {
+        navPanel.classList.remove("open");
+        mobileBackdrop.classList.remove("open");
+        mobileMenuButton.classList.remove("open");
+        updateMobileStates();
+        return;
+      }
+
+      const shouldShowHamburger = mobileMode === "project";
+
+      mobileMenuButton.classList.toggle(
+        "is-visible",
+        shouldShowHamburger
+      );
+
+      navPanel.classList.toggle("open", mobileMenuOpen);
+
+      mobileBackdrop.classList.toggle(
+        "open",
+        mobileMenuOpen && mobileMode === "project"
+      );
+
+      mobileMenuButton.classList.toggle(
+        "open",
+        mobileMenuOpen && mobileMode === "project"
+      );
+
+      updateMobileStates();
+    }
+
+    function openMobileMenu() {
+      if (!isMobile()) return;
+
+      mobileMenuOpen = true;
+      updateMobileMenuUI();
+    }
+
+    function closeMobileMenu() {
+      if (!isMobile()) return;
+
+      mobileMenuOpen = false;
+      updateMobileMenuUI();
+    }
+
+    function goToMobileLanding() {
+      currentCategory = null;
+      currentProjectIndex = null;
+      previousMobileCategory = null;
+      mobileMode = "landing";
+      mobileMenuOpen = false;
+
+      renderProjects(false);
+      renderGallery();
+      updateCategoryButtons();
+      updateMobileMenuUI();
+    }
+
+    function goToMobileCategory(category) {
+      currentCategory = category;
+      currentProjectIndex = null;
+      previousMobileCategory = category;
+      mobileMode = "category";
+      mobileMenuOpen = false;
+
+      renderProjects(false);
+      renderGallery();
+      updateCategoryButtons();
+      updateMobileMenuUI();
+    }
+
+    function openMobileProject(category, index) {
+      currentCategory = category;
+      currentProjectIndex = index;
+      previousMobileCategory = category;
+      mobileMode = "project";
+      mobileMenuOpen = false;
+
+      renderProjects(false);
+      renderGallery();
+      updateCategoryButtons();
+      updateMobileMenuUI();
+    }
+
+    function renderCaptionContent(img, extraClass = "") {
+      if (img.captionHtml) {
+        return `<div class="${extraClass}">${img.captionHtml}</div>`;
+      }
+
+      if (img.caption) {
+        return `<div class="caption ${extraClass}">${img.caption}</div>`;
+      }
+
+      return "";
+    }
+
+    function renderProjects(animate = false) {
+      projectList.innerHTML = "";
+
+      if (!currentCategory) return;
+
+      const projects = portfolioData[currentCategory];
+
+      projects
+        .slice()
+        .reverse()
+        .forEach((project, i) => {
+          const index = projects.length - 1 - i;
+          const button = document.createElement("button");
+
+          button.className = "project-link";
+          button.type = "button";
+
+          if (index === currentProjectIndex) {
+            button.classList.add("active");
+          }
+
+          if (!animate) {
+            button.classList.add("is-visible");
+          }
+
+          button.innerHTML = `
+            <span class="project-title">${project.title}</span>
+            <span class="project-year">${project.year}</span>
+          `;
+
+          button.addEventListener("click", () => {
+            if (isMobile()) {
+              openMobileProject(currentCategory, index);
+            } else {
+              currentProjectIndex = index;
+              renderProjects(false);
+              renderGallery();
+              updateCategoryButtons();
+            }
+          });
+
+          projectList.appendChild(button);
+
+          if (animate) {
+            setTimeout(() => {
+              button.classList.add("is-visible");
+            }, i * 60);
+          }
+        });
+    }
+
+    function renderRightStack(project) {
+      return `
+        <div class="gallery-right">
+          ${project.images.map((img) => `
+            <div class="gallery-item">
+              <img src="${img.src}" alt="">
+              ${renderCaptionContent(img)}
+            </div>
+          `).join("")}
+        </div>
+      `;
+    }
+
+    function renderRandomScatter(project) {
+      const slots = [
+        { top: 8, left: 8, width: 18 },
+        { top: 18, left: 34, width: 16 },
+        { top: 36, left: 58, width: 20 },
+        { top: 54, left: 78, width: 17 }
+      ];
+
+      const shuffled = [...slots].sort(() => Math.random() - 0.5);
+
+      return `
+        <div class="gallery-random">
+          ${project.images.map((img, i) => {
+            const slot = shuffled[i % shuffled.length];
+            const topJitter = Math.floor(Math.random() * 4 - 2);
+            const leftJitter = Math.floor(Math.random() * 5 - 2);
+            const widthJitter = Math.floor(Math.random() * 3 - 1);
+            const rotation = Math.floor(Math.random() * 8 - 4);
+
+            return `
+              <img
+                src="${img.src}"
+                class="random-img"
+                alt=""
+                style="
+                  top:${slot.top + topJitter}%;
+                  left:${slot.left + leftJitter}%;
+                  width:${slot.width + widthJitter}vw;
+                  transform: rotate(${rotation}deg);
+                  z-index:${i + 1};
+                "
+              >
+            `;
+          }).join("")}
+        </div>
+      `;
+    }
+
+    function renderCenteredLarge(project) {
+      return `
+        <div class="gallery-centered-large">
+          ${project.images.map((img) => `
+            <div class="gallery-item centered-large-item">
+              <img src="${img.src}" alt="">
+              ${renderCaptionContent(img)}
+            </div>
+          `).join("")}
+        </div>
+      `;
+    }
+
+    function renderEditorialScrollOverlay(project) {
+      const blendClass = project.textBlend ? " blend-text" : "";
+
+      return `
+        <div class="gallery-editorial-scroll">
+          ${project.images.map((img) => `
+            <div class="editorial-item">
+              <img src="${img.src}" alt="" class="wynn-image">
+            </div>
+          `).join("")}
+
+          <div class="fixed-text-paragraph${blendClass}">
+            ${project.overlayText.map((p) => `<p>${p}</p>`).join("")}
+          </div>
+        </div>
+      `;
+    }
+
+    function renderTwoColumnGrid(project) {
+      return `
+        <div class="gallery-two-grid">
+          ${project.images.map((img) => `
+            <div class="grid-item">
+              <img src="${img.src}" alt="">
+              ${renderCaptionContent(img, "caption-below")}
+            </div>
+          `).join("")}
+        </div>
+      `;
+    }
+
+    function renderStaggeredStack(project) {
+      return `
+        <div class="gallery-staggered">
+          ${project.images.map((img, i) => `
+            <div class="gallery-item stagger-${i}">
+              <img src="${img.src}" alt="">
+              ${renderCaptionContent(img)}
+            </div>
+          `).join("")}
+        </div>
+      `;
+    }
+
+    function renderSingleMonument(project) {
+      return `
+        <div class="gallery-monument">
+          ${project.images.map((img) => `
+            <div class="gallery-item monument-item">
+              <img src="${img.src}" alt="">
+              ${renderCaptionContent(img)}
+            </div>
+          `).join("")}
+        </div>
+      `;
+    }
+
+    function renderCaptionLed(project) {
+      return `
+        <div class="gallery-caption-led">
+          ${project.images.map((img) => `
+            <div class="caption-led-item">
+              <img src="${img.src}" alt="">
+              ${renderCaptionContent(img, "caption-wide")}
+            </div>
+          `).join("")}
+        </div>
+      `;
+    }
+
+    function renderDiptych(project) {
+      return `
+        <div class="gallery-diptych">
+          ${project.images.map((img) => `
+            <div class="diptych-item">
+              <img src="${img.src}" alt="">
+              ${renderCaptionContent(img, "caption-below")}
+            </div>
+          `).join("")}
+        </div>
+      `;
+    }
+
+    function renderTextPage(project) {
+      return `
+        <div class="text-effect-wrap">
+          <p>${project.text}</p>
+        </div>
+      `;
+    }
+
+    function renderMobileLinear(project) {
+      if (project.layout === "text-page") {
+        return `
+          <div class="gallery-mobile-linear text-only">
+            <div class="mobile-linear-item">
+              <div class="text-effect-wrap mobile-text-wrap">
+                <p>${project.text}</p>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      if (project.layout === "editorial-scroll-overlay") {
+        const blendClass = project.textBlend ? " blend-text" : "";
+
+        return `
+          <div class="gallery-mobile-linear">
+            <div class="mobile-editorial-text${blendClass}">
+              ${project.overlayText.map((p) => `<p>${p}</p>`).join("")}
+            </div>
+
+            ${project.images.map((img) => `
+              <div class="mobile-linear-item">
+                <img src="${img.src}" alt="" class="wynn-image">
+              </div>
+            `).join("")}
+          </div>
+        `;
+      }
+
+      return `
+        <div class="gallery-mobile-linear">
+          ${project.images.map((img) => `
+            <div class="mobile-linear-item">
+              <img src="${img.src}" alt="">
+              ${renderCaptionContent(img, "mobile-caption")}
+            </div>
+          `).join("")}
+        </div>
+      `;
+    }
+
+    function attachWynnImageToggle() {
+      const wynnImages = projectGallery.querySelectorAll(".wynn-image");
+
+      wynnImages.forEach((img) => {
+        img.addEventListener("click", () => {
+          img.classList.toggle("is-color");
+        });
+      });
+    }
+
+    function renderGallery() {
+      if (currentProjectIndex === null || !currentCategory) {
+        activeSprinkleColors = defaultSprinkleColors;
+
+        projectGallery.innerHTML = `
+          <div class="home-footer-spacer"></div>
+          ${renderFooter()}
+        `;
+
+        projectGallery.className = "project-gallery";
+        projectGallery.scrollTop = 0;
+        bindFooterLinks();
+        return;
+      }
+
+      const project = portfolioData[currentCategory][currentProjectIndex];
+
+      activeSprinkleColors =
+        project.sprinkleColors || defaultSprinkleColors;
+
+      projectGallery.className = "project-gallery";
+
+      if (isMobile()) {
+        projectGallery.innerHTML = renderMobileLinear(project);
+
+        if (project.layout === "editorial-scroll-overlay") {
+          attachWynnImageToggle();
+        }
+
+        projectGallery.insertAdjacentHTML(
+          "beforeend",
+          renderFooter()
+        );
+
+        projectGallery.scrollTop = 0;
+        bindFooterLinks();
+        applyImageFade();
+        return;
+      }
+
+      if (project.layout === "right-stack") {
+        projectGallery.innerHTML = renderRightStack(project);
+
+      } else if (project.layout === "right-stack-small") {
+        projectGallery.classList.add(
+          "small-mode",
+          "no-top-gap-right"
+        );
+        projectGallery.innerHTML = renderRightStack(project);
+
+      } else if (project.layout === "random-scatter") {
+        projectGallery.classList.add("glassons-lock");
+        projectGallery.innerHTML = renderRandomScatter(project);
+
+      } else if (project.layout === "centered-large") {
+        projectGallery.innerHTML = renderCenteredLarge(project);
+
+      } else if (project.layout === "editorial-scroll-overlay") {
+        projectGallery.innerHTML =
+          renderEditorialScrollOverlay(project);
+        attachWynnImageToggle();
+
+      } else if (project.layout === "two-column-grid") {
+        projectGallery.innerHTML =
+          renderTwoColumnGrid(project);
+
+      } else if (project.layout === "staggered-stack") {
+        projectGallery.innerHTML =
+          renderStaggeredStack(project);
+
+      } else if (project.layout === "single-monument") {
+        projectGallery.classList.add("no-top-gap-monument");
+        projectGallery.innerHTML =
+          renderSingleMonument(project);
+
+      } else if (project.layout === "caption-led") {
+        projectGallery.innerHTML =
+          renderCaptionLed(project);
+
+      } else if (project.layout === "diptych") {
+        projectGallery.innerHTML =
+          renderDiptych(project);
+
+      } else if (project.layout === "text-page") {
+        projectGallery.innerHTML =
+          renderTextPage(project);
+
+      } else {
+        projectGallery.innerHTML = "";
+      }
+
+      projectGallery.insertAdjacentHTML(
+        "beforeend",
+        renderFooter()
+      );
+
+      projectGallery.scrollTop = 0;
+      bindFooterLinks();
+      applyImageFade();
+    }
+
+    categoryButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const selectedCategory = btn.dataset.category;
+
+        if (isMobile()) {
+          if (mobileMode === "landing") {
+            goToMobileCategory(selectedCategory);
+          } else if (
+            mobileMode === "category" ||
+            mobileMode === "project"
+          ) {
+            goToMobileCategory(selectedCategory);
+            openMobileMenu();
+          }
+        } else {
+          currentCategory = selectedCategory;
+          currentProjectIndex =
+            portfolioData[currentCategory].length - 1;
+
+          renderProjects(true);
+          renderGallery();
+          updateCategoryButtons();
+        }
+      });
+    });
+
+    homeButton.addEventListener("click", () => {
+      if (isMobile()) {
+        goToMobileLanding();
+      } else {
+        currentCategory = null;
+        currentProjectIndex = null;
+
+        categoryButtons.forEach((b) => {
+          b.classList.remove(
+            "active",
+            "selected-category"
+          );
+        });
+
+        renderProjects(false);
+        renderGallery();
+      }
+    });
+
+    document
+      .querySelectorAll("#page-nav [data-page]")
+      .forEach((button) => {
+        button.addEventListener("click", () => {
+          goToStaticPage(button.dataset.page);
+        });
+      });
+
+    mobileMenuButton.addEventListener("click", () => {
+      if (!isMobile()) return;
+
+      mobileMenuOpen = !mobileMenuOpen;
+
+      if (
+        mobileMenuOpen &&
+        !currentCategory &&
+        previousMobileCategory
+      ) {
+        currentCategory = previousMobileCategory;
+        renderProjects(false);
+      }
+
+      updateMobileMenuUI();
+    });
+
+    mobileBackdrop.addEventListener("click", () => {
+      if (!isMobile()) return;
+      closeMobileMenu();
+    });
+
+    window.addEventListener("mousemove", (e) => {
+      if (cursorDot) {
+        cursorDot.style.left = `${e.clientX}px`;
+        cursorDot.style.top = `${e.clientY}px`;
+      }
+    });
+
+    const SPRINKLE_STEP = 10;
+
+    function randomSprinkleColor() {
+      return activeSprinkleColors[
+        Math.floor(
+          Math.random() * activeSprinkleColors.length
+        )
+      ];
+    }
+
+    function spawnSprinkle(x, y) {
+      const sprinkle =
+        document.createElement("div");
+
+      sprinkle.className = "cursor-sprinkle";
+
+      const size = 4 + Math.random() * 3;
+
+      sprinkle.style.left = `${x}px`;
+      sprinkle.style.top = `${y}px`;
+      sprinkle.style.setProperty(
+        "--sprinkle-size",
+        `${size}px`
+      );
+      sprinkle.style.background =
+        randomSprinkleColor();
+
+      sprinkle.style.setProperty(
+        "--sprinkle-rotate",
+        `${Math.floor(Math.random() * 360)}deg`
+      );
+
+      sprinkle.addEventListener(
+        "animationend",
+        () => sprinkle.remove()
+      );
+
+      document.body.appendChild(sprinkle);
+    }
+
+    let lastSprinkleX = null;
+    let lastSprinkleY = null;
+
+    window.addEventListener("mousemove", (e) => {
+      if (isMobile()) return;
+
+      if (lastSprinkleX === null) {
+        lastSprinkleX = e.clientX;
+        lastSprinkleY = e.clientY;
+        spawnSprinkle(e.clientX, e.clientY);
+        return;
+      }
+
+      const dx = e.clientX - lastSprinkleX;
+      const dy = e.clientY - lastSprinkleY;
+      const distance = Math.sqrt(
+        dx * dx + dy * dy
+      );
+
+      if (distance >= SPRINKLE_STEP) {
+        const steps = Math.floor(
+          distance / SPRINKLE_STEP
+        );
+
+        for (let i = 1; i <= steps; i++) {
+          const t = i / steps;
+
+          spawnSprinkle(
+            lastSprinkleX + dx * t,
+            lastSprinkleY + dy * t
+          );
+        }
+
+        lastSprinkleX = e.clientX;
+        lastSprinkleY = e.clientY;
+      }
+    });
+
+    document.addEventListener("click", (e) => {
+      if (isMobile()) return;
+
+      const burstCount = 8;
+
+      for (let i = 0; i < burstCount; i++) {
+        const angle =
+          (Math.PI * 2 * i) / burstCount +
+          Math.random() * 0.3;
+
+        const distance =
+          30 + Math.random() * 20;
+
+        const bx = Math.cos(angle) * distance;
+        const by = Math.sin(angle) * distance;
+
+        const burst =
+          document.createElement("div");
+
+        burst.className =
+          "cursor-sprinkle cursor-burst";
+
+        const size =
+          5 + Math.random() * 4;
+
+        burst.style.left = `${e.clientX}px`;
+        burst.style.top = `${e.clientY}px`;
+
+        burst.style.setProperty(
+          "--sprinkle-size",
+          `${size}px`
+        );
+
+        burst.style.setProperty(
+          "--burst-x",
+          `${bx}px`
+        );
+
+        burst.style.setProperty(
+          "--burst-y",
+          `${by}px`
+        );
+
+        burst.style.background =
+          randomSprinkleColor();
+
+        burst.addEventListener(
+          "animationend",
+          () => burst.remove()
+        );
+
+        document.body.appendChild(burst);
+      }
+    });
+
+    function isInteractiveTarget(el) {
+      return (
+        el &&
+        el.closest &&
+        el.closest("a, button, img")
+      );
+    }
+
+    function isTextTarget(el) {
+      return (
+        el &&
+        el.closest &&
+        el.closest(
+          "p, .caption, .caption-below, .caption-wide, .editorial-caption, .indent, .bullet-list li, .mobile-caption, .fixed-text-paragraph, .mobile-editorial-text, .text-block p, .services-list li"
+        )
+      );
+    }
+
+    document.addEventListener(
+      "mouseover",
+      (e) => {
+        if (!cursorDot) return;
+
+        if (isInteractiveTarget(e.target)) {
+          cursorDot.classList.add("is-hover");
+          cursorDot.classList.remove("is-text");
+        } else if (isTextTarget(e.target)) {
+          cursorDot.classList.add("is-text");
+          cursorDot.classList.remove("is-hover");
+        } else {
+          cursorDot.classList.remove(
+            "is-hover",
+            "is-text"
+          );
+        }
+      }
+    );
+
+    document.addEventListener(
+      "mouseout",
+      (e) => {
+        if (!cursorDot) return;
+
+        if (
+          isInteractiveTarget(e.target) &&
+          !isInteractiveTarget(e.relatedTarget)
+        ) {
+          cursorDot.classList.remove(
+            "is-hover"
+          );
+        }
+
+        if (
+          isTextTarget(e.target) &&
+          !isTextTarget(e.relatedTarget)
+        ) {
+          cursorDot.classList.remove(
+            "is-text"
+          );
+        }
+      }
+    );
+
+    document.addEventListener(
+      "contextmenu",
+      (e) => {
+        if (e.target.tagName === "IMG") {
+          e.preventDefault();
+        }
+      }
+    );
+
+    document.addEventListener(
+      "dragstart",
+      (e) => {
+        if (e.target.tagName === "IMG") {
+          e.preventDefault();
+        }
+      }
+    );
+
+    window.addEventListener("resize", () => {
+      if (isMobile()) {
+        if (mobileMode === "desktop") {
+          goToMobileLanding();
+        } else {
+          updateMobileMenuUI();
+          renderProjects(false);
+          renderGallery();
+          updateCategoryButtons();
+        }
+      } else {
+        mobileMode = "desktop";
+        mobileMenuOpen = false;
+
+        renderProjects(false);
+        renderGallery();
+        updateCategoryButtons();
+        updateMobileMenuUI();
+      }
+    });
+
+    if (isMobile()) {
+      goToMobileLanding();
+    } else {
+      renderProjects(true);
+      renderGallery();
+      updateCategoryButtons();
+      updateMobileMenuUI();
+    }
+  </script>
+</body>
+</html>
