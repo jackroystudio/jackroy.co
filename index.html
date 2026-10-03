@@ -62,6 +62,13 @@
 
     <section class="stage">
       <div id="project-gallery" class="project-gallery"></div>
+
+      <!--
+        Editorial text is deliberately outside the scrolling gallery.
+        This prevents fixed text from becoming part of the gallery's
+        scrolling/compositing layer.
+      -->
+      <div id="editorial-overlay" class="editorial-overlay"></div>
     </section>
   </main>
 
@@ -74,8 +81,14 @@
           layout: "diptych",
           sprinkleColors: ["#39FF14", "#C8A2C8"],
           images: [
-            { src: "images/MartineR-photo1-jack-roy-jackroy.webp", caption: "Retail installation view" },
-            { src: "images/MartineR-photo2-jack-roy-jackroy.webp", caption: "Material and display study" }
+            {
+              src: "images/MartineR-photo1-jack-roy-jackroy.webp",
+              caption: "Retail installation view"
+            },
+            {
+              src: "images/MartineR-photo2-jack-roy-jackroy.webp",
+              caption: "Material and display study"
+            }
           ]
         },
 
@@ -83,11 +96,26 @@
           title: "Helmut Lang Re-Edition",
           year: "2017",
           layout: "right-stack",
-          sprinkleColors: ["#ff2ec4", "#ff5fd8", "#ff0aa8", "#ff8be0", "#ff36b8"],
+          sprinkleColors: [
+            "#ff2ec4",
+            "#ff5fd8",
+            "#ff0aa8",
+            "#ff8be0",
+            "#ff36b8"
+          ],
           images: [
-            { src: "images/HLANG-photo1-jack-roy-jackroy.webp", caption: "Interior Display Unit" },
-            { src: "images/HLANG-Window-jack-roy-jackroy.webp", caption: "Window Treatment" },
-            { src: "images/HLANG-photo2-jack-roy-jackroy.webp", caption: "Display Unit Detail" }
+            {
+              src: "images/HLANG-photo1-jack-roy-jackroy.webp",
+              caption: "Interior Display Unit"
+            },
+            {
+              src: "images/HLANG-Window-jack-roy-jackroy.webp",
+              caption: "Window Treatment"
+            },
+            {
+              src: "images/HLANG-photo2-jack-roy-jackroy.webp",
+              caption: "Display Unit Detail"
+            }
           ]
         },
 
@@ -95,10 +123,23 @@
           title: "Kartell x ettore sottsass",
           year: "2019",
           layout: "caption-led",
-          sprinkleColors: ["#ff2ec4", "#ff5fd8", "#ff0aa8", "#f5ff00", "#dbfe02", "#f9ffb0"],
+          sprinkleColors: [
+            "#ff2ec4",
+            "#ff5fd8",
+            "#ff0aa8",
+            "#f5ff00",
+            "#dbfe02",
+            "#f9ffb0"
+          ],
           images: [
-            { src: "https://picsum.photos/1200/800?random=811", caption: "Product arrangement across a continuous field." },
-            { src: "https://picsum.photos/1000/1300?random=812", caption: "Display composition with graphic emphasis." }
+            {
+              src: "https://picsum.photos/1200/800?random=811",
+              caption: "Product arrangement across a continuous field."
+            },
+            {
+              src: "https://picsum.photos/1000/1300?random=812",
+              caption: "Display composition with graphic emphasis."
+            }
           ]
         },
 
@@ -107,7 +148,10 @@
           year: "2019",
           layout: "single-monument",
           images: [
-            { src: "https://picsum.photos/1400/1800?random=711", caption: "Single-image presentation with editorial scale." }
+            {
+              src: "https://picsum.photos/1400/1800?random=711",
+              caption: "Single-image presentation with editorial scale."
+            }
           ]
         },
 
@@ -115,16 +159,28 @@
           title: "FLOS",
           year: "2019",
           layout: "editorial-scroll-overlay",
-          sprinkleColors: ["#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff"],
-          textBlend: true,
+          sprinkleColors: [
+            "#ffffff",
+            "#ffffff",
+            "#ffffff",
+            "#ffffff",
+            "#ffffff"
+          ],
           overlayText: [
             "FLOS Arrangements by Michael Anastassiades",
+
             `I have always been fascinated with the parallel that exists between Lighting and Jewelry. Starting from the simple fact of how each piece relates to human scale: one is designed to be worn on the body whereas the other is made to decorate the space someone occupies. I'm challenged by how the delicate nature of something small can be translated spatially and still manage to retain its preciousness in the way materials are presented. It is no coincidence that the word "pendant" has a double meaning: it is both as a piece of jewelry that hangs from a chain worn around the neck, and a light designed to hang from the ceiling. - Michael Anastassiades`,
+
             "New York, 2019"
           ],
+
           images: [
-            { src: "images/FLOS-photo1-jack-roy-jackroy.webp" },
-            { src: "images/FLOS-photo2-jack-roy-jackroy.webp" }
+            {
+              src: "images/FLOS-photo1-jack-roy-jackroy.webp"
+            },
+            {
+              src: "images/FLOS-photo2-jack-roy-jackroy.webp"
+            }
           ]
         },
 
@@ -133,12 +189,18 @@
           year: "2019",
           layout: "staggered-stack",
           images: [
-            { src: "https://picsum.photos/1200/900?random=611", caption: "Layered arrangement with offset rhythm." },
+            {
+              src: "https://picsum.photos/1200/900?random=611",
+              caption: "Layered arrangement with offset rhythm."
+            },
+
             {
               src: "https://picsum.photos/900/1200?random=612",
+
               captionHtml: `
                 <div class="editorial-caption">
                   <p class="section-title">PRODUCT DESCRIPTION:</p>
+
                   <p class="indent">
                     The Executive Shirt has a relaxed fit with drop shoulders and a rounded hem.
                     Featuring a button placket, spread collar, back yoke pleats and a chest pocket.
@@ -146,11 +208,13 @@
                   </p>
 
                   <p class="section-title">SIZE AND FIT:</p>
+
                   <p class="indent">
                     Relaxed fit. Model is 188 cm and wearing size medium. Please see measurements on the last slide.
                   </p>
 
                   <p class="section-title">PRODUCT DETAILS:</p>
+
                   <ul class="bullet-list">
                     <li>Fabric made in Portugal</li>
                     <li>Garment made in Portugal</li>
@@ -161,6 +225,7 @@
                   </ul>
 
                   <p class="section-title">STYLED WITH:</p>
+
                   <p class="indent">
                     Classic Trousers – Grey Check<br>
                     Event Derby – Dark Brown Blush
@@ -168,7 +233,11 @@
                 </div>
               `
             },
-            { src: "https://picsum.photos/1300/800?random=613", caption: "Wide-format view of the installation." }
+
+            {
+              src: "https://picsum.photos/1300/800?random=613",
+              caption: "Wide-format view of the installation."
+            }
           ]
         },
 
@@ -176,12 +245,31 @@
           title: "Fornasetti",
           year: "2020",
           layout: "two-column-grid",
-          sprinkleColors: ["#e8e8e8", "#c4c4c4", "#9e9e9e", "#787878", "#525252", "#2e2e2e"],
+          sprinkleColors: [
+            "#e8e8e8",
+            "#c4c4c4",
+            "#9e9e9e",
+            "#787878",
+            "#525252",
+            "#2e2e2e"
+          ],
           images: [
-            { src: "https://picsum.photos/1000/1300?random=511", caption: "Grid view one" },
-            { src: "https://picsum.photos/1000/1300?random=512", caption: "Grid view two" },
-            { src: "https://picsum.photos/1000/1300?random=513", caption: "Grid view three" },
-            { src: "https://picsum.photos/1000/1300?random=514", caption: "Grid view four" }
+            {
+              src: "https://picsum.photos/1000/1300?random=511",
+              caption: "Grid view one"
+            },
+            {
+              src: "https://picsum.photos/1000/1300?random=512",
+              caption: "Grid view two"
+            },
+            {
+              src: "https://picsum.photos/1000/1300?random=513",
+              caption: "Grid view three"
+            },
+            {
+              src: "https://picsum.photos/1000/1300?random=514",
+              caption: "Grid view four"
+            }
           ]
         },
 
@@ -189,16 +277,31 @@
           title: "Wynn Hamlyn",
           year: "2021",
           layout: "editorial-scroll-overlay",
-          sprinkleColors: ["#f5ff00", "#e8ff61", "#dbfe02", "#c6ff00", "#f9ffb0"],
+          sprinkleColors: [
+            "#f5ff00",
+            "#e8ff61",
+            "#dbfe02",
+            "#c6ff00",
+            "#f9ffb0"
+          ],
           overlayText: [
             "The arrangement proceeds less as a singular display than as a measured sequence of views. Planes, apertures, and shallow thresholds are composed to guide attention laterally, so that the field is read in fragments rather than all at once. The work proposes a retail environment as something closer to a magazine spread: paced, cropped, and layered, with each transition carrying as much weight as the object itself.",
+
             "Surfaces remain deliberately calm. Material changes are slight but consequential, allowing light, reflection, and edge conditions to generate difference. What appears centered at first begins to shift as one moves, and the visual order opens into a softer, less fixed structure. The installation relies on this tension between control and drift, between geometry and atmosphere, to produce a mode of looking that feels both staged and provisional.",
+
             "Rather than presenting product as isolated highlight, the composition treats image, object, and architecture as a shared visual language. The page-like text column anchors the work in an editorial register, while the sequence of images expands and contracts in scale, building a rhythm that is spatial as much as graphic. In this sense the project sits somewhere between display system, publication layout, and room."
           ],
+
           images: [
-            { src: "https://picsum.photos/1600/1100?random=411" },
-            { src: "https://picsum.photos/1600/2100?random=412" },
-            { src: "https://picsum.photos/1600/1200?random=413" }
+            {
+              src: "https://picsum.photos/1600/1100?random=411"
+            },
+            {
+              src: "https://picsum.photos/1600/2100?random=412"
+            },
+            {
+              src: "https://picsum.photos/1600/1200?random=413"
+            }
           ]
         },
 
@@ -207,10 +310,18 @@
           year: "2024",
           layout: "random-scatter",
           images: [
-            { src: "https://picsum.photos/650/900?random=311" },
-            { src: "https://picsum.photos/520/700?random=312" },
-            { src: "https://picsum.photos/760/560?random=313" },
-            { src: "https://picsum.photos/460/640?random=314" }
+            {
+              src: "https://picsum.photos/650/900?random=311"
+            },
+            {
+              src: "https://picsum.photos/520/700?random=312"
+            },
+            {
+              src: "https://picsum.photos/760/560?random=313"
+            },
+            {
+              src: "https://picsum.photos/460/640?random=314"
+            }
           ]
         },
 
@@ -218,11 +329,18 @@
           title: "Thistles",
           year: "2025",
           layout: "right-stack-small",
-          sprinkleColors: ["#d0efff", "#a9dfff", "#8ecbff", "#5fb8ff", "#bfe3ff"],
+          sprinkleColors: [
+            "#d0efff",
+            "#a9dfff",
+            "#8ecbff",
+            "#5fb8ff",
+            "#bfe3ff"
+          ],
           images: [
             {
               src: "https://picsum.photos/1200/900?random=211",
-              caption: "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+              caption:
+                "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
             },
             {
               src: "https://picsum.photos/1200/1400?random=212",
@@ -235,14 +353,23 @@
           title: "Thistles x HTown",
           year: "2026",
           layout: "staggered-stack",
-          sprinkleColors: ["#d0efff", "#a9dfff", "#8ecbff", "#5fb8ff", "#bfe3ff"],
+          sprinkleColors: [
+            "#d0efff",
+            "#a9dfff",
+            "#8ecbff",
+            "#5fb8ff",
+            "#bfe3ff"
+          ],
           images: [
             {
               src: "images/thistles-htown-overview-photo1-jack-roy-jackroy.webp",
-              caption: "A temporary retail environment designed for the Thistles x HTown collaboration. Exploring a balance between product display, architectural rhythm, and brand identity, creating an environment that is both functional and visually considered."
+              caption:
+                "A temporary retail environment designed for the Thistles x HTown collaboration. Exploring a balance between product display, architectural rhythm, and brand identity, creating an environment that is both functional and visually considered."
             },
+
             {
               src: "images/thistles-htown-closeup-photo3-jack-roy-jackroy.webp",
+
               captionHtml: `
                 <div class="editorial-caption">
                   <p class="section-title">SPATIAL CONCEPT:</p>
@@ -271,6 +398,7 @@
                 </div>
               `
             },
+
             {
               src: "images/thistles-htown-photo2-jack-roy-jackroy.webp",
               caption: "Wide-format view of the installation."
@@ -285,10 +413,22 @@
           year: "2016",
           layout: "two-column-grid",
           images: [
-            { src: "https://picsum.photos/1000/1300?random=1031", caption: "Window study one" },
-            { src: "https://picsum.photos/1000/1300?random=1032", caption: "Window study two" },
-            { src: "https://picsum.photos/1000/1300?random=1033", caption: "Window study three" },
-            { src: "https://picsum.photos/1000/1300?random=1034", caption: "Window study four" }
+            {
+              src: "https://picsum.photos/1000/1300?random=1031",
+              caption: "Window study one"
+            },
+            {
+              src: "https://picsum.photos/1000/1300?random=1032",
+              caption: "Window study two"
+            },
+            {
+              src: "https://picsum.photos/1000/1300?random=1033",
+              caption: "Window study three"
+            },
+            {
+              src: "https://picsum.photos/1000/1300?random=1034",
+              caption: "Window study four"
+            }
           ]
         },
 
@@ -297,8 +437,14 @@
           year: "2017",
           layout: "centered-large",
           images: [
-            { src: "https://picsum.photos/1400/1000?random=1021", caption: "Primary window composition." },
-            { src: "https://picsum.photos/1200/1500?random=1022", caption: "Secondary view with vertical emphasis." }
+            {
+              src: "https://picsum.photos/1400/1000?random=1021",
+              caption: "Primary window composition."
+            },
+            {
+              src: "https://picsum.photos/1200/1500?random=1022",
+              caption: "Secondary view with vertical emphasis."
+            }
           ]
         },
 
@@ -306,10 +452,22 @@
           title: "FLOS",
           year: "2018",
           layout: "right-stack",
-          sprinkleColors: ["#ff2ec4", "#ff5fd8", "#ff0aa8", "#ff8be0", "#ff36b8"],
+          sprinkleColors: [
+            "#ff2ec4",
+            "#ff5fd8",
+            "#ff0aa8",
+            "#ff8be0",
+            "#ff36b8"
+          ],
           images: [
-            { src: "https://picsum.photos/1200/900?random=1011", caption: "Window elevation" },
-            { src: "https://picsum.photos/1200/1400?random=1012", caption: "Interior-facing display detail." }
+            {
+              src: "https://picsum.photos/1200/900?random=1011",
+              caption: "Window elevation"
+            },
+            {
+              src: "https://picsum.photos/1200/1400?random=1012",
+              caption: "Interior-facing display detail."
+            }
           ]
         }
       ],
@@ -320,7 +478,10 @@
           year: "2022",
           layout: "centered-large",
           images: [
-            { src: "https://picsum.photos/1400/1000?random=1111", caption: "Exhibition overview." }
+            {
+              src: "https://picsum.photos/1400/1000?random=1111",
+              caption: "Exhibition overview."
+            }
           ]
         }
       ],
@@ -351,31 +512,72 @@
 
       profile: `
         <div class="text-block">
-          <p>Jack Roy is an independent spatial design studio based in New York, working across temporary installations, permanent environments, window displays, exhibitions, and retail spaces.</p>
+          <p>
+            Jack Roy is an independent spatial design studio based in New York,
+            working across temporary installations, permanent environments,
+            window displays, exhibitions, and retail spaces.
+          </p>
 
-          <p>The studio develops spatial concepts that are precise, atmospheric, and materially considered. Each project is approached as a complete experience, bringing together research, narrative, object, architecture, and visual language to create environments that feel distinctive and memorable.</p>
+          <p>
+            The studio develops spatial concepts that are precise, atmospheric,
+            and materially considered. Each project is approached as a complete
+            experience, bringing together research, narrative, object,
+            architecture, and visual language to create environments that feel
+            distinctive and memorable.
+          </p>
 
-          <p>Services span creative strategy, concept development, spatial design, visualisation, technical design, production coordination, and installation delivery. From early ideas through to final execution, the studio works closely with clients, collaborators, makers, and fabricators to maintain clarity, cohesion, and detail at every stage.</p>
+          <p>
+            Services span creative strategy, concept development, spatial design,
+            visualisation, technical design, production coordination, and
+            installation delivery. From early ideas through to final execution,
+            the studio works closely with clients, collaborators, makers, and
+            fabricators to maintain clarity, cohesion, and detail at every stage.
+          </p>
 
-          <p>Working across scales and contexts, the studio is interested in spaces that encourage attention, movement, and participation. The work is defined by restraint, atmosphere, strong visual direction, and a commitment to thoughtful execution.</p>
+          <p>
+            Working across scales and contexts, the studio is interested in spaces
+            that encourage attention, movement, and participation. The work is
+            defined by restraint, atmosphere, strong visual direction, and a
+            commitment to thoughtful execution.
+          </p>
         </div>
       `,
 
       contact: `
         <div class="text-block">
-          <p><a href="mailto:contact@jackroy.co">contact@jackroy.co</a></p>
+          <p>
+            <a href="mailto:contact@jackroy.co">contact@jackroy.co</a>
+          </p>
         </div>
       `
     };
 
-    const categoryButtons = document.querySelectorAll(".category-nav .menu-link");
-    const projectList = document.getElementById("project-list");
-    const projectGallery = document.getElementById("project-gallery");
-    const homeButton = document.getElementById("home-button");
-    const cursorDot = document.querySelector(".cursor-dot");
-    const mobileMenuButton = document.getElementById("mobile-menu-button");
-    const navPanel = document.getElementById("nav-panel");
-    const mobileBackdrop = document.getElementById("mobile-backdrop");
+    const categoryButtons =
+      document.querySelectorAll(".category-nav .menu-link");
+
+    const projectList =
+      document.getElementById("project-list");
+
+    const projectGallery =
+      document.getElementById("project-gallery");
+
+    const editorialOverlay =
+      document.getElementById("editorial-overlay");
+
+    const homeButton =
+      document.getElementById("home-button");
+
+    const cursorDot =
+      document.querySelector(".cursor-dot");
+
+    const mobileMenuButton =
+      document.getElementById("mobile-menu-button");
+
+    const navPanel =
+      document.getElementById("nav-panel");
+
+    const mobileBackdrop =
+      document.getElementById("mobile-backdrop");
 
     function isMobile() {
       return window.matchMedia("(max-width: 768px)").matches;
@@ -400,7 +602,12 @@
       "#3b94ff"
     ];
 
-    let activeSprinkleColors = defaultSprinkleColors;
+    let activeSprinkleColors =
+      defaultSprinkleColors;
+
+    function clearEditorialOverlay() {
+      editorialOverlay.innerHTML = "";
+    }
 
     function renderFooter() {
       return `
@@ -411,9 +618,24 @@
           </div>
 
           <div class="footer-col footer-col-2">
-            <a class="footer-link" href="mailto:contact@jackroy.co">Email</a><br>
-            <a class="footer-link" href="https://www.linkedin.com/in/jackroy/" target="_blank" rel="noreferrer">LinkedIn</a><br>
-            <a class="footer-link" href="https://www.instagram.com/rackjoy/" target="_blank" rel="noreferrer">@rackjoy</a>
+            <a
+              class="footer-link"
+              href="mailto:contact@jackroy.co"
+            >Email</a><br>
+
+            <a
+              class="footer-link"
+              href="https://www.linkedin.com/in/jackroy/"
+              target="_blank"
+              rel="noreferrer"
+            >LinkedIn</a><br>
+
+            <a
+              class="footer-link"
+              href="https://www.instagram.com/rackjoy/"
+              target="_blank"
+              rel="noreferrer"
+            >@rackjoy</a>
           </div>
 
           <div class="footer-col footer-col-3">
@@ -428,7 +650,10 @@
       currentCategory = null;
       currentProjectIndex = null;
       previousMobileCategory = null;
-      activeSprinkleColors = defaultSprinkleColors;
+      activeSprinkleColors =
+        defaultSprinkleColors;
+
+      clearEditorialOverlay();
 
       renderProjects(false);
       renderStaticPage(page);
@@ -437,18 +662,33 @@
     }
 
     function bindFooterLinks() {
-      document.querySelectorAll(".footer-link[data-page]").forEach((button) => {
-        button.addEventListener("click", () => goToStaticPage(button.dataset.page));
-      });
+      document
+        .querySelectorAll(".footer-link[data-page]")
+        .forEach((button) => {
+          button.addEventListener("click", () => {
+            goToStaticPage(
+              button.dataset.page
+            );
+          });
+        });
     }
 
-    function applyStaggerDelays(items, step = 0.05, start = 0.05) {
+    function applyStaggerDelays(
+      items,
+      step = 0.05,
+      start = 0.05
+    ) {
       items.forEach((item, i) => {
-        item.style.setProperty("--item-delay", `${start + i * step}s`);
+        item.style.setProperty(
+          "--item-delay",
+          `${start + i * step}s`
+        );
       });
     }
 
     function renderStaticPage(page) {
+      clearEditorialOverlay();
+
       projectGallery.innerHTML = `
         <div class="text-page-layout shift-right">
           ${staticPages[page]}
@@ -459,27 +699,39 @@
         ${renderFooter()}
       `;
 
-      projectGallery.className = "project-gallery";
+      projectGallery.className =
+        "project-gallery";
+
       projectGallery.scrollTop = 0;
+
       bindFooterLinks();
 
       if (page === "services") {
-        applyStaggerDelays(projectGallery.querySelectorAll(".services-list li"));
+        applyStaggerDelays(
+          projectGallery.querySelectorAll(
+            ".services-list li"
+          )
+        );
       }
     }
 
     function applyImageFade() {
-      const images = projectGallery.querySelectorAll("img");
+      const images =
+        projectGallery.querySelectorAll("img");
 
       images.forEach((img) => {
         img.classList.remove("is-loaded");
 
         if (img.complete) {
-          requestAnimationFrame(() => img.classList.add("is-loaded"));
+          requestAnimationFrame(() => {
+            img.classList.add("is-loaded");
+          });
         } else {
           img.addEventListener(
             "load",
-            () => img.classList.add("is-loaded"),
+            () => {
+              img.classList.add("is-loaded");
+            },
             { once: true }
           );
         }
@@ -490,14 +742,16 @@
       categoryButtons.forEach((btn) => {
         btn.classList.toggle(
           "active",
-          btn.dataset.category === currentCategory &&
-          currentProjectIndex !== null
+          btn.dataset.category ===
+            currentCategory &&
+            currentProjectIndex !== null
         );
 
         btn.classList.toggle(
           "selected-category",
-          btn.dataset.category === currentCategory &&
-          currentProjectIndex === null
+          btn.dataset.category ===
+            currentCategory &&
+            currentProjectIndex === null
         );
       });
     }
@@ -510,6 +764,7 @@
           "mobile-project-open",
           "mobile-menu-open"
         );
+
         return;
       }
 
@@ -544,27 +799,35 @@
         navPanel.classList.remove("open");
         mobileBackdrop.classList.remove("open");
         mobileMenuButton.classList.remove("open");
+
         updateMobileStates();
+
         return;
       }
 
-      const shouldShowHamburger = mobileMode === "project";
+      const shouldShowHamburger =
+        mobileMode === "project";
 
       mobileMenuButton.classList.toggle(
         "is-visible",
         shouldShowHamburger
       );
 
-      navPanel.classList.toggle("open", mobileMenuOpen);
+      navPanel.classList.toggle(
+        "open",
+        mobileMenuOpen
+      );
 
       mobileBackdrop.classList.toggle(
         "open",
-        mobileMenuOpen && mobileMode === "project"
+        mobileMenuOpen &&
+          mobileMode === "project"
       );
 
       mobileMenuButton.classList.toggle(
         "open",
-        mobileMenuOpen && mobileMode === "project"
+        mobileMenuOpen &&
+          mobileMode === "project"
       );
 
       updateMobileStates();
@@ -588,8 +851,11 @@
       currentCategory = null;
       currentProjectIndex = null;
       previousMobileCategory = null;
+
       mobileMode = "landing";
       mobileMenuOpen = false;
+
+      clearEditorialOverlay();
 
       renderProjects(false);
       renderGallery();
@@ -601,21 +867,30 @@
       currentCategory = category;
       currentProjectIndex = null;
       previousMobileCategory = category;
+
       mobileMode = "category";
       mobileMenuOpen = false;
 
+      clearEditorialOverlay();
+
       renderProjects(false);
       renderGallery();
       updateCategoryButtons();
       updateMobileMenuUI();
     }
 
-    function openMobileProject(category, index) {
+    function openMobileProject(
+      category,
+      index
+    ) {
       currentCategory = category;
       currentProjectIndex = index;
       previousMobileCategory = category;
+
       mobileMode = "project";
       mobileMenuOpen = false;
+
+      clearEditorialOverlay();
 
       renderProjects(false);
       renderGallery();
@@ -623,13 +898,24 @@
       updateMobileMenuUI();
     }
 
-    function renderCaptionContent(img, extraClass = "") {
+    function renderCaptionContent(
+      img,
+      extraClass = ""
+    ) {
       if (img.captionHtml) {
-        return `<div class="${extraClass}">${img.captionHtml}</div>`;
+        return `
+          <div class="${extraClass}">
+            ${img.captionHtml}
+          </div>
+        `;
       }
 
       if (img.caption) {
-        return `<div class="caption ${extraClass}">${img.caption}</div>`;
+        return `
+          <div class="caption ${extraClass}">
+            ${img.caption}
+          </div>
+        `;
       }
 
       return "";
@@ -640,47 +926,72 @@
 
       if (!currentCategory) return;
 
-      const projects = portfolioData[currentCategory];
+      const projects =
+        portfolioData[currentCategory];
 
       projects
         .slice()
         .reverse()
         .forEach((project, i) => {
-          const index = projects.length - 1 - i;
-          const button = document.createElement("button");
+          const index =
+            projects.length - 1 - i;
 
-          button.className = "project-link";
+          const button =
+            document.createElement("button");
+
+          button.className =
+            "project-link";
+
           button.type = "button";
 
-          if (index === currentProjectIndex) {
+          if (
+            index === currentProjectIndex
+          ) {
             button.classList.add("active");
           }
 
           if (!animate) {
-            button.classList.add("is-visible");
+            button.classList.add(
+              "is-visible"
+            );
           }
 
           button.innerHTML = `
-            <span class="project-title">${project.title}</span>
-            <span class="project-year">${project.year}</span>
+            <span class="project-title">
+              ${project.title}
+            </span>
+
+            <span class="project-year">
+              ${project.year}
+            </span>
           `;
 
-          button.addEventListener("click", () => {
-            if (isMobile()) {
-              openMobileProject(currentCategory, index);
-            } else {
-              currentProjectIndex = index;
-              renderProjects(false);
-              renderGallery();
-              updateCategoryButtons();
+          button.addEventListener(
+            "click",
+            () => {
+              if (isMobile()) {
+                openMobileProject(
+                  currentCategory,
+                  index
+                );
+              } else {
+                currentProjectIndex =
+                  index;
+
+                renderProjects(false);
+                renderGallery();
+                updateCategoryButtons();
+              }
             }
-          });
+          );
 
           projectList.appendChild(button);
 
           if (animate) {
             setTimeout(() => {
-              button.classList.add("is-visible");
+              button.classList.add(
+                "is-visible"
+              );
             }, i * 60);
           }
         });
@@ -689,50 +1000,94 @@
     function renderRightStack(project) {
       return `
         <div class="gallery-right">
-          ${project.images.map((img) => `
-            <div class="gallery-item">
-              <img src="${img.src}" alt="">
-              ${renderCaptionContent(img)}
-            </div>
-          `).join("")}
+          ${project.images
+            .map(
+              (img) => `
+                <div class="gallery-item">
+                  <img src="${img.src}" alt="">
+                  ${renderCaptionContent(img)}
+                </div>
+              `
+            )
+            .join("")}
         </div>
       `;
     }
 
     function renderRandomScatter(project) {
       const slots = [
-        { top: 8, left: 8, width: 18 },
-        { top: 18, left: 34, width: 16 },
-        { top: 36, left: 58, width: 20 },
-        { top: 54, left: 78, width: 17 }
+        {
+          top: 8,
+          left: 8,
+          width: 18
+        },
+        {
+          top: 18,
+          left: 34,
+          width: 16
+        },
+        {
+          top: 36,
+          left: 58,
+          width: 20
+        },
+        {
+          top: 54,
+          left: 78,
+          width: 17
+        }
       ];
 
-      const shuffled = [...slots].sort(() => Math.random() - 0.5);
+      const shuffled =
+        [...slots].sort(
+          () => Math.random() - 0.5
+        );
 
       return `
         <div class="gallery-random">
-          ${project.images.map((img, i) => {
-            const slot = shuffled[i % shuffled.length];
-            const topJitter = Math.floor(Math.random() * 4 - 2);
-            const leftJitter = Math.floor(Math.random() * 5 - 2);
-            const widthJitter = Math.floor(Math.random() * 3 - 1);
-            const rotation = Math.floor(Math.random() * 8 - 4);
+          ${project.images
+            .map((img, i) => {
+              const slot =
+                shuffled[
+                  i % shuffled.length
+                ];
 
-            return `
-              <img
-                src="${img.src}"
-                class="random-img"
-                alt=""
-                style="
-                  top:${slot.top + topJitter}%;
-                  left:${slot.left + leftJitter}%;
-                  width:${slot.width + widthJitter}vw;
-                  transform: rotate(${rotation}deg);
-                  z-index:${i + 1};
-                "
-              >
-            `;
-          }).join("")}
+              const topJitter =
+                Math.floor(
+                  Math.random() * 4 - 2
+                );
+
+              const leftJitter =
+                Math.floor(
+                  Math.random() * 5 - 2
+                );
+
+              const widthJitter =
+                Math.floor(
+                  Math.random() * 3 - 1
+                );
+
+              const rotation =
+                Math.floor(
+                  Math.random() * 8 - 4
+                );
+
+              return `
+                <img
+                  src="${img.src}"
+                  class="random-img"
+                  alt=""
+                  style="
+                    top:${slot.top + topJitter}%;
+                    left:${slot.left + leftJitter}%;
+                    width:${slot.width + widthJitter}vw;
+                    transform: rotate(${rotation}deg);
+                    z-index:${i + 1};
+                  "
+                >
+              `;
+            })
+            .join("")}
         </div>
       `;
     }
@@ -740,30 +1095,69 @@
     function renderCenteredLarge(project) {
       return `
         <div class="gallery-centered-large">
-          ${project.images.map((img) => `
-            <div class="gallery-item centered-large-item">
-              <img src="${img.src}" alt="">
-              ${renderCaptionContent(img)}
-            </div>
-          `).join("")}
+          ${project.images
+            .map(
+              (img) => `
+                <div class="gallery-item centered-large-item">
+                  <img src="${img.src}" alt="">
+                  ${renderCaptionContent(img)}
+                </div>
+              `
+            )
+            .join("")}
         </div>
       `;
     }
 
+    /*
+      IMPORTANT:
+      The images are rendered inside the scrolling gallery.
+      The text is NOT rendered here anymore.
+      It is rendered into #editorial-overlay instead.
+    */
     function renderEditorialScrollOverlay(project) {
-      const blendClass = project.textBlend ? " blend-text" : "";
-
       return `
         <div class="gallery-editorial-scroll">
-          ${project.images.map((img) => `
-            <div class="editorial-item">
-              <img src="${img.src}" alt="" class="wynn-image">
-            </div>
-          `).join("")}
+          ${project.images
+            .map(
+              (img) => `
+                <div class="editorial-item">
+                  <img
+                    src="${img.src}"
+                    alt=""
+                    class="wynn-image"
+                  >
+                </div>
+              `
+            )
+            .join("")}
+        </div>
+      `;
+    }
 
-          <div class="fixed-text-paragraph${blendClass}">
-            ${project.overlayText.map((p) => `<p>${p}</p>`).join("")}
-          </div>
+    function renderEditorialOverlay(project) {
+      if (
+        !project.overlayText ||
+        !project.overlayText.length
+      ) {
+        return "";
+      }
+
+      return `
+        <div class="fixed-text-paragraph">
+          ${project.overlayText
+            .map((p, i) => {
+              if (i === 0) {
+                return `
+                  <p class="editorial-overlay-title">
+                    ${p}
+                  </p>
+                `;
+              }
+
+              return `<p>${p}</p>`;
+            })
+            .join("")}
         </div>
       `;
     }
@@ -771,12 +1165,19 @@
     function renderTwoColumnGrid(project) {
       return `
         <div class="gallery-two-grid">
-          ${project.images.map((img) => `
-            <div class="grid-item">
-              <img src="${img.src}" alt="">
-              ${renderCaptionContent(img, "caption-below")}
-            </div>
-          `).join("")}
+          ${project.images
+            .map(
+              (img) => `
+                <div class="grid-item">
+                  <img src="${img.src}" alt="">
+                  ${renderCaptionContent(
+                    img,
+                    "caption-below"
+                  )}
+                </div>
+              `
+            )
+            .join("")}
         </div>
       `;
     }
@@ -784,12 +1185,16 @@
     function renderStaggeredStack(project) {
       return `
         <div class="gallery-staggered">
-          ${project.images.map((img, i) => `
-            <div class="gallery-item stagger-${i}">
-              <img src="${img.src}" alt="">
-              ${renderCaptionContent(img)}
-            </div>
-          `).join("")}
+          ${project.images
+            .map(
+              (img, i) => `
+                <div class="gallery-item stagger-${i}">
+                  <img src="${img.src}" alt="">
+                  ${renderCaptionContent(img)}
+                </div>
+              `
+            )
+            .join("")}
         </div>
       `;
     }
@@ -797,12 +1202,16 @@
     function renderSingleMonument(project) {
       return `
         <div class="gallery-monument">
-          ${project.images.map((img) => `
-            <div class="gallery-item monument-item">
-              <img src="${img.src}" alt="">
-              ${renderCaptionContent(img)}
-            </div>
-          `).join("")}
+          ${project.images
+            .map(
+              (img) => `
+                <div class="gallery-item monument-item">
+                  <img src="${img.src}" alt="">
+                  ${renderCaptionContent(img)}
+                </div>
+              `
+            )
+            .join("")}
         </div>
       `;
     }
@@ -810,12 +1219,19 @@
     function renderCaptionLed(project) {
       return `
         <div class="gallery-caption-led">
-          ${project.images.map((img) => `
-            <div class="caption-led-item">
-              <img src="${img.src}" alt="">
-              ${renderCaptionContent(img, "caption-wide")}
-            </div>
-          `).join("")}
+          ${project.images
+            .map(
+              (img) => `
+                <div class="caption-led-item">
+                  <img src="${img.src}" alt="">
+                  ${renderCaptionContent(
+                    img,
+                    "caption-wide"
+                  )}
+                </div>
+              `
+            )
+            .join("")}
         </div>
       `;
     }
@@ -823,12 +1239,19 @@
     function renderDiptych(project) {
       return `
         <div class="gallery-diptych">
-          ${project.images.map((img) => `
-            <div class="diptych-item">
-              <img src="${img.src}" alt="">
-              ${renderCaptionContent(img, "caption-below")}
-            </div>
-          `).join("")}
+          ${project.images
+            .map(
+              (img) => `
+                <div class="diptych-item">
+                  <img src="${img.src}" alt="">
+                  ${renderCaptionContent(
+                    img,
+                    "caption-below"
+                  )}
+                </div>
+              `
+            )
+            .join("")}
         </div>
       `;
     }
@@ -842,7 +1265,9 @@
     }
 
     function renderMobileLinear(project) {
-      if (project.layout === "text-page") {
+      if (
+        project.layout === "text-page"
+      ) {
         return `
           <div class="gallery-mobile-linear text-only">
             <div class="mobile-linear-item">
@@ -854,72 +1279,129 @@
         `;
       }
 
-      if (project.layout === "editorial-scroll-overlay") {
-        const blendClass = project.textBlend ? " blend-text" : "";
-
+      if (
+        project.layout ===
+        "editorial-scroll-overlay"
+      ) {
         return `
           <div class="gallery-mobile-linear">
-            <div class="mobile-editorial-text${blendClass}">
-              ${project.overlayText.map((p) => `<p>${p}</p>`).join("")}
+            <div class="mobile-editorial-text">
+              ${project.overlayText
+                .map(
+                  (p, i) => {
+                    if (i === 0) {
+                      return `
+                        <p class="editorial-overlay-title">
+                          ${p}
+                        </p>
+                      `;
+                    }
+
+                    return `<p>${p}</p>`;
+                  }
+                )
+                .join("")}
             </div>
 
-            ${project.images.map((img) => `
-              <div class="mobile-linear-item">
-                <img src="${img.src}" alt="" class="wynn-image">
-              </div>
-            `).join("")}
+            ${project.images
+              .map(
+                (img) => `
+                  <div class="mobile-linear-item">
+                    <img
+                      src="${img.src}"
+                      alt=""
+                      class="wynn-image"
+                    >
+                  </div>
+                `
+              )
+              .join("")}
           </div>
         `;
       }
 
       return `
         <div class="gallery-mobile-linear">
-          ${project.images.map((img) => `
-            <div class="mobile-linear-item">
-              <img src="${img.src}" alt="">
-              ${renderCaptionContent(img, "mobile-caption")}
-            </div>
-          `).join("")}
+          ${project.images
+            .map(
+              (img) => `
+                <div class="mobile-linear-item">
+                  <img src="${img.src}" alt="">
+                  ${renderCaptionContent(
+                    img,
+                    "mobile-caption"
+                  )}
+                </div>
+              `
+            )
+            .join("")}
         </div>
       `;
     }
 
     function attachWynnImageToggle() {
-      const wynnImages = projectGallery.querySelectorAll(".wynn-image");
+      const wynnImages =
+        projectGallery.querySelectorAll(
+          ".wynn-image"
+        );
 
       wynnImages.forEach((img) => {
-        img.addEventListener("click", () => {
-          img.classList.toggle("is-color");
-        });
+        img.addEventListener(
+          "click",
+          () => {
+            img.classList.toggle(
+              "is-color"
+            );
+          }
+        );
       });
     }
 
     function renderGallery() {
-      if (currentProjectIndex === null || !currentCategory) {
-        activeSprinkleColors = defaultSprinkleColors;
+      clearEditorialOverlay();
+
+      if (
+        currentProjectIndex === null ||
+        !currentCategory
+      ) {
+        activeSprinkleColors =
+          defaultSprinkleColors;
 
         projectGallery.innerHTML = `
           <div class="home-footer-spacer"></div>
           ${renderFooter()}
         `;
 
-        projectGallery.className = "project-gallery";
+        projectGallery.className =
+          "project-gallery";
+
         projectGallery.scrollTop = 0;
+
         bindFooterLinks();
+
         return;
       }
 
-      const project = portfolioData[currentCategory][currentProjectIndex];
+      const project =
+        portfolioData[currentCategory][
+          currentProjectIndex
+        ];
 
       activeSprinkleColors =
-        project.sprinkleColors || defaultSprinkleColors;
+        project.sprinkleColors ||
+        defaultSprinkleColors;
 
-      projectGallery.className = "project-gallery";
+      projectGallery.className =
+        "project-gallery";
 
       if (isMobile()) {
-        projectGallery.innerHTML = renderMobileLinear(project);
+        projectGallery.innerHTML =
+          renderMobileLinear(project);
 
-        if (project.layout === "editorial-scroll-overlay") {
+        if (
+          project.layout ===
+          "editorial-scroll-overlay"
+        ) {
           attachWynnImageToggle();
         }
 
@@ -929,55 +1411,109 @@
         );
 
         projectGallery.scrollTop = 0;
+
         bindFooterLinks();
         applyImageFade();
+
         return;
       }
 
-      if (project.layout === "right-stack") {
-        projectGallery.innerHTML = renderRightStack(project);
+      if (
+        project.layout ===
+        "right-stack"
+      ) {
+        projectGallery.innerHTML =
+          renderRightStack(project);
 
-      } else if (project.layout === "right-stack-small") {
+      } else if (
+        project.layout ===
+        "right-stack-small"
+      ) {
         projectGallery.classList.add(
           "small-mode",
           "no-top-gap-right"
         );
-        projectGallery.innerHTML = renderRightStack(project);
 
-      } else if (project.layout === "random-scatter") {
-        projectGallery.classList.add("glassons-lock");
-        projectGallery.innerHTML = renderRandomScatter(project);
-
-      } else if (project.layout === "centered-large") {
-        projectGallery.innerHTML = renderCenteredLarge(project);
-
-      } else if (project.layout === "editorial-scroll-overlay") {
         projectGallery.innerHTML =
-          renderEditorialScrollOverlay(project);
+          renderRightStack(project);
+
+      } else if (
+        project.layout ===
+        "random-scatter"
+      ) {
+        projectGallery.classList.add(
+          "glassons-lock"
+        );
+
+        projectGallery.innerHTML =
+          renderRandomScatter(project);
+
+      } else if (
+        project.layout ===
+        "centered-large"
+      ) {
+        projectGallery.innerHTML =
+          renderCenteredLarge(project);
+
+      } else if (
+        project.layout ===
+        "editorial-scroll-overlay"
+      ) {
+        projectGallery.innerHTML =
+          renderEditorialScrollOverlay(
+            project
+          );
+
+        editorialOverlay.innerHTML =
+          renderEditorialOverlay(
+            project
+          );
+
         attachWynnImageToggle();
 
-      } else if (project.layout === "two-column-grid") {
+      } else if (
+        project.layout ===
+        "two-column-grid"
+      ) {
         projectGallery.innerHTML =
           renderTwoColumnGrid(project);
 
-      } else if (project.layout === "staggered-stack") {
+      } else if (
+        project.layout ===
+        "staggered-stack"
+      ) {
         projectGallery.innerHTML =
           renderStaggeredStack(project);
 
-      } else if (project.layout === "single-monument") {
-        projectGallery.classList.add("no-top-gap-monument");
+      } else if (
+        project.layout ===
+        "single-monument"
+      ) {
+        projectGallery.classList.add(
+          "no-top-gap-monument"
+        );
+
         projectGallery.innerHTML =
           renderSingleMonument(project);
 
-      } else if (project.layout === "caption-led") {
+      } else if (
+        project.layout ===
+        "caption-led"
+      ) {
         projectGallery.innerHTML =
           renderCaptionLed(project);
 
-      } else if (project.layout === "diptych") {
+      } else if (
+        project.layout ===
+        "diptych"
+      ) {
         projectGallery.innerHTML =
           renderDiptych(project);
 
-      } else if (project.layout === "text-page") {
+      } else if (
+        project.layout ===
+        "text-page"
+      ) {
         projectGallery.innerHTML =
           renderTextPage(project);
 
@@ -991,98 +1527,146 @@
       );
 
       projectGallery.scrollTop = 0;
+
       bindFooterLinks();
       applyImageFade();
     }
 
     categoryButtons.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const selectedCategory = btn.dataset.category;
+      btn.addEventListener(
+        "click",
+        () => {
+          const selectedCategory =
+            btn.dataset.category;
 
-        if (isMobile()) {
-          if (mobileMode === "landing") {
-            goToMobileCategory(selectedCategory);
-          } else if (
-            mobileMode === "category" ||
-            mobileMode === "project"
-          ) {
-            goToMobileCategory(selectedCategory);
-            openMobileMenu();
+          if (isMobile()) {
+            if (
+              mobileMode === "landing"
+            ) {
+              goToMobileCategory(
+                selectedCategory
+              );
+
+            } else if (
+              mobileMode === "category" ||
+              mobileMode === "project"
+            ) {
+              goToMobileCategory(
+                selectedCategory
+              );
+
+              openMobileMenu();
+            }
+
+          } else {
+            currentCategory =
+              selectedCategory;
+
+            currentProjectIndex =
+              portfolioData[
+                currentCategory
+              ].length - 1;
+
+            renderProjects(true);
+            renderGallery();
+            updateCategoryButtons();
           }
-        } else {
-          currentCategory = selectedCategory;
-          currentProjectIndex =
-            portfolioData[currentCategory].length - 1;
-
-          renderProjects(true);
-          renderGallery();
-          updateCategoryButtons();
         }
-      });
+      );
     });
 
-    homeButton.addEventListener("click", () => {
-      if (isMobile()) {
-        goToMobileLanding();
-      } else {
-        currentCategory = null;
-        currentProjectIndex = null;
+    homeButton.addEventListener(
+      "click",
+      () => {
+        if (isMobile()) {
+          goToMobileLanding();
 
-        categoryButtons.forEach((b) => {
-          b.classList.remove(
-            "active",
-            "selected-category"
-          );
-        });
+        } else {
+          currentCategory = null;
+          currentProjectIndex = null;
 
-        renderProjects(false);
-        renderGallery();
+          categoryButtons.forEach((b) => {
+            b.classList.remove(
+              "active",
+              "selected-category"
+            );
+          });
+
+          clearEditorialOverlay();
+
+          renderProjects(false);
+          renderGallery();
+        }
       }
-    });
+    );
 
     document
-      .querySelectorAll("#page-nav [data-page]")
+      .querySelectorAll(
+        "#page-nav [data-page]"
+      )
       .forEach((button) => {
-        button.addEventListener("click", () => {
-          goToStaticPage(button.dataset.page);
-        });
+        button.addEventListener(
+          "click",
+          () => {
+            goToStaticPage(
+              button.dataset.page
+            );
+          }
+        );
       });
 
-    mobileMenuButton.addEventListener("click", () => {
-      if (!isMobile()) return;
+    mobileMenuButton.addEventListener(
+      "click",
+      () => {
+        if (!isMobile()) return;
 
-      mobileMenuOpen = !mobileMenuOpen;
+        mobileMenuOpen =
+          !mobileMenuOpen;
 
-      if (
-        mobileMenuOpen &&
-        !currentCategory &&
-        previousMobileCategory
-      ) {
-        currentCategory = previousMobileCategory;
-        renderProjects(false);
+        if (
+          mobileMenuOpen &&
+          !currentCategory &&
+          previousMobileCategory
+        ) {
+          currentCategory =
+            previousMobileCategory;
+
+          renderProjects(false);
+        }
+
+        updateMobileMenuUI();
       }
+    );
 
-      updateMobileMenuUI();
-    });
+    mobileBackdrop.addEventListener(
+      "click",
+      () => {
+        if (!isMobile()) return;
 
-    mobileBackdrop.addEventListener("click", () => {
-      if (!isMobile()) return;
-      closeMobileMenu();
-    });
-
-    window.addEventListener("mousemove", (e) => {
-      if (cursorDot) {
-        cursorDot.style.left = `${e.clientX}px`;
-        cursorDot.style.top = `${e.clientY}px`;
+        closeMobileMenu();
       }
-    });
+    );
+
+    window.addEventListener(
+      "mousemove",
+      (e) => {
+        if (cursorDot) {
+          cursorDot.style.left =
+            `${e.clientX}px`;
+
+          cursorDot.style.top =
+            `${e.clientY}px`;
+        }
+      }
+    );
 
     const SPRINKLE_STEP = 10;
 
     function randomSprinkleColor() {
       return activeSprinkleColors[
         Math.floor(
-          Math.random() * activeSprinkleColors.length
+          Math.random() *
+            activeSprinkleColors.length
         )
       ];
     }
@@ -1091,22 +1675,31 @@
       const sprinkle =
         document.createElement("div");
 
-      sprinkle.className = "cursor-sprinkle";
+      sprinkle.className =
+        "cursor-sprinkle";
 
-      const size = 4 + Math.random() * 3;
+      const size =
+        4 + Math.random() * 3;
 
-      sprinkle.style.left = `${x}px`;
-      sprinkle.style.top = `${y}px`;
+      sprinkle.style.left =
+        `${x}px`;
+
+      sprinkle.style.top =
+        `${y}px`;
+
       sprinkle.style.setProperty(
         "--sprinkle-size",
         `${size}px`
       );
+
       sprinkle.style.background =
         randomSprinkleColor();
 
       sprinkle.style.setProperty(
         "--sprinkle-rotate",
-        `${Math.floor(Math.random() * 360)}deg`
+        `${Math.floor(
+          Math.random() * 360
+        )}deg`
       );
 
       sprinkle.addEventListener(
@@ -1114,107 +1707,170 @@
         () => sprinkle.remove()
       );
 
-      document.body.appendChild(sprinkle);
+      document.body.appendChild(
+        sprinkle
+      );
     }
 
     let lastSprinkleX = null;
     let lastSprinkleY = null;
 
-    window.addEventListener("mousemove", (e) => {
-      if (isMobile()) return;
+    window.addEventListener(
+      "mousemove",
+      (e) => {
+        if (isMobile()) return;
 
-      if (lastSprinkleX === null) {
-        lastSprinkleX = e.clientX;
-        lastSprinkleY = e.clientY;
-        spawnSprinkle(e.clientX, e.clientY);
-        return;
-      }
+        if (
+          lastSprinkleX === null
+        ) {
+          lastSprinkleX =
+            e.clientX;
 
-      const dx = e.clientX - lastSprinkleX;
-      const dy = e.clientY - lastSprinkleY;
-      const distance = Math.sqrt(
-        dx * dx + dy * dy
-      );
-
-      if (distance >= SPRINKLE_STEP) {
-        const steps = Math.floor(
-          distance / SPRINKLE_STEP
-        );
-
-        for (let i = 1; i <= steps; i++) {
-          const t = i / steps;
+          lastSprinkleY =
+            e.clientY;
 
           spawnSprinkle(
-            lastSprinkleX + dx * t,
-            lastSprinkleY + dy * t
+            e.clientX,
+            e.clientY
           );
+
+          return;
         }
 
-        lastSprinkleX = e.clientX;
-        lastSprinkleY = e.clientY;
-      }
-    });
+        const dx =
+          e.clientX -
+          lastSprinkleX;
 
-    document.addEventListener("click", (e) => {
-      if (isMobile()) return;
-
-      const burstCount = 8;
-
-      for (let i = 0; i < burstCount; i++) {
-        const angle =
-          (Math.PI * 2 * i) / burstCount +
-          Math.random() * 0.3;
+        const dy =
+          e.clientY -
+          lastSprinkleY;
 
         const distance =
-          30 + Math.random() * 20;
+          Math.sqrt(
+            dx * dx +
+            dy * dy
+          );
 
-        const bx = Math.cos(angle) * distance;
-        const by = Math.sin(angle) * distance;
+        if (
+          distance >=
+          SPRINKLE_STEP
+        ) {
+          const steps =
+            Math.floor(
+              distance /
+                SPRINKLE_STEP
+            );
 
-        const burst =
-          document.createElement("div");
+          for (
+            let i = 1;
+            i <= steps;
+            i++
+          ) {
+            const t =
+              i / steps;
 
-        burst.className =
-          "cursor-sprinkle cursor-burst";
+            spawnSprinkle(
+              lastSprinkleX +
+                dx * t,
+              lastSprinkleY +
+                dy * t
+            );
+          }
 
-        const size =
-          5 + Math.random() * 4;
+          lastSprinkleX =
+            e.clientX;
 
-        burst.style.left = `${e.clientX}px`;
-        burst.style.top = `${e.clientY}px`;
-
-        burst.style.setProperty(
-          "--sprinkle-size",
-          `${size}px`
-        );
-
-        burst.style.setProperty(
-          "--burst-x",
-          `${bx}px`
-        );
-
-        burst.style.setProperty(
-          "--burst-y",
-          `${by}px`
-        );
-
-        burst.style.background =
-          randomSprinkleColor();
-
-        burst.addEventListener(
-          "animationend",
-          () => burst.remove()
-        );
-
-        document.body.appendChild(burst);
+          lastSprinkleY =
+            e.clientY;
+        }
       }
-    });
+    );
+
+    document.addEventListener(
+      "click",
+      (e) => {
+        if (isMobile()) return;
+
+        const burstCount = 8;
+
+        for (
+          let i = 0;
+          i < burstCount;
+          i++
+        ) {
+          const angle =
+            (Math.PI * 2 * i) /
+              burstCount +
+            Math.random() *
+              0.3;
+
+          const distance =
+            30 +
+            Math.random() * 20;
+
+          const bx =
+            Math.cos(angle) *
+            distance;
+
+          const by =
+            Math.sin(angle) *
+            distance;
+
+          const burst =
+            document.createElement(
+              "div"
+            );
+
+          burst.className =
+            "cursor-sprinkle cursor-burst";
+
+          const size =
+            5 +
+            Math.random() * 4;
+
+          burst.style.left =
+            `${e.clientX}px`;
+
+          burst.style.top =
+            `${e.clientY}px`;
+
+          burst.style.setProperty(
+            "--sprinkle-size",
+            `${size}px`
+          );
+
+          burst.style.setProperty(
+            "--burst-x",
+            `${bx}px`
+          );
+
+          burst.style.setProperty(
+            "--burst-y",
+            `${by}px`
+          );
+
+          burst.style.background =
+            randomSprinkleColor();
+
+          burst.addEventListener(
+            "animationend",
+            () => burst.remove()
+          );
+
+          document.body.appendChild(
+            burst
+          );
+        }
+      }
+    );
 
     function isInteractiveTarget(el) {
       return (
         el &&
         el.closest &&
-        el.closest("a, button, img")
+        el.closest(
+          "a, button, img"
+        )
       );
     }
 
@@ -1223,7 +1879,20 @@
         el &&
         el.closest &&
         el.closest(
-          "p, .caption, .caption-below, .caption-wide, .editorial-caption, .indent, .bullet-list li, .mobile-caption, .fixed-text-paragraph, .mobile-editorial-text, .text-block p, .services-list li"
+          `
+          p,
+          .caption,
+          .caption-below,
+          .caption-wide,
+          .editorial-caption,
+          .indent,
+          .bullet-list li,
+          .mobile-caption,
+          .fixed-text-paragraph,
+          .mobile-editorial-text,
+          .text-block p,
+          .services-list li
+          `
         )
       );
     }
@@ -1233,12 +1902,32 @@
       (e) => {
         if (!cursorDot) return;
 
-        if (isInteractiveTarget(e.target)) {
-          cursorDot.classList.add("is-hover");
-          cursorDot.classList.remove("is-text");
-        } else if (isTextTarget(e.target)) {
-          cursorDot.classList.add("is-text");
-          cursorDot.classList.remove("is-hover");
+        if (
+          isInteractiveTarget(
+            e.target
+          )
+        ) {
+          cursorDot.classList.add(
+            "is-hover"
+          );
+
+          cursorDot.classList.remove(
+            "is-text"
+          );
+
+        } else if (
+          isTextTarget(
+            e.target
+          )
+        ) {
+          cursorDot.classList.add(
+            "is-text"
+          );
+
+          cursorDot.classList.remove(
+            "is-hover"
+          );
+
         } else {
           cursorDot.classList.remove(
             "is-hover",
@@ -1254,8 +1943,12 @@
         if (!cursorDot) return;
 
         if (
-          isInteractiveTarget(e.target) &&
-          !isInteractiveTarget(e.relatedTarget)
+          isInteractiveTarget(
+            e.target
+          ) &&
+          !isInteractiveTarget(
+            e.relatedTarget
+          )
         ) {
           cursorDot.classList.remove(
             "is-hover"
@@ -1263,8 +1956,12 @@
         }
 
         if (
-          isTextTarget(e.target) &&
-          !isTextTarget(e.relatedTarget)
+          isTextTarget(
+            e.target
+          ) &&
+          !isTextTarget(
+            e.relatedTarget
+          )
         ) {
           cursorDot.classList.remove(
             "is-text"
@@ -1276,7 +1973,10 @@
     document.addEventListener(
       "contextmenu",
       (e) => {
-        if (e.target.tagName === "IMG") {
+        if (
+          e.target.tagName ===
+          "IMG"
+        ) {
           e.preventDefault();
         }
       }
@@ -1285,35 +1985,50 @@
     document.addEventListener(
       "dragstart",
       (e) => {
-        if (e.target.tagName === "IMG") {
+        if (
+          e.target.tagName ===
+          "IMG"
+        ) {
           e.preventDefault();
         }
       }
     );
 
-    window.addEventListener("resize", () => {
-      if (isMobile()) {
-        if (mobileMode === "desktop") {
-          goToMobileLanding();
+    window.addEventListener(
+      "resize",
+      () => {
+        if (isMobile()) {
+          if (
+            mobileMode ===
+            "desktop"
+          ) {
+            goToMobileLanding();
+
+          } else {
+            updateMobileMenuUI();
+            renderProjects(false);
+            renderGallery();
+            updateCategoryButtons();
+          }
+
         } else {
-          updateMobileMenuUI();
+          mobileMode =
+            "desktop";
+
+          mobileMenuOpen =
+            false;
+
           renderProjects(false);
           renderGallery();
           updateCategoryButtons();
+          updateMobileMenuUI();
         }
-      } else {
-        mobileMode = "desktop";
-        mobileMenuOpen = false;
-
-        renderProjects(false);
-        renderGallery();
-        updateCategoryButtons();
-        updateMobileMenuUI();
       }
-    });
+    );
 
     if (isMobile()) {
       goToMobileLanding();
+
     } else {
       renderProjects(true);
       renderGallery();
