@@ -705,7 +705,7 @@ p,
    setting boardText: true on a project in portfolioData. */
 .fixed-text-paragraph.board-text,
 .mobile-editorial-text.board-text {
-  opacity: 1;
+  opacity: 0.8;
 }
 
 .fixed-text-paragraph.board-text p,
@@ -713,7 +713,7 @@ p,
   display: inline;
   font-family: "Doto", monospace;
   font-weight: 700;
-  font-size: 20px;
+  font-size: 28px;
   letter-spacing: 0.5px;
   line-height: 1.8;
   color: #f2f0eb;
