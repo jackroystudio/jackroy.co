@@ -668,7 +668,10 @@ p,
   transition:
     filter 0.2s ease,
     opacity 0.4s ease;
-  cursor: pointer;
+
+  /* FIX: let the custom square cursor show instead of the
+     native browser hand/pointer icon when hovering images */
+  cursor: none;
 }
 
 .editorial-item img.is-color,
@@ -694,6 +697,16 @@ p,
 .fixed-text-paragraph p + p,
 .mobile-editorial-text p + p {
   margin-top: 14px;
+}
+
+/* FIX: optional per-project effect so overlay text stays legible
+   over both light and dark parts of a photo. Opt in by setting
+   textBlend: true on a project in portfolioData. */
+.fixed-text-paragraph.blend-text,
+.mobile-editorial-text.blend-text {
+  color: #ffffff;
+  opacity: 1;
+  mix-blend-mode: difference;
 }
 
 /* =========================================================
