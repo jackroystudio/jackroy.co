@@ -713,12 +713,12 @@ p,
   display: inline;
   font-family: "Doto", monospace;
   font-weight: 700;
-  font-size: 13px;
-  letter-spacing: 1px;
-  line-height: 2.1;
+  font-size: 20px;
+  letter-spacing: 0.5px;
+  line-height: 1.8;
   color: #f2f0eb;
   background: #262524;
-  padding: 3px 7px;
+  padding: -10px 2px;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
 }
