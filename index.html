@@ -3,7 +3,65 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Jack Roy</title>
+
+  <!--
+    GitHub Pages serves only real files, so a direct hit on a path like
+    /spatial/thistles has no matching file. 404.html catches that request
+    and redirects here with the intended path encoded in the query
+    string; this script decodes it and restores the clean URL before the
+    app renders. See 404.html for the other half of this pair.
+  -->
+  <script type="text/javascript">
+    (function (l) {
+      if (l.search[1] === "p" && l.search[2] === "=") {
+        var decoded = l.search.slice(3).split("&").map(function (s) {
+          return s.replace(/~and~/g, "&");
+        }).join("?");
+        window.history.replaceState(
+          null, null,
+          l.pathname.slice(0, -1) + decoded + l.hash
+        );
+      }
+    })(window.location);
+  </script>
+
+  <title>Jack Roy | Independent Spatial Design Studio</title>
+  <meta name="description" content="Jack Roy is an independent spatial design studio based in New York, working across temporary installations, window displays, exhibitions, and retail spaces." />
+  <link rel="canonical" href="https://www.jackroy.co/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Jack Roy" />
+  <meta property="og:title" content="Jack Roy | Independent Spatial Design Studio" />
+  <meta property="og:description" content="Jack Roy is an independent spatial design studio based in New York, working across temporary installations, window displays, exhibitions, and retail spaces." />
+  <meta property="og:url" content="https://www.jackroy.co/" />
+  <meta property="og:image" content="https://i.postimg.cc/pL57wq3M/favicon.png" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Jack Roy | Independent Spatial Design Studio" />
+  <meta name="twitter:description" content="Jack Roy is an independent spatial design studio based in New York, working across temporary installations, window displays, exhibitions, and retail spaces." />
+  <meta name="twitter:image" content="https://i.postimg.cc/pL57wq3M/favicon.png" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Jack Roy",
+    "jobTitle": "Spatial Designer",
+    "url": "https://www.jackroy.co/",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "275 Broome Street",
+      "addressLocality": "New York",
+      "addressRegion": "NY",
+      "postalCode": "10002",
+      "addressCountry": "US"
+    },
+    "sameAs": [
+      "https://www.linkedin.com/in/jackroy/",
+      "https://www.instagram.com/rackjoy/"
+    ]
+  }
+  </script>
 
   <link rel="icon" type="image/png" href="https://i.postimg.cc/pL57wq3M/favicon.png" />
 
@@ -74,8 +132,8 @@
           layout: "diptych",
           sprinkleColors: ["#39FF14", "#C8A2C8"],
           images: [
-            { src: "images/MartineR-photo1-jack-roy-jackroy.webp", caption: "Retail installation view" },
-            { src: "images/MartineR-photo2-jack-roy-jackroy.webp", caption: "Material and display study" }
+            { src: "images/MartineR-photo1.webp", caption: "Retail installation view" },
+            { src: "images/MartineR-photo2.webp", caption: "Material and display study" }
           ]
         },
 
@@ -85,9 +143,9 @@
           layout: "right-stack",
           sprinkleColors: ["#ff2ec4", "#ff5fd8", "#ff0aa8", "#ff8be0", "#ff36b8"],
           images: [
-            { src: "images/HLANG-photo1-jack-roy-jackroy.webp", caption: "Interior Display Unit" },
-            { src: "images/HLANG-Window-jack-roy-jackroy.webp", caption: "Window Treatment" },
-            { src: "images/HLANG-photo2-jack-roy-jackroy.webp", caption: "Display Unit Detail" }
+            { src: "images/HLANG-photo1.webp", caption: "Interior Display Unit" },
+            { src: "images/HLANG-Window.webp", caption: "Window Treatment" },
+            { src: "images/HLANG-photo2.webp", caption: "Display Unit Detail" }
           ]
         },
 
@@ -107,8 +165,7 @@
           year: "2019",
           layout: "single-monument",
           images: [
-            { src: "images/MJ-NYM-2-jack-roy-jackroy.webp", caption: "Single-image presentation with editorial scale." },
-            { src: "images/MJ-NYM-1-jack-roy-jackroy.webp", caption: "Single-image presentation with editorial scale." }
+            { src: "https://picsum.photos/1400/1800?random=711", caption: "Single-image presentation with editorial scale." }
           ]
         },
 
@@ -120,12 +177,12 @@
           boardText: true,
           overlayText: [
             "FLOS Arrangements by Michael Anastassiades",
-            `<br>I have always been fascinated with the parallel that exists between Lighting and Jewelry. Starting from the simple fact of how each piece relates to human scale: one is designed to be worn on the body whereas the other is made to decorate the space someone occupies. I'm challenged by how the delicate nature of something small can be translated spatially and still manage to retain its preciousness in the way materials are presented. It is no coincidence that the word "pendant" has a double meaning: it is both as a piece of jewelry that hangs from a chain worn around the neck, and a light designed to hang from the ceiling.<br> - Michael Anastassiades`,
-            "<br>New York, 2019"
+            `I have always been fascinated with the parallel that exists between Lighting and Jewelry. Starting from the simple fact of how each piece relates to human scale: one is designed to be worn on the body whereas the other is made to decorate the space someone occupies. I'm challenged by how the delicate nature of something small can be translated spatially and still manage to retain its preciousness in the way materials are presented. It is no coincidence that the word "pendant" has a double meaning: it is both as a piece of jewelry that hangs from a chain worn around the neck, and a light designed to hang from the ceiling. - Michael Anastassiades`,
+            "New York, 2019"
           ],
           images: [
-            { src: "images/FLOS-photo1-jack-roy-jackroy.webp" },
-            { src: "images/FLOS-photo2-jack-roy-jackroy.webp" }
+            { src: "images/FLOS-photo1.webp" },
+            { src: "images/FLOS-photo2.webp" }
           ]
         },
 
@@ -233,46 +290,47 @@
         },
 
         {
-          title: "Thistles",
+          title: "Thistles x HTown",
           year: "2026",
           layout: "staggered-stack",
           sprinkleColors: ["#d0efff", "#a9dfff", "#8ecbff", "#5fb8ff", "#bfe3ff"],
           images: [
             {
-              src: "images/thistles-htown-overview-photo1-jack-roy-jackroy.webp",
-              caption: "Retail environment designed for the Thistles pop-up in the HTOWN store, London. Exploring a balance between product display, architectural rhythm, and brand identity, creating an environment that is both functional and visually considered."
+              src: "images/thistles-htown-overview-photo1.webp",
+              caption: "A temporary retail environment designed for the Thistles x HTown collaboration. Exploring a balance between product display, architectural rhythm, and brand identity, creating an environment that is both functional and visually considered."
             },
             {
-              src: "images/thistles-htown-closeup-photo3-jack-roy-jackroy.webp",
+              src: "images/thistles-htown-closeup-photo3.webp",
               captionHtml: `
                 <div class="editorial-caption">
                   <p class="section-title">SPATIAL CONCEPT:</p>
 
                   <p class="indent">
-                    The installation uses mass and subtraction to create a sequence of framed product displays. Recessed apertures introduce depth and light into the structure, creating a contrast between the architectural framework and the objects within it.<br>
+                    The installation uses mass and subtraction to create a sequence of framed product displays. Recessed apertures introduce depth and light into the structure, creating a contrast between the architectural framework and the objects within it.
                   </p>
 
                   <p class="section-title">DESIGN ELEMENTS:</p>
 
                   <ul class="bullet-list">
                     <li>Product displayed within illuminated recessed shelving</li>
-                    <li>Custom resin plinths</li>
-                    <li>Birchwood</li>
+                    <li>Garment made in Portugal</li>
+                    <li>100% cotton</li>
+                    <li>Garment washed</li>
+                    <li>Ivory resin buttons</li>
+                    <li>Machine wash cold</li>
                   </ul>
 
-                  <p class="section-title"></p>
+                  <p class="section-title">STYLED WITH:</p>
 
                   <p class="indent">
                     2026<br>
-                    London, United Kingdom<br>
-                    @htownstore<br>
-                    @thistles.nyc
+                    London, United Kingdom
                   </p>
                 </div>
               `
             },
             {
-              src: "images/thistles-htown-photo2-jack-roy-jackroy.webp",
+              src: "images/thistles-htown-photo2.webp",
               caption: "Wide-format view of the installation."
             }
           ]
@@ -318,7 +376,7 @@
         {
           title: "Annotated Display System with Reading Table and Wall Works",
           year: "2022",
-          layout: "centered-large",
+          layout: "side-caption",
           images: [
             { src: "https://picsum.photos/1400/1000?random=1111", caption: "Exhibition overview." }
           ]
@@ -402,6 +460,219 @@
 
     let activeSprinkleColors = defaultSprinkleColors;
 
+    // ---------------------------------------------------------------
+    // URL routing + SEO metadata
+    //
+    // Every project/category/static page gets its own URL, updates
+    // document.title and meta tags, and supports browser back/forward.
+    // See 404.html for the GitHub Pages half of the deep-link trick.
+    // ---------------------------------------------------------------
+
+    const SITE_TITLE = "Jack Roy | Independent Spatial Design Studio";
+    const SITE_DESCRIPTION =
+      "Jack Roy is an independent spatial design studio based in New York, working across temporary installations, window displays, exhibitions, and retail spaces.";
+    const DEFAULT_OG_IMAGE = "https://i.postimg.cc/pL57wq3M/favicon.png";
+
+    const categoryNames = {
+      spatial: "Spatial",
+      window: "Window",
+      exhibition: "Exhibition",
+      text: "Event"
+    };
+
+    const pageNames = {
+      services: "Services",
+      profile: "Profile",
+      contact: "Contact"
+    };
+
+    function slugify(str) {
+      return String(str)
+        .toLowerCase()
+        .trim()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/(^-+|-+$)/g, "");
+    }
+
+    function findProjectBySlug(category, slug) {
+      const projects = portfolioData[category];
+      if (!projects) return -1;
+      return projects.findIndex((p) => slugify(p.title) === slug);
+    }
+
+    function titleForProject(project) {
+      return `${project.title} | Jack Roy`;
+    }
+
+    function titleForCategory(category) {
+      return `${categoryNames[category] || category} | Jack Roy`;
+    }
+
+    function titleForPage(page) {
+      return `${pageNames[page] || page} | Jack Roy`;
+    }
+
+    function setMetaTag(attr, key, content) {
+      let tag = document.querySelector(`meta[${attr}="${key}"]`);
+      if (!tag) {
+        tag = document.createElement("meta");
+        tag.setAttribute(attr, key);
+        document.head.appendChild(tag);
+      }
+      tag.setAttribute("content", content);
+    }
+
+    function updatePageMeta({ title, description, image }) {
+      document.title = title;
+      setMetaTag("name", "description", description);
+      setMetaTag("property", "og:title", title);
+      setMetaTag("property", "og:description", description);
+      setMetaTag("name", "twitter:title", title);
+      setMetaTag("name", "twitter:description", description);
+
+      const imageUrl = image || DEFAULT_OG_IMAGE;
+      setMetaTag("property", "og:image", imageUrl);
+      setMetaTag("name", "twitter:image", imageUrl);
+    }
+
+    function absoluteImageUrl(src) {
+      try {
+        return new URL(src, location.href).href;
+      } catch (e) {
+        return DEFAULT_OG_IMAGE;
+      }
+    }
+
+    function pushUrl(path) {
+      if (location.pathname === path) return;
+      history.pushState({ path }, "", path);
+    }
+
+    function goHome({ updateUrl = true } = {}) {
+      if (isMobile()) {
+        goToMobileLanding();
+      } else {
+        currentCategory = null;
+        currentProjectIndex = null;
+
+        categoryButtons.forEach((b) => {
+          b.classList.remove("active", "selected-category");
+        });
+
+        renderProjects(false);
+        renderGallery();
+      }
+
+      updatePageMeta({ title: SITE_TITLE, description: SITE_DESCRIPTION });
+
+      if (updateUrl) pushUrl("/");
+    }
+
+    function selectCategory(category, { updateUrl = true } = {}) {
+      if (!portfolioData[category]) return;
+
+      if (isMobile()) {
+        if (mobileMode === "landing") {
+          goToMobileCategory(category);
+        } else if (mobileMode === "category" || mobileMode === "project") {
+          goToMobileCategory(category);
+          openMobileMenu();
+        } else {
+          goToMobileCategory(category);
+        }
+
+        updatePageMeta({
+          title: titleForCategory(category),
+          description: SITE_DESCRIPTION
+        });
+
+        if (updateUrl) pushUrl(`/${category}`);
+      } else {
+        currentCategory = category;
+        currentProjectIndex = portfolioData[category].length - 1;
+
+        renderProjects(true);
+        renderGallery();
+        updateCategoryButtons();
+
+        const project = portfolioData[category][currentProjectIndex];
+        const firstImage = project.images && project.images[0];
+
+        updatePageMeta({
+          title: titleForProject(project),
+          description: SITE_DESCRIPTION,
+          image: firstImage ? absoluteImageUrl(firstImage.src) : null
+        });
+
+        if (updateUrl) pushUrl(`/${category}/${slugify(project.title)}`);
+      }
+    }
+
+    function selectProject(category, index, { updateUrl = true } = {}) {
+      if (!portfolioData[category] || !portfolioData[category][index]) return;
+
+      if (isMobile()) {
+        openMobileProject(category, index);
+      } else {
+        currentCategory = category;
+        currentProjectIndex = index;
+        renderProjects(false);
+        renderGallery();
+        updateCategoryButtons();
+      }
+
+      const project = portfolioData[category][index];
+      const firstImage = project.images && project.images[0];
+
+      updatePageMeta({
+        title: titleForProject(project),
+        description: SITE_DESCRIPTION,
+        image: firstImage ? absoluteImageUrl(firstImage.src) : null
+      });
+
+      if (updateUrl) pushUrl(`/${category}/${slugify(project.title)}`);
+    }
+
+    function parseRoute(pathname) {
+      const parts = pathname.replace(/^\/+|\/+$/g, "").split("/").filter(Boolean);
+
+      if (parts.length === 0) return { type: "home" };
+
+      if (parts.length === 1 && pageNames[parts[0]]) {
+        return { type: "page", page: parts[0] };
+      }
+
+      if (portfolioData[parts[0]]) {
+        const category = parts[0];
+
+        if (parts.length === 1) {
+          return { type: "category", category };
+        }
+
+        const index = findProjectBySlug(category, parts[1]);
+
+        if (index !== -1) {
+          return { type: "project", category, index };
+        }
+
+        return { type: "category", category };
+      }
+
+      return { type: "home" };
+    }
+
+    function applyRoute(route) {
+      if (route.type === "page") {
+        goToStaticPage(route.page, { updateUrl: false });
+      } else if (route.type === "category") {
+        selectCategory(route.category, { updateUrl: false });
+      } else if (route.type === "project") {
+        selectProject(route.category, route.index, { updateUrl: false });
+      } else {
+        goHome({ updateUrl: false });
+      }
+    }
+
     function renderFooter() {
       return `
         <footer class="site-footer">
@@ -417,13 +688,14 @@
           </div>
 
           <div class="footer-col footer-col-3">
-            New York, NY
+            275 Broome Street<br>
+            New York, NY 10002
           </div>
         </footer>
       `;
     }
 
-    function goToStaticPage(page) {
+    function goToStaticPage(page, { updateUrl = true } = {}) {
       currentCategory = null;
       currentProjectIndex = null;
       previousMobileCategory = null;
@@ -433,6 +705,13 @@
       renderStaticPage(page);
       updateCategoryButtons();
       updateMobileMenuUI();
+
+      updatePageMeta({
+        title: titleForPage(page),
+        description: SITE_DESCRIPTION
+      });
+
+      if (updateUrl) pushUrl(`/${page}`);
     }
 
     function bindFooterLinks() {
@@ -665,14 +944,7 @@
           `;
 
           button.addEventListener("click", () => {
-            if (isMobile()) {
-              openMobileProject(currentCategory, index);
-            } else {
-              currentProjectIndex = index;
-              renderProjects(false);
-              renderGallery();
-              updateCategoryButtons();
-            }
+            selectProject(currentCategory, index);
           });
 
           projectList.appendChild(button);
@@ -745,6 +1017,21 @@
               ${renderCaptionContent(img)}
             </div>
           `).join("")}
+        </div>
+      `;
+    }
+
+    function renderSideCaption(project) {
+      const img = project.images[0];
+
+      return `
+        <div class="gallery-side-caption">
+          <div class="side-caption-image">
+            <img src="${img.src}" alt="">
+          </div>
+          <div class="side-caption-text">
+            ${img.caption || ""}
+          </div>
         </div>
       `;
     }
@@ -950,6 +1237,9 @@
       } else if (project.layout === "centered-large") {
         projectGallery.innerHTML = renderCenteredLarge(project);
 
+      } else if (project.layout === "side-caption") {
+        projectGallery.innerHTML = renderSideCaption(project);
+
       } else if (project.layout === "editorial-scroll-overlay") {
         projectGallery.innerHTML =
           renderEditorialScrollOverlay(project);
@@ -996,47 +1286,12 @@
 
     categoryButtons.forEach((btn) => {
       btn.addEventListener("click", () => {
-        const selectedCategory = btn.dataset.category;
-
-        if (isMobile()) {
-          if (mobileMode === "landing") {
-            goToMobileCategory(selectedCategory);
-          } else if (
-            mobileMode === "category" ||
-            mobileMode === "project"
-          ) {
-            goToMobileCategory(selectedCategory);
-            openMobileMenu();
-          }
-        } else {
-          currentCategory = selectedCategory;
-          currentProjectIndex =
-            portfolioData[currentCategory].length - 1;
-
-          renderProjects(true);
-          renderGallery();
-          updateCategoryButtons();
-        }
+        selectCategory(btn.dataset.category);
       });
     });
 
     homeButton.addEventListener("click", () => {
-      if (isMobile()) {
-        goToMobileLanding();
-      } else {
-        currentCategory = null;
-        currentProjectIndex = null;
-
-        categoryButtons.forEach((b) => {
-          b.classList.remove(
-            "active",
-            "selected-category"
-          );
-        });
-
-        renderProjects(false);
-        renderGallery();
-      }
+      goHome();
     });
 
     document
@@ -1311,14 +1566,34 @@
       }
     });
 
-    if (isMobile()) {
-      goToMobileLanding();
-    } else {
-      renderProjects(true);
-      renderGallery();
-      updateCategoryButtons();
-      updateMobileMenuUI();
-    }
+    window.addEventListener("popstate", () => {
+      const route = parseRoute(location.pathname);
+      applyRoute(route);
+    });
+
+    (function initRoute() {
+      const route = parseRoute(location.pathname);
+
+      if (route.type === "home") {
+        if (isMobile()) {
+          goToMobileLanding();
+        } else {
+          renderProjects(true);
+          renderGallery();
+          updateCategoryButtons();
+          updateMobileMenuUI();
+        }
+
+        updatePageMeta({ title: SITE_TITLE, description: SITE_DESCRIPTION });
+      } else {
+        applyRoute(route);
+      }
+
+      // Normalize the very first history entry (e.g. after the
+      // GitHub Pages 404 redirect restored a clean path) without
+      // adding a duplicate entry to the back/forward stack.
+      history.replaceState({ path: location.pathname }, "", location.pathname);
+    })();
   </script>
 </body>
 </html>
