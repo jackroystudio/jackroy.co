@@ -649,16 +649,15 @@ p,
 
 .gallery-side-caption {
   display: flex;
-  align-items: flex-start;
-  gap: 40px;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
   min-height: 100vh;
   padding: 54px 16px 16px 16px;
 }
 
 .side-caption-image {
-  flex: 1;
-  min-width: 0;
+  width: min(900px, 100%);
 }
 
 .side-caption-image img {
@@ -667,9 +666,13 @@ p,
   height: auto;
 }
 
+/* Floats in the top-right corner, same spot as the FLOS/Wynn Hamlyn
+   quote box, instead of stretching the image to make room beside it */
 .side-caption-text {
-  width: 260px;
-  flex-shrink: 0;
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  width: min(260px, 26vw);
   font-family: "Merriweather", serif;
   font-size: 10px;
   line-height: 13px;
@@ -677,6 +680,9 @@ p,
   color: var(--ink);
   text-align: justify;
   text-align-last: left;
+  opacity: 0.85;
+  z-index: 40;
+  pointer-events: none;
 }
 
 /* =========================================================
