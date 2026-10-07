@@ -643,6 +643,43 @@ p,
 }
 
 /* =========================================================
+   SIDE CAPTION — large image with a text column to its right,
+   top-aligned, roughly paragraph-width.
+   ========================================================= */
+
+.gallery-side-caption {
+  display: flex;
+  align-items: flex-start;
+  gap: 40px;
+  width: 100%;
+  min-height: 100vh;
+  padding: 54px 16px 16px 16px;
+}
+
+.side-caption-image {
+  flex: 1;
+  min-width: 0;
+}
+
+.side-caption-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.side-caption-text {
+  width: 260px;
+  flex-shrink: 0;
+  font-family: "Merriweather", serif;
+  font-size: 10px;
+  line-height: 13px;
+  letter-spacing: 0.6px;
+  color: var(--ink);
+  text-align: justify;
+  text-align-last: left;
+}
+
+/* =========================================================
    EDITORIAL
    ========================================================= */
 
@@ -705,7 +742,7 @@ p,
    setting boardText: true on a project in portfolioData. */
 .fixed-text-paragraph.board-text,
 .mobile-editorial-text.board-text {
-  opacity: 0.8;
+  opacity: 1;
 }
 
 .fixed-text-paragraph.board-text p,
@@ -713,12 +750,12 @@ p,
   display: inline;
   font-family: "Doto", monospace;
   font-weight: 700;
-  font-size: 16px;
-  letter-spacing: 0.5px;
-  line-height: 1.8;
+  font-size: 13px;
+  letter-spacing: 1px;
+  line-height: 2.1;
   color: #f2f0eb;
   background: #262524;
-  padding: -10px 2px;
+  padding: 3px 7px;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
 }
