@@ -1,81 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
   <url>
-    <loc>https://www.jackroy.co/</loc>
+    <loc>https://jackroy.co/</loc>
   </url>
   <url>
-    <loc>https://www.jackroy.co/services</loc>
+    <loc>https://jackroy.co/services</loc>
   </url>
   <url>
-    <loc>https://www.jackroy.co/profile</loc>
+    <loc>https://jackroy.co/profile</loc>
   </url>
   <url>
-    <loc>https://www.jackroy.co/contact</loc>
-  </url>
-
-  <url>
-    <loc>https://www.jackroy.co/spatial</loc>
+    <loc>https://jackroy.co/contact</loc>
   </url>
   <url>
-    <loc>https://www.jackroy.co/spatial/martine-rose</loc>
+    <loc>https://jackroy.co/spatial</loc>
   </url>
   <url>
-    <loc>https://www.jackroy.co/spatial/helmut-lang-re-edition</loc>
+    <loc>https://jackroy.co/spatial/martine-rose</loc>
   </url>
   <url>
-    <loc>https://www.jackroy.co/spatial/kartell-x-ettore-sottsass</loc>
+    <loc>https://jackroy.co/spatial/helmut-lang-re-edition</loc>
   </url>
   <url>
-    <loc>https://www.jackroy.co/spatial/marc-jacobs-x-new-york-magazine</loc>
+    <loc>https://jackroy.co/spatial/kartell-x-ettore-sottsass</loc>
   </url>
   <url>
-    <loc>https://www.jackroy.co/spatial/flos</loc>
+    <loc>https://jackroy.co/spatial/marc-jacobs-x-new-york-magazine</loc>
   </url>
   <url>
-    <loc>https://www.jackroy.co/spatial/marni</loc>
+    <loc>https://jackroy.co/spatial/flos</loc>
   </url>
   <url>
-    <loc>https://www.jackroy.co/spatial/fornasetti</loc>
+    <loc>https://jackroy.co/spatial/marni</loc>
   </url>
   <url>
-    <loc>https://www.jackroy.co/spatial/wynn-hamlyn</loc>
+    <loc>https://jackroy.co/spatial/fornasetti</loc>
   </url>
   <url>
-    <loc>https://www.jackroy.co/spatial/glassons</loc>
+    <loc>https://jackroy.co/spatial/wynn-hamlyn</loc>
   </url>
   <url>
-    <loc>https://www.jackroy.co/spatial/thistles</loc>
+    <loc>https://jackroy.co/spatial/glassons</loc>
   </url>
   <url>
-    <loc>https://www.jackroy.co/spatial/thistles-x-htown</loc>
-  </url>
-
-  <url>
-    <loc>https://www.jackroy.co/window</loc>
+    <loc>https://jackroy.co/spatial/thistles</loc>
   </url>
   <url>
-    <loc>https://www.jackroy.co/window/helmut-lang-pleats-please</loc>
+    <loc>https://jackroy.co/spatial/thistles-2026</loc>
   </url>
   <url>
-    <loc>https://www.jackroy.co/window/fruits-x-opening-ceremony</loc>
+    <loc>https://jackroy.co/window</loc>
   </url>
   <url>
-    <loc>https://www.jackroy.co/window/flos</loc>
-  </url>
-
-  <url>
-    <loc>https://www.jackroy.co/exhibition</loc>
+    <loc>https://jackroy.co/window/helmut-lang-pleats-please</loc>
   </url>
   <url>
-    <loc>https://www.jackroy.co/exhibition/annotated-display-system-with-reading-table-and-wall-works</loc>
-  </url>
-
-  <url>
-    <loc>https://www.jackroy.co/text</loc>
+    <loc>https://jackroy.co/window/fruits-x-opening-ceremony</loc>
   </url>
   <url>
-    <loc>https://www.jackroy.co/text/boids-text</loc>
+    <loc>https://jackroy.co/window/flos</loc>
   </url>
-
+  <url>
+    <loc>https://jackroy.co/exhibition</loc>
+  </url>
+  <url>
+    <loc>https://jackroy.co/exhibition/annotated-display-system-with-reading-table-and-wall-works</loc>
+  </url>
+  <url>
+    <loc>https://jackroy.co/text</loc>
+  </url>
+  <url>
+    <loc>https://jackroy.co/text/boids-text</loc>
+  </url>
 </urlset>
