@@ -1615,3 +1615,30 @@ p,
     margin-top: 8px;
   }
 }
+
+/* =========================================================
+   PAIR SMALL — two small images side by side
+   (change the 340px below to make them bigger or smaller)
+   ========================================================= */
+
+.gallery-pair-small {
+  display: flex;
+  align-items: flex-start;
+  gap: 22px;
+  width: min(720px, calc(100vw - 220px));
+  margin-left: auto;
+  min-height: 100vh;
+  padding: 54px 16px 16px 16px;
+}
+
+.pair-small-item {
+  flex: 1 1 0;
+  max-width: 340px;
+  min-width: 0;
+}
+
+.pair-small-item img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
