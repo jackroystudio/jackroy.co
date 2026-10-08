@@ -224,6 +224,16 @@
         },
 
         {
+          title: "Stella McCartney Loop Lab",
+          year: "2019",
+          layout: "diptych",
+          images: [
+            { src: "/images/StellaMcCartney-photo1-jack-roy-jackroy.webp", caption: "Retail installation view" },
+            { src: "/images/StellaMcCartney-photo2-jack-roy-jackroy.webp", caption: "Material and display study" }
+          ]
+        },
+
+        {
           title: "Fornasetti",
           year: "2020",
           layout: "two-column-grid",
@@ -1034,6 +1044,19 @@
           </div>
         </div>
       `;
+    }    
+    
+    function renderPairSmall(project) {
+      return `
+        <div class="gallery-pair-small">
+          ${project.images.map((img) => `
+            <div class="pair-small-item">
+              <img src="${img.src}" alt="">
+              ${renderCaptionContent(img, "caption-below")}
+            </div>
+          `).join("")}
+        </div>
+      `;
     }
 
     function renderEditorialScrollOverlay(project) {
@@ -1244,6 +1267,9 @@
         projectGallery.innerHTML =
           renderEditorialScrollOverlay(project);
         attachWynnImageToggle();
+
+      } else if (project.layout === "pair-small") {
+        projectGallery.innerHTML = renderPairSmall(project);  
 
       } else if (project.layout === "two-column-grid") {
         projectGallery.innerHTML =
