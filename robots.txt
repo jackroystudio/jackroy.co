@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.jackroy.co/sitemap.xml
+Sitemap: https://jackroy.co/sitemap.xml
