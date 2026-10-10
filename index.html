@@ -1415,6 +1415,43 @@
       applyImageFade();
     }
 
+    /* Compatibility aliases: keep all existing render calls working. */
+    function renderProjects(animate = false) {
+      return Projects(animate);
+    }
+
+    function Gallery() {
+      return renderGallery();
+    }
+
+    function Footer() {
+      return renderFooter();
+    }
+
+    function renderRightStack(project) {
+      return RightStack(project);
+    }
+
+    function renderRandomScatter(project) {
+      return RandomScatter(project);
+    }
+
+    function renderCenteredLarge(project) {
+      return CenteredLarge(project);
+    }
+
+    function renderSideCaption(project) {
+      return SideCaption(project);
+    }
+
+    function renderPairSmall(project) {
+      return PairSmall(project);
+    }
+
+    function renderCaptionContent(img, extraClass = "") {
+      return CaptionContent(img, extraClass);
+    }
+
     categoryButtons.forEach((btn) => {
       btn.addEventListener("click", () => {
         selectCategory(btn.dataset.category);
