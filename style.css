@@ -1642,3 +1642,135 @@ p,
   width: 100%;
   height: auto;
 }
+
+/* =========================================================
+   PAIR + FEATURE — two small images side by side (right),
+   then one larger image centred on the page below them.
+   Tweak the sizes here:
+     340px  = max width of each small image
+     640px  = width of the large centred image
+     96px   = gap between the pair and the large image
+   ========================================================= */
+
+.gallery-pair-feature {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+  padding: 54px 16px 16px 16px;
+}
+
+.pair-feature-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 22px;
+  width: min(720px, calc(100vw - 220px));
+  margin-left: auto;
+}
+
+.pair-feature-item {
+  flex: 1 1 0;
+  max-width: 340px;
+  min-width: 0;
+}
+
+.pair-feature-main {
+  width: min(640px, 100%);
+  margin: 96px auto 0;
+}
+
+.pair-feature-item img,
+.pair-feature-main img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* =========================================================
+   SPREAD — magazine double-page spread with a fold down the
+   middle. Each image says which page it sits on (page), how
+   wide it is (fit: full / wide / half / small), whether it sits
+   against the fold or the outer edge (align: fold / edge), and
+   optionally how much space to leave above it (spaceBefore).
+   ========================================================= */
+
+.gallery-spread {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  min-height: 100vh;
+  padding-bottom: 46px;
+}
+
+.spread-page {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
+.spread-item {
+  width: 100%;
+  margin-bottom: 46px;
+}
+
+.spread-item img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.spread-item .caption {
+  padding: 0 16px;
+}
+
+.spread-item.fit-full  { width: 100%; }
+.spread-item.fit-wide  { width: 75%; }
+.spread-item.fit-half  { width: 50%; }
+.spread-item.fit-small { width: 34%; }
+
+.spread-page.is-left  .spread-item.align-fold { margin-left: auto; }
+.spread-page.is-left  .spread-item.align-edge { margin-right: auto; }
+.spread-page.is-right .spread-item.align-fold { margin-right: auto; }
+.spread-page.is-right .spread-item.align-edge { margin-left: auto; }
+
+/* The fold: a soft shadow either side of the centre line that stays
+   put while the pages scroll underneath it. */
+.spread-fold {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  width: 0;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 45;
+}
+
+.spread-fold::before,
+.spread-fold::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+}
+
+.spread-fold::before {
+  right: 0;
+  width: 42px;
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.06) 55%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
+}
+
+.spread-fold::after {
+  left: 0;
+  width: 18px;
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.26) 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
