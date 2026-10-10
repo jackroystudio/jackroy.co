@@ -155,10 +155,11 @@
         {
           title: "Marc Jacobs x New York Magazine",
           year: "2019",
-          layout: "pair-small",
+          layout: "pair-feature",
           images: [
             { src: "/images/MJ-NYM-2-jack-roy-jackroy.webp", caption: "Single-image presentation with editorial scale." },
-            { src: "/images/MJ-NYM-1-jack-roy-jackroy.webp", caption: "Single-image presentation with editorial scale." }
+            { src: "/images/MJ-NYM-1-jack-roy-jackroy.webp", caption: "Single-image presentation with editorial scale." },
+            { src: "https://picsum.photos/1000/1300?random=812", caption: "Single-image presentation with editorial scale." }
           ]
         },
 
@@ -358,10 +359,15 @@
         {
           title: "Fruits x Opening Ceremony",
           year: "2017",
-          layout: "centered-large",
+          layout: "spread",
           images: [
-            { src: "https://picsum.photos/1400/1000?random=1021", caption: "Primary window composition." },
-            { src: "https://picsum.photos/1200/1500?random=1022", caption: "Secondary view with vertical emphasis." }
+            { src: "https://picsum.photos/1000/1300?random=1023", page: "left",  fit: "half", align: "fold" },
+            { src: "https://picsum.photos/1400/1000?random=1021", caption: "Primary window composition.", page: "left", fit: "full", spaceBefore: 120 },
+            { src: "https://picsum.photos/900/1200?random=1024",  page: "left",  fit: "half", align: "fold" },
+
+            { src: "https://picsum.photos/1600/1000?random=1025", page: "right", fit: "full" },
+            { src: "https://picsum.photos/1200/1500?random=1022", caption: "Secondary view with vertical emphasis.", page: "right", fit: "wide", align: "fold" },
+            { src: "https://picsum.photos/1400/1000?random=1026", page: "right", fit: "full" }
           ]
         },
 
@@ -746,8 +752,8 @@
       previousMobileCategory = null;
       activeSprinkleColors = defaultSprinkleColors;
 
-      renderProjects(false);
-      renderStaticPage(page);
+      Projects(false);
+      StaticPage(page);
       updateCategoryButtons();
       updateMobileMenuUI();
 
@@ -771,7 +777,7 @@
       });
     }
 
-    function renderStaticPage(page) {
+    function StaticPage(page) {
       projectGallery.innerHTML = `
         <div class="text-page-layout shift-right">
           ${staticPages[page]}
@@ -779,7 +785,7 @@
 
         <div class="footer-spacer"></div>
 
-        ${renderFooter()}
+        ${Footer()}
       `;
 
       projectGallery.className = "project-gallery";
@@ -914,8 +920,8 @@
       mobileMode = "landing";
       mobileMenuOpen = false;
 
-      renderProjects(false);
-      renderGallery();
+      Projects(false);
+      Gallery();
       updateCategoryButtons();
       updateMobileMenuUI();
     }
@@ -927,8 +933,8 @@
       mobileMode = "category";
       mobileMenuOpen = false;
 
-      renderProjects(false);
-      renderGallery();
+      Projects(false);
+      Gallery();
       updateCategoryButtons();
       updateMobileMenuUI();
     }
@@ -940,13 +946,13 @@
       mobileMode = "project";
       mobileMenuOpen = false;
 
-      renderProjects(false);
-      renderGallery();
+      Projects(false);
+      Gallery();
       updateCategoryButtons();
       updateMobileMenuUI();
     }
 
-    function renderCaptionContent(img, extraClass = "") {
+    function CaptionContent(img, extraClass = "") {
       if (img.captionHtml) {
         return `<div class="${extraClass}">${img.captionHtml}</div>`;
       }
@@ -958,7 +964,7 @@
       return "";
     }
 
-    function renderProjects(animate = false) {
+    function Projects(animate = false) {
       projectList.innerHTML = "";
 
       if (!currentCategory) return;
@@ -1002,20 +1008,20 @@
         });
     }
 
-    function renderRightStack(project) {
+    function RightStack(project) {
       return `
         <div class="gallery-right">
           ${project.images.map((img) => `
             <div class="gallery-item">
               <img src="${img.src}" alt="">
-              ${renderCaptionContent(img)}
+              ${CaptionContent(img)}
             </div>
           `).join("")}
         </div>
       `;
     }
 
-    function renderRandomScatter(project) {
+    function RandomScatter(project) {
       const slots = [
         { top: 8, left: 8, width: 18 },
         { top: 18, left: 34, width: 16 },
@@ -1053,20 +1059,20 @@
       `;
     }
 
-    function renderCenteredLarge(project) {
+    function CenteredLarge(project) {
       return `
         <div class="gallery-centered-large">
           ${project.images.map((img) => `
             <div class="gallery-item centered-large-item">
               <img src="${img.src}" alt="">
-              ${renderCaptionContent(img)}
+              ${CaptionContent(img)}
             </div>
           `).join("")}
         </div>
       `;
     }
 
-    function renderSideCaption(project) {
+    function SideCaption(project) {
       const img = project.images[0];
 
       return `
@@ -1081,11 +1087,36 @@
       `;
     }    
     
-    function renderPairSmall(project) {
+    function PairSmall(project) {
       return `
         <div class="gallery-pair-small">
           ${project.images.map((img) => `
             <div class="pair-small-item">
+              <img src="${img.src}" alt="">
+              ${CaptionContent(img, "caption-below")}
+            </div>
+          `).join("")}
+        </div>
+      `;
+    }
+
+    function renderPairFeature(project) {
+      const pair = project.images.slice(0, 2);
+      const features = project.images.slice(2);
+
+      return `
+        <div class="gallery-pair-feature">
+          <div class="pair-feature-row">
+            ${pair.map((img) => `
+              <div class="pair-feature-item">
+                <img src="${img.src}" alt="">
+                ${renderCaptionContent(img, "caption-below")}
+              </div>
+            `).join("")}
+          </div>
+
+          ${features.map((img) => `
+            <div class="pair-feature-main">
               <img src="${img.src}" alt="">
               ${renderCaptionContent(img, "caption-below")}
             </div>
@@ -1094,6 +1125,39 @@
       `;
     }
 
+    function renderSpread(project) {
+      const left = [];
+      const right = [];
+
+      project.images.forEach((img, i) => {
+        const page = img.page || (i % 2 === 0 ? "left" : "right");
+        (page === "right" ? right : left).push(img);
+      });
+
+      const renderItem = (img) => {
+        const fit = img.fit || "wide";
+        const align = img.align || "fold";
+        const space = img.spaceBefore
+          ? ` style="margin-top:${Number(img.spaceBefore)}px"`
+          : "";
+
+        return `
+          <div class="spread-item fit-${fit} align-${align}"${space}>
+            <img src="${img.src}" alt="">
+            ${renderCaptionContent(img)}
+          </div>
+        `;
+      };
+
+      return `
+        <div class="gallery-spread">
+          <div class="spread-page is-left">${left.map(renderItem).join("")}</div>
+          <div class="spread-page is-right">${right.map(renderItem).join("")}</div>
+          <div class="spread-fold" aria-hidden="true"></div>
+        </div>
+      `;
+    }
+    
     function renderEditorialScrollOverlay(project) {
       const boardClass = project.boardText ? " board-text" : "";
 
@@ -1306,6 +1370,12 @@
       } else if (project.layout === "pair-small") {
         projectGallery.innerHTML = renderPairSmall(project);  
 
+      } else if (project.layout === "pair-feature") {
+        projectGallery.innerHTML = renderPairFeature(project);
+
+      } else if (project.layout === "spread") {
+        projectGallery.innerHTML = renderSpread(project);
+        
       } else if (project.layout === "two-column-grid") {
         projectGallery.innerHTML =
           renderTwoColumnGrid(project);
