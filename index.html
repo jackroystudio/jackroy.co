@@ -566,15 +566,14 @@
             },
             {
               src: "/images/ps-set1-jack-roy-jackroy.webp",
-              caption: "Proenza Schouler White Label FW19<br><br>Designers, Jack McCollough & Lazaro Hernandez<br>Photographer, Thistle Brown<br>Fashion, Brian Molloy<br>Set Design, Jack Roy<br>Model, Lina Zhang"
+              caption: "Proenza Schouler White Label FW19<br><br>Designers, Jack McCollough & Lazaro Hernandez<br>Photographer, Thistle Brown<br>Fashion, Brian Molloy<br>Model, Lina Zhang"
             }
           ]
         },
-            {
+        {
           title: "Victoria Beckham Beauty",
           year: "2026",
           layout: "right-stack-small",
-          video: "/videos/VB-Beauty2-jack-roy-jackroy.mov",
           sprinkleColors: ["#051650", "#00072D", "#01153E"],
           images: [
             {
@@ -582,7 +581,8 @@
               caption: ""
             },
             {
-              src: "/images/VB-Beauty1-jack-roy-jackroy.webp",
+              type: "video",
+              src: "/videos/VB-Beauty2-jack-roy-jackroy.mov",
               caption: ""
             },
             {
@@ -1200,13 +1200,7 @@
     function RightStack(project) {
       return `
         <div class="gallery-right">
-          ${project.images.map((img) => `
-            <div class="gallery-item">
-              <img src="${img.src}" alt="">
-              ${CaptionContent(img)}
-            </div>
-          `).join("")}
-          ${project.video ? `
+          ${project.images.map((item) => item.type === "video" ? `
             <div class="gallery-item">
               <video
                 class="project-video"
@@ -1217,10 +1211,15 @@
                 preload="metadata"
                 aria-label="${project.title} campaign video"
               >
-                <source src="${project.video}" type="video/mp4">
+                <source src="${item.src}" type="video/mp4">
               </video>
             </div>
-          ` : ""}
+          ` : `
+            <div class="gallery-item">
+              <img src="${item.src}" alt="">
+              ${CaptionContent(item)}
+            </div>
+          `).join("")}
         </div>
       `;
     }
@@ -1486,13 +1485,7 @@
 
       return `
         <div class="gallery-mobile-linear">
-          ${project.images.map((img) => `
-            <div class="mobile-linear-item">
-              <img src="${img.src}" alt="">
-              ${renderCaptionContent(img, "mobile-caption")}
-            </div>
-          `).join("")}
-          ${project.video ? `
+          ${project.images.map((item) => item.type === "video" ? `
             <div class="mobile-linear-item">
               <video
                 class="project-video"
@@ -1503,10 +1496,15 @@
                 preload="metadata"
                 aria-label="${project.title} campaign video"
               >
-                <source src="${project.video}" type="video/mp4">
+                <source src="${item.src}" type="video/mp4">
               </video>
             </div>
-          ` : ""}
+          ` : `
+            <div class="mobile-linear-item">
+              <img src="${item.src}" alt="">
+              ${renderCaptionContent(item, "mobile-caption")}
+            </div>
+          `).join("")}
         </div>
       `;
     }
