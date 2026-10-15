@@ -574,6 +574,7 @@
           title: "Victoria Beckham Beauty",
           year: "2026",
           layout: "right-stack-small",
+          video: "/videos/victoria-beckham.mp4",
           sprinkleColors: ["#051650", "#00072D", "#01153E"],
           images: [
             {
@@ -1201,6 +1202,21 @@
               ${CaptionContent(img)}
             </div>
           `).join("")}
+          ${project.video ? `
+            <div class="gallery-item">
+              <video
+                class="project-video"
+                autoplay
+                muted
+                loop
+                playsinline
+                preload="metadata"
+                aria-label="${project.title} campaign video"
+              >
+                <source src="${project.video}" type="video/mp4">
+              </video>
+            </div>
+          ` : ""}
         </div>
       `;
     }
@@ -1472,6 +1488,21 @@
               ${renderCaptionContent(img, "mobile-caption")}
             </div>
           `).join("")}
+          ${project.video ? `
+            <div class="mobile-linear-item">
+              <video
+                class="project-video"
+                autoplay
+                muted
+                loop
+                playsinline
+                preload="metadata"
+                aria-label="${project.title} campaign video"
+              >
+                <source src="${project.video}" type="video/mp4">
+              </video>
+            </div>
+          ` : ""}
         </div>
       `;
     }
