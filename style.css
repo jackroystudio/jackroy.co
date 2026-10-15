@@ -1820,3 +1820,22 @@ body.is-home .home-background-carousel {
   }
 }
 
+/* =========================================================
+   PROJECT VIDEO — Victoria Beckham Beauty
+   ========================================================= */
+
+.project-video {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  background: transparent;
+}
+
+.gallery-right .project-video {
+  max-width: 100%;
+}
+
+.mobile-linear-item .project-video {
+  max-width: 100%;
+}
