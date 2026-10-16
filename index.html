@@ -1784,15 +1784,16 @@
       trail.alt = "";
       trail.setAttribute("aria-hidden", "true");
 
-      // Keep the trail denser and more composed, with only subtle variation.
-      const width = 155 + Math.random() * 35;
-      const angle = Math.max(-4, Math.min(4, velocityX * 0.012)) + (Math.random() - 0.5) * 2;
+      // Keep the trail smooth and consistent: fixed sizing, minimal rotation,
+      // and almost no sideways drift so images don't appear to jitter.
+      const width = 170;
+      const angle = (landingTrailIndex % 2 === 0 ? -1 : 1) * 0.8;
       trail.style.width = `${width}px`;
       trail.style.left = `${x}px`;
       trail.style.top = `${y}px`;
       trail.style.setProperty("--trail-rotate", `${angle}deg`);
-      trail.style.setProperty("--trail-drift-x", `${(Math.random() - 0.5) * 16 + velocityX * 0.035}px`);
-      trail.style.setProperty("--trail-fall", `${28 + Math.random() * 24}px`);
+      trail.style.setProperty("--trail-drift-x", "0px");
+      trail.style.setProperty("--trail-fall", "18px");
       trail.addEventListener("animationend", () => trail.remove(), { once: true });
       document.body.appendChild(trail);
     }
@@ -1815,7 +1816,7 @@
       const dx = e.clientX - lastTrailX;
       const dy = e.clientY - lastTrailY;
       const distance = Math.hypot(dx, dy);
-      if (distance > 42 && now - lastTrailTime > 42) {
+      if (distance > 28 && now - lastTrailTime > 28) {
         spawnLandingImageTrail(e.clientX, e.clientY, dx, dy);
         lastTrailX = e.clientX;
         lastTrailY = e.clientY;
