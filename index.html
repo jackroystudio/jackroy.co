@@ -1784,14 +1784,15 @@
       trail.alt = "";
       trail.setAttribute("aria-hidden", "true");
 
-      const width = 145 + Math.random() * 95;
-      const angle = Math.max(-12, Math.min(12, velocityX * 0.035)) + (Math.random() - 0.5) * 5;
+      // Keep the trail denser and more composed, with only subtle variation.
+      const width = 155 + Math.random() * 35;
+      const angle = Math.max(-4, Math.min(4, velocityX * 0.012)) + (Math.random() - 0.5) * 2;
       trail.style.width = `${width}px`;
       trail.style.left = `${x}px`;
       trail.style.top = `${y}px`;
       trail.style.setProperty("--trail-rotate", `${angle}deg`);
-      trail.style.setProperty("--trail-drift-x", `${(Math.random() - 0.5) * 44 + velocityX * 0.12}px`);
-      trail.style.setProperty("--trail-fall", `${55 + Math.random() * 65}px`);
+      trail.style.setProperty("--trail-drift-x", `${(Math.random() - 0.5) * 16 + velocityX * 0.035}px`);
+      trail.style.setProperty("--trail-fall", `${28 + Math.random() * 24}px`);
       trail.addEventListener("animationend", () => trail.remove(), { once: true });
       document.body.appendChild(trail);
     }
@@ -1814,7 +1815,7 @@
       const dx = e.clientX - lastTrailX;
       const dy = e.clientY - lastTrailY;
       const distance = Math.hypot(dx, dy);
-      if (distance > 85 && now - lastTrailTime > 85) {
+      if (distance > 42 && now - lastTrailTime > 42) {
         spawnLandingImageTrail(e.clientX, e.clientY, dx, dy);
         lastTrailX = e.clientX;
         lastTrailY = e.clientY;
@@ -1866,7 +1867,8 @@
     let lastSprinkleY = null;
 
     window.addEventListener("mousemove", (e) => {
-      if (isMobile()) return;
+      // The landing page uses images only; keep the original sprinkle cursor on project pages.
+      if (isMobile() || document.body.classList.contains("is-home")) return;
 
       if (lastSprinkleX === null) {
         lastSprinkleX = e.clientX;
@@ -1901,7 +1903,8 @@
     });
 
     document.addEventListener("click", (e) => {
-      if (isMobile()) return;
+      // No sprinkle bursts on the landing page either.
+      if (isMobile() || document.body.classList.contains("is-home")) return;
 
       const burstCount = 8;
 
