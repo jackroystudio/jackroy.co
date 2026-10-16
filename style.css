@@ -578,7 +578,7 @@ p,
   gap: var(--space-m);
   width: 100%;
   min-height: 100vh;
-  padding: 54px 16px 16px 16px;
+  padding: 0px 16px 16px 16px;
 }
 
 .gallery-right .gallery-item {
@@ -693,7 +693,7 @@ p,
   position: relative;
   width: 100%;
   min-height: 100vh;
-  padding: 54px 0 24px 0;
+  padding: 0px 0 24px 0;
 }
 
 .editorial-item {
@@ -801,7 +801,7 @@ p,
   gap: var(--space-l);
   width: 100%;
   min-height: 100vh;
-  padding: 54px 16px 16px 16px;
+  padding: 0px 16px 16px 16px;
 }
 
 .gallery-staggered .gallery-item {
@@ -925,7 +925,7 @@ p,
   width: min(760px, 100%);
   margin-left: auto;
   min-height: 100vh;
-  padding: 54px 16px 16px 16px;
+  padding: 0px 16px 16px 16px;
 }
 
 .caption-led-item img {
@@ -950,7 +950,7 @@ p,
   width: min(1100px, calc(100vw - 220px));
   margin-left: auto;
   min-height: 100vh;
-  padding: 54px 16px 16px 16px;
+  padding: 0px 16px 16px 16px;
 }
 
 .diptych-item img {
