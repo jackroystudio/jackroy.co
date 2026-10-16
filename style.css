@@ -1839,3 +1839,57 @@ body.is-home .home-background-carousel {
 .mobile-linear-item .project-video {
   max-width: 100%;
 }
+
+/* =========================================================
+   LANDING-PAGE IMAGE TRAIL
+   The old home carousel is hidden; its images are reused by the trail.
+   ========================================================= */
+.home-background-carousel {
+  display: none !important;
+}
+
+body.is-home .home-background-carousel {
+  display: none !important;
+}
+
+.cursor-image-trail {
+  position: fixed;
+  z-index: 99997;
+  display: block;
+  height: auto;
+  max-height: 32vh;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  transform: translate(-50%, -50%) rotate(var(--trail-rotate, 0deg)) scale(0.94);
+  transform-origin: center;
+  opacity: 0;
+  animation: landingImageFall 1.05s cubic-bezier(0.18, 0.62, 0.3, 1) forwards;
+  will-change: transform, opacity;
+}
+
+@keyframes landingImageFall {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -54%) rotate(var(--trail-rotate, 0deg)) scale(0.88);
+  }
+  12% {
+    opacity: 0.92;
+  }
+  100% {
+    opacity: 0;
+    transform:
+      translate(calc(-50% + var(--trail-drift-x, 0px)),
+                calc(-50% + var(--trail-fall, 80px)))
+      rotate(calc(var(--trail-rotate, 0deg) + 4deg))
+      scale(0.78);
+  }
+}
+
+@media (max-width: 768px), (prefers-reduced-motion: reduce) {
+  .cursor-image-trail {
+    display: none !important;
+    animation: none !important;
+  }
+}
