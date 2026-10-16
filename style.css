@@ -1865,25 +1865,28 @@ body.is-home .home-background-carousel {
   transform: translate(-50%, -50%) rotate(var(--trail-rotate, 0deg)) scale(0.94);
   transform-origin: center;
   opacity: 0;
-  animation: landingImageFall 0.95s cubic-bezier(0.22, 0.58, 0.32, 1) forwards;
+  animation: landingImageFall 0.58s cubic-bezier(0.2, 0.65, 0.35, 1) forwards;
   will-change: transform, opacity;
 }
 
 @keyframes landingImageFall {
   0% {
     opacity: 0;
-    transform: translate(-50%, -52%) rotate(var(--trail-rotate, 0deg)) scale(0.96);
+    transform: translate(-50%, -51%) rotate(var(--trail-rotate, 0deg)) scale(0.96);
   }
-  12% {
-    opacity: 0.92;
+  8% {
+    opacity: 0.95;
+  }
+  38% {
+    opacity: 0.88;
   }
   100% {
     opacity: 0;
     transform:
       translate(calc(-50% + var(--trail-drift-x, 0px)),
                 calc(-50% + var(--trail-fall, 80px)))
-      rotate(calc(var(--trail-rotate, 0deg) + 1deg))
-      scale(0.88);
+      rotate(calc(var(--trail-rotate, 0deg) + 0.5deg))
+      scale(0.9);
   }
 }
 
