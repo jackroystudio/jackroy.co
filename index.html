@@ -692,22 +692,15 @@
     let homeBackgroundTimer = null;
 
     function setHomeCarouselActive(active) {
+      // The original carousel is now only a hidden image source for the
+      // landing-page cursor trail. Project pages keep their existing cursor.
       document.body.classList.toggle("is-home", active);
-
-      if (!homeBackgroundSlides.length) return;
-
       if (homeBackgroundTimer) {
         window.clearInterval(homeBackgroundTimer);
         homeBackgroundTimer = null;
       }
-
-      if (active && homeBackgroundSlides.length > 1) {
-        homeBackgroundTimer = window.setInterval(() => {
-          homeBackgroundSlides[homeBackgroundSlideIndex].classList.remove("is-active");
-          homeBackgroundSlideIndex = (homeBackgroundSlideIndex + 1) % homeBackgroundSlides.length;
-          homeBackgroundSlides[homeBackgroundSlideIndex].classList.add("is-active");
-        }, 5000);
-      }
+      homeBackgroundSlides.forEach((slide) => slide.classList.remove("is-active"));
+      updateLandingTrailMode();
     }
 
     const mobileMenuButton = document.getElementById("mobile-menu-button");
@@ -1761,10 +1754,71 @@
       closeMobileMenu();
     });
 
+    // Landing-only image trail. It reuses the five images that previously
+    // appeared in the home carousel; project pages retain the sprinkle cursor.
+    let landingTrailEnabled = false;
+    let landingTrailIndex = 0;
+    let lastTrailX = null;
+    let lastTrailY = null;
+    let lastTrailTime = 0;
+    const landingTrailSources = homeBackgroundSlides
+      .map((slide) => slide.querySelector("img"))
+      .filter(Boolean)
+      .map((img) => img.currentSrc || img.src);
+
+    function updateLandingTrailMode() {
+      landingTrailEnabled = document.body.classList.contains("is-home") && !isMobile();
+      lastTrailX = null;
+      lastTrailY = null;
+      if (!landingTrailEnabled) {
+        document.querySelectorAll(".cursor-image-trail").forEach((img) => img.remove());
+      }
+    }
+
+    function spawnLandingImageTrail(x, y, velocityX, velocityY) {
+      if (!landingTrailEnabled || !landingTrailSources.length) return;
+      const trail = document.createElement("img");
+      trail.className = "cursor-image-trail";
+      trail.src = landingTrailSources[landingTrailIndex % landingTrailSources.length];
+      landingTrailIndex += 1;
+      trail.alt = "";
+      trail.setAttribute("aria-hidden", "true");
+
+      const width = 145 + Math.random() * 95;
+      const angle = Math.max(-12, Math.min(12, velocityX * 0.035)) + (Math.random() - 0.5) * 5;
+      trail.style.width = `${width}px`;
+      trail.style.left = `${x}px`;
+      trail.style.top = `${y}px`;
+      trail.style.setProperty("--trail-rotate", `${angle}deg`);
+      trail.style.setProperty("--trail-drift-x", `${(Math.random() - 0.5) * 44 + velocityX * 0.12}px`);
+      trail.style.setProperty("--trail-fall", `${55 + Math.random() * 65}px`);
+      trail.addEventListener("animationend", () => trail.remove(), { once: true });
+      document.body.appendChild(trail);
+    }
+
     window.addEventListener("mousemove", (e) => {
       if (cursorDot) {
         cursorDot.style.left = `${e.clientX}px`;
         cursorDot.style.top = `${e.clientY}px`;
+      }
+
+      if (!landingTrailEnabled) return;
+      const now = performance.now();
+      if (lastTrailX === null) {
+        lastTrailX = e.clientX;
+        lastTrailY = e.clientY;
+        lastTrailTime = now;
+        spawnLandingImageTrail(e.clientX, e.clientY, 0, 0);
+        return;
+      }
+      const dx = e.clientX - lastTrailX;
+      const dy = e.clientY - lastTrailY;
+      const distance = Math.hypot(dx, dy);
+      if (distance > 85 && now - lastTrailTime > 85) {
+        spawnLandingImageTrail(e.clientX, e.clientY, dx, dy);
+        lastTrailX = e.clientX;
+        lastTrailY = e.clientY;
+        lastTrailTime = now;
       }
     });
 
@@ -1983,6 +2037,7 @@
     );
 
     window.addEventListener("resize", () => {
+      updateLandingTrailMode();
       if (isMobile()) {
         if (mobileMode === "desktop") {
           goToMobileLanding();
