@@ -1892,7 +1892,8 @@ body.is-home .home-background-carousel {
 
 @media (min-width: 769px) {
   .gallery-staggered.vertical-caption .stagger-1 {
-    grid-template-columns: minmax(0, 420px) auto;
+    width: calc(100% - 80px);
+    grid-template-columns: minmax(0, 420px) auto minmax(0, 1fr);
     column-gap: 24px;
   }
 
@@ -1901,6 +1902,12 @@ body.is-home .home-background-carousel {
     transform: rotate(180deg);
     align-self: end;
     max-height: 280px;
+  }
+
+  .gallery-staggered.vertical-caption .stagger-1 .side-drawing {
+    width: min(620px, 100%);
+    justify-self: end;
+    align-self: center;
   }
 
   .gallery-staggered.vertical-caption .editorial-caption {
