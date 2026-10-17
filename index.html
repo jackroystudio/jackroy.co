@@ -1826,7 +1826,7 @@
       // so #nav-panel itself does not reliably describe their on-screen area.
       // Check the actual header and both menu columns, expanding each boundary
       // so the 170px cursor images cannot spill over the menu from nearby.
-      const menuRects = [".site-header", ".col-1", ".col-2"]
+      const menuRects = ["#page-nav", ".site-header"]
         .map((selector) => document.querySelector(selector))
         .filter(Boolean)
         .map((element) => element.getBoundingClientRect());
