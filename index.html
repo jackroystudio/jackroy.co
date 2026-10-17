@@ -445,6 +445,7 @@
           year: "2026",
           slug: "thistles-2026",
           layout: "staggered-stack",
+          verticalCaption: true,
           sprinkleColors: ["#d0efff", "#a9dfff", "#8ecbff", "#5fb8ff", "#bfe3ff"],
           images: [
             {
@@ -1458,7 +1459,7 @@
       const alt = imgAlt(project);
 
       return `
-        <div class="gallery-staggered">
+        <div class="gallery-staggered${project.verticalCaption ? " vertical-caption" : ""}">
           ${project.images.map((img, i) => `
             <div class="gallery-item stagger-${i}">
               <img src="${img.src}" alt="${alt}">
