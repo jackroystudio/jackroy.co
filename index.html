@@ -423,7 +423,7 @@
 
         {
           title: "Glassons",
-          year: "20",
+          year: "2024",
           layout: "right-stack-small",
           sprinkleColors: ["#d0efff", "#a9dfff", "#8ecbff", "#5fb8ff", "#bfe3ff"],
           images: [
@@ -525,7 +525,7 @@
           images: [
             { src: "https://picsum.photos/1000/1300?random=1023", page: "left",  fit: "half", align: "fold" },
             { src: "https://picsum.photos/1400/1000?random=1021", caption: "Primary window composition.", page: "left", fit: "full", spaceBefore: 120 },
-            { src: "https://picsum.photos/900/1200?random=10",  page: "left",  fit: "half", align: "fold" },
+            { src: "https://picsum.photos/900/1200?random=1024",  page: "left",  fit: "half", align: "fold" },
 
             { src: "https://picsum.photos/1600/1000?random=1025", page: "right", fit: "full" },
             { src: "https://picsum.photos/1200/1500?random=1022", caption: "Secondary view with vertical emphasis.", page: "right", fit: "wide", align: "fold" },
@@ -1796,7 +1796,7 @@
 
       // Keep the trail smooth and consistent: fixed sizing, minimal rotation,
       // and almost no sideways drift so images don't appear to jitter.
-      const width = 220;
+      const width = 170;
       const angle = (landingTrailIndex % 2 === 0 ? -1 : 1) * 0.8;
       trail.style.width = `${width}px`;
       trail.style.left = `${x}px`;
@@ -1810,9 +1810,9 @@
 
     // Only create images during deliberately quick cursor movement.
     // Speed is measured between consecutive mouse events.
-    const LANDING_TRAIL_MIN_SPEED = 0.75; // pixels per millisecond (~650 px/sec) — increase to require faster movement
-    const LANDING_TRAIL_MIN_DISTANCE = 60;
-    const LANDING_TRAIL_MIN_INTERVAL = 28;
+    const LANDING_TRAIL_MIN_SPEED = 0.65; // pixels per millisecond (~650 px/sec) — increase to require faster movement
+    const LANDING_TRAIL_MIN_DISTANCE = 60; // require a more deliberate cursor movement
+    const LANDING_TRAIL_MIN_INTERVAL = 32;
 
     window.addEventListener("mousemove", (e) => {
       if (cursorDot) {
@@ -1821,6 +1821,21 @@
       }
 
       if (!landingTrailEnabled) return;
+
+      // Restrict the image trail to the top-left navigation area only.
+      // Include the site header and the navigation panel; movement elsewhere
+      // on the page will not create trail images and resets the distance sample.
+      const inMenuArea = e.target instanceof Element &&
+        e.target.closest(".site-header, #nav-panel") !== null;
+      if (!inMenuArea) {
+        lastTrailX = null;
+        lastTrailY = null;
+        lastTrailTime = 0;
+        lastMouseX = null;
+        lastMouseY = null;
+        lastMouseTime = 0;
+        return;
+      }
 
       const now = performance.now();
 
@@ -1845,8 +1860,10 @@
 
       if (speed < LANDING_TRAIL_MIN_SPEED) return;
 
+      // Set the starting point without spawning immediately. This prevents
+      // a tiny but fast movement (such as moving between menu items) from
+      // popping out an image before the cursor has travelled far enough.
       if (lastTrailX === null) {
-        spawnLandingImageTrail(e.clientX, e.clientY, dx, dy);
         lastTrailX = e.clientX;
         lastTrailY = e.clientY;
         lastTrailTime = now;
