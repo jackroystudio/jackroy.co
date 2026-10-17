@@ -1808,11 +1808,13 @@
 
     function getMenuRects() {
       if (!menuRectsCache) {
-        // .site-header is the JACK ROY button; .col-1 is the whole left
-        // menu column (category links + Services/Profile/Contact).
-        menuRectsCache = [".site-header", ".col-1"]
-          .map((selector) => document.querySelector(selector))
-          .filter(Boolean)
+        // Measure the visible buttons themselves, not the wider column.
+        menuRectsCache = [
+          "#home-button",
+          ".category-nav .menu-link",
+          ".page-nav .menu-link"
+        ]
+          .flatMap((selector) => Array.from(document.querySelectorAll(selector)))
           .map((element) => element.getBoundingClientRect());
       }
       return menuRectsCache;
