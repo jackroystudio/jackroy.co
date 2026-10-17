@@ -1822,17 +1822,21 @@
 
       if (!landingTrailEnabled) return;
 
-      // Keep the menu area clear: images should trail everywhere else on
-      // the desktop landing page, but never over the header or navigation.
-      // Use element rectangles rather than e.target because some menu layers
-      // intentionally have pointer-events:none.
-      const menuRects = [".site-header", "#nav-panel"]
+      // Keep the visible navigation clear. The nav columns are position:fixed,
+      // so #nav-panel itself does not reliably describe their on-screen area.
+      // Check the actual header and both menu columns, expanding each boundary
+      // so the 170px cursor images cannot spill over the menu from nearby.
+      const menuRects = [".site-header", ".col-1", ".col-2"]
         .map((selector) => document.querySelector(selector))
         .filter(Boolean)
         .map((element) => element.getBoundingClientRect());
+      const trailClearanceX = 90;
+      const trailClearanceY = 50;
       const inMenuArea = menuRects.some((rect) =>
-        e.clientX >= rect.left && e.clientX <= rect.right &&
-        e.clientY >= rect.top && e.clientY <= rect.bottom
+        e.clientX >= rect.left - trailClearanceX &&
+        e.clientX <= rect.right + trailClearanceX &&
+        e.clientY >= rect.top - trailClearanceY &&
+        e.clientY <= rect.bottom + trailClearanceY
       );
       if (inMenuArea) {
         lastTrailX = null;
