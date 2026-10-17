@@ -805,7 +805,7 @@ p,
 }
 
 .gallery-staggered .gallery-item {
-  width: min(760px, 100%);
+  width: min(700px, 100%);
 }
 
 .gallery-staggered img {
