@@ -423,7 +423,7 @@
 
         {
           title: "Glassons",
-          year: "2024",
+          year: "20",
           layout: "right-stack-small",
           sprinkleColors: ["#d0efff", "#a9dfff", "#8ecbff", "#5fb8ff", "#bfe3ff"],
           images: [
@@ -525,7 +525,7 @@
           images: [
             { src: "https://picsum.photos/1000/1300?random=1023", page: "left",  fit: "half", align: "fold" },
             { src: "https://picsum.photos/1400/1000?random=1021", caption: "Primary window composition.", page: "left", fit: "full", spaceBefore: 120 },
-            { src: "https://picsum.photos/900/1200?random=1024",  page: "left",  fit: "half", align: "fold" },
+            { src: "https://picsum.photos/900/1200?random=10",  page: "left",  fit: "half", align: "fold" },
 
             { src: "https://picsum.photos/1600/1000?random=1025", page: "right", fit: "full" },
             { src: "https://picsum.photos/1200/1500?random=1022", caption: "Secondary view with vertical emphasis.", page: "right", fit: "wide", align: "fold" },
@@ -1811,7 +1811,7 @@
     // Only create images during deliberately quick cursor movement.
     // Speed is measured between consecutive mouse events.
     const LANDING_TRAIL_MIN_SPEED = 0.75; // pixels per millisecond (~650 px/sec) — increase to require faster movement
-    const LANDING_TRAIL_MIN_DISTANCE = 24;
+    const LANDING_TRAIL_MIN_DISTANCE = 60;
     const LANDING_TRAIL_MIN_INTERVAL = 28;
 
     window.addEventListener("mousemove", (e) => {
