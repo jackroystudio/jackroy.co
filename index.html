@@ -122,7 +122,7 @@
           <button class="menu-link" data-category="spatial" type="button">Spatial</button>
           <button class="menu-link" data-category="window" type="button">Window</button>
           <button class="menu-link" data-category="exhibition" type="button">Exhibition</button>
-          <button class="menu-link" data-category="text" type="button">Set Design</button>
+          <button class="menu-link" data-category="set-design" type="button">Set Design</button>
         </nav>
 
         <nav class="menu-group page-nav" id="page-nav">
@@ -173,7 +173,7 @@
           layout: "right-stack",
           sprinkleColors: ["#ff2ec4", "#ff5fd8", "#ff0aa8", "#ff8be0", "#ff36b8"],
           images: [
-            { src: "/images/HLANG-photo1-jack-roy-jackroy.webp", caption: "The 2017 Helmut Lang Re-Edition collection was a archival revival project and limited collection launch." },
+            { src: "/images/HLANG-photo1-jack-roy-jackroy.webp", caption: "The 2017 Helmut Lang Re-Edition collection was an archival revival project and limited collection launch." },
             { src: "/images/HLANG-Window-jack-roy-jackroy.webp", caption: "" },
             { src: "/images/HLANG-photo2-jack-roy-jackroy.webp", caption: "Pop-up design, New York, 2017" }
           ]
@@ -221,7 +221,7 @@
           layout: "staggered-stack",
           sprinkleColors: ["#e6e6e6", "#a8a9ad", "#85868a", "#e6e6e6"],
           images: [
-            { src: "/images/10-corso-como-2-jack-roy-jackroy.webp", caption: "Layered arrangement with offset rhythm." },
+            { src: "/images/10-corso-como-2-jack-roy-jackroy.webp", caption: "" },
             {
               src: "/images/10-corso-como-1-jack-roy-jackroy.webp",
               captionHtml: `
@@ -235,7 +235,7 @@
 
                   <p class="section-title">SIZE AND FIT:</p>
                   <p class="indent">
-                    Relaxed fit. Model is 188 cm and wearing size medium. Please see measurements on the last slide.
+                    Relaxed fit. Model is 188 cm and wearing size medium.
                   </p>
 
                   <p class="section-title">PRODUCT DETAILS:</p>
@@ -256,8 +256,8 @@
                 </div>
               `
             },
-            { src: "/images/10-corso-como-3-jack-roy-jackroy.webp", caption: "Wide-format view of the installation." },
-            { src: "/images/10-corso-como-4-jack-roy-jackroy.webp", caption: "Wide-format view of the installation." }
+            { src: "/images/10-corso-como-3-jack-roy-jackroy.webp", caption: "" },
+            { src: "/images/10-corso-como-4-jack-roy-jackroy.webp", caption: "" }
           ]
         },
 
@@ -267,10 +267,10 @@
           layout: "caption-led",
           sprinkleColors: ["#e6e6e6", "#a8a9ad", "#85868a", "#e6e6e6"],
           images: [
-            { src: "/images/10ccCafe-photo3-jack-roy-jackroy.webp", caption: "Product arrangement across a continuous field." },
-            { src: "/images/10ccCafe-photo2-jack-roy-jackroy.webp", caption: "Display composition with graphic emphasis." },
-            { src: "/images/10cc-library3-jack-roy-jackroy.webp", caption: "Product arrangement across a continuous field." },
-            { src: "/images/10ccCafe-photo1-jack-roy-jackroy.webp", caption: "Product arrangement across a continuous field." }
+            { src: "/images/10ccCafe-photo3-jack-roy-jackroy.webp", caption: "" },
+            { src: "/images/10ccCafe-photo2-jack-roy-jackroy.webp", caption: "" },
+            { src: "/images/10cc-library3-jack-roy-jackroy.webp", caption: "" },
+            { src: "/images/10ccCafe-photo1-jack-roy-jackroy.webp", caption: "" }
           ]
         },
         
@@ -390,12 +390,6 @@
                     <li>Modular product displays and stacked plinths</li>
                     <li>Industrial garment rails and contrasting materials</li>
                   </ul>
-
-                  <p class="section-title"></p>
-
-                  <p class="indent">
-                    
-                  </p>
                 </div>
               `
             },
@@ -488,7 +482,7 @@
             },
             {
               src: "/images/thistles-htown-photo2-jack-roy-jackroy.webp",
-              caption: "Wide-format view of the installation."
+              caption: ""
             },
             {
               src: "/images/Thistles-HTOWN-8-jack-roy-jackroy.webp",
@@ -511,21 +505,6 @@
             { src: "/images/oc-window1-jack-roy-jackroy.webp", caption: "" },
             { src: "/images/oc-window2-jack-roy-jackroy.webp", caption: "" },
             { src: "/images/oc-window3-jack-roy-jackroy.webp", caption: "New York, 2015" }
-          ]
-        },
-
-        {
-          title: "Project Name",
-          year: "2017",
-          layout: "spread",
-          images: [
-            { src: "https://picsum.photos/1000/1300?random=1023", page: "left",  fit: "half", align: "fold" },
-            { src: "https://picsum.photos/1400/1000?random=1021", caption: "Primary window composition.", page: "left", fit: "full", spaceBefore: 120 },
-            { src: "https://picsum.photos/900/1200?random=1024",  page: "left",  fit: "half", align: "fold" },
-
-            { src: "https://picsum.photos/1600/1000?random=1025", page: "right", fit: "full" },
-            { src: "https://picsum.photos/1200/1500?random=1022", caption: "Secondary view with vertical emphasis.", page: "right", fit: "wide", align: "fold" },
-            { src: "https://picsum.photos/1400/1000?random=1026", page: "right", fit: "full" },
           ]
         },
 
@@ -588,7 +567,7 @@
         }
       ],
 
-      text: [
+      "set-design": [
         {
           title: "Proenza Schouler White Label",
           year: "2019",
@@ -690,6 +669,10 @@
     let homeBackgroundSlideIndex = 0;
     let homeBackgroundTimer = null;
 
+    // Last sprinkle position. Declared up here so setHomeCarouselActive can reset it.
+    let lastSprinkleX = null;
+    let lastSprinkleY = null;
+
     function setHomeCarouselActive(active) {
       // The original carousel is now only a hidden image source for the
       // landing-page cursor trail. Project pages keep their existing cursor.
@@ -699,6 +682,12 @@
         homeBackgroundTimer = null;
       }
       homeBackgroundSlides.forEach((slide) => slide.classList.remove("is-active"));
+
+      // Reset the sprinkle start point so there's no streak of sprinkles
+      // from a stale position after leaving the landing page.
+      lastSprinkleX = null;
+      lastSprinkleY = null;
+
       updateLandingTrailMode();
     }
 
@@ -741,14 +730,14 @@
 
     const SITE_TITLE = "Jack Roy | Spatial Design";
     const SITE_DESCRIPTION =
-      "Jack Roy is an independent spatial designer based in New York, working across temporary installations, window displays, exhibitions, and retail spaces.";
+      "Jack Roy is an independent spatial designer based in New York, working across temporary installations, window displays, exhibitions, and set design.";
     const DEFAULT_OG_IMAGE = "https://i.postimg.cc/pL57wq3M/favicon.png";
 
     const categoryNames = {
       spatial: "Spatial",
       window: "Window",
       exhibition: "Exhibition",
-      text: "Event"
+      "set-design": "Set Design"
     };
 
     const pageNames = {
@@ -791,6 +780,11 @@
       return `Jack Roy | ${pageNames[page] || page}`;
     }
 
+    // Descriptive alt text for gallery images (accessibility + image search).
+    function imgAlt(project) {
+      return `${project.title}, ${project.year}`;
+    }
+
     function setMetaTag(attr, key, content) {
       let tag = document.querySelector(`meta[${attr}="${key}"]`);
       if (!tag) {
@@ -801,6 +795,8 @@
       tag.setAttribute("content", content);
     }
 
+    // NOTE: call pushUrl() BEFORE updatePageMeta() so that the canonical
+    // and og:url tags pick up the new path.
     function updatePageMeta({ title, description, image }) {
       document.title = title;
       setMetaTag("name", "description", description);
@@ -808,6 +804,11 @@
       setMetaTag("property", "og:description", description);
       setMetaTag("name", "twitter:title", title);
       setMetaTag("name", "twitter:description", description);
+
+      const pageUrl = location.origin + location.pathname;
+      const canonical = document.querySelector('link[rel="canonical"]');
+      if (canonical) canonical.setAttribute("href", pageUrl);
+      setMetaTag("property", "og:url", pageUrl);
 
       const imageUrl = image || DEFAULT_OG_IMAGE;
       setMetaTag("property", "og:image", imageUrl);
@@ -843,9 +844,9 @@
         renderGallery();
       }
 
-      updatePageMeta({ title: SITE_TITLE, description: SITE_DESCRIPTION });
-
       if (updateUrl) pushUrl("/");
+
+      updatePageMeta({ title: SITE_TITLE, description: SITE_DESCRIPTION });
     }
 
     function selectCategory(category, { updateUrl = true } = {}) {
@@ -862,12 +863,12 @@
           goToMobileCategory(category);
         }
 
+        if (updateUrl) pushUrl(`/${category}`);
+
         updatePageMeta({
           title: titleForCategory(category),
           description: SITE_DESCRIPTION
         });
-
-        if (updateUrl) pushUrl(`/${category}`);
       } else {
         currentCategory = category;
         currentProjectIndex = portfolioData[category].length - 1;
@@ -879,13 +880,15 @@
         const project = portfolioData[category][currentProjectIndex];
         const firstImage = project.images && project.images[0];
 
+        if (updateUrl) pushUrl(`/${category}/${projectSlug(project)}`);
+
+        // The tab title shows the category name (e.g. "Jack Roy | Set Design")
+        // while the URL and preview image point at the project shown.
         updatePageMeta({
-          title: titleForProject(project),
+          title: titleForCategory(category),
           description: SITE_DESCRIPTION,
           image: firstImage ? absoluteImageUrl(firstImage.src) : null
         });
-
-        if (updateUrl) pushUrl(`/${category}/${projectSlug(project)}`);
       }
     }
 
@@ -906,17 +909,20 @@
       const project = portfolioData[category][index];
       const firstImage = project.images && project.images[0];
 
+      if (updateUrl) pushUrl(`/${category}/${projectSlug(project)}`);
+
       updatePageMeta({
         title: titleForProject(project),
         description: SITE_DESCRIPTION,
         image: firstImage ? absoluteImageUrl(firstImage.src) : null
       });
-
-      if (updateUrl) pushUrl(`/${category}/${projectSlug(project)}`);
     }
 
     function parseRoute(pathname) {
       const parts = pathname.replace(/^\/+|\/+$/g, "").split("/").filter(Boolean);
+
+      // Old URLs used /text/... for Set Design. Keep them working.
+      if (parts[0] === "text") parts[0] = "set-design";
 
       if (parts.length === 0) return { type: "home" };
 
@@ -987,12 +993,12 @@
       updateCategoryButtons();
       updateMobileMenuUI();
 
+      if (updateUrl) pushUrl(`/${page}`);
+
       updatePageMeta({
         title: titleForPage(page),
         description: SITE_DESCRIPTION
       });
-
-      if (updateUrl) pushUrl(`/${page}`);
     }
 
     function bindFooterLinks() {
@@ -1242,6 +1248,8 @@
     }
 
     function RightStack(project) {
+      const alt = imgAlt(project);
+
       return `
         <div class="gallery-right">
           ${project.images.map((item) => item.type === "video" ? `
@@ -1260,7 +1268,7 @@
             </div>
           ` : `
             <div class="gallery-item">
-              <img src="${item.src}" alt="">
+              <img src="${item.src}" alt="${alt}">
               ${CaptionContent(item)}
             </div>
           `).join("")}
@@ -1269,6 +1277,7 @@
     }
 
     function RandomScatter(project) {
+      const alt = imgAlt(project);
       const slots = [
         { top: 8, left: 8, width: 18 },
         { top: 18, left: 34, width: 16 },
@@ -1291,7 +1300,7 @@
               <img
                 src="${img.src}"
                 class="random-img"
-                alt=""
+                alt="${alt}"
                 style="
                   top:${slot.top + topJitter}%;
                   left:${slot.left + leftJitter}%;
@@ -1307,11 +1316,13 @@
     }
 
     function CenteredLarge(project) {
+      const alt = imgAlt(project);
+
       return `
         <div class="gallery-centered-large">
           ${project.images.map((img) => `
             <div class="gallery-item centered-large-item">
-              <img src="${img.src}" alt="">
+              <img src="${img.src}" alt="${alt}">
               ${CaptionContent(img)}
             </div>
           `).join("")}
@@ -1325,7 +1336,7 @@
       return `
         <div class="gallery-side-caption">
           <div class="side-caption-image">
-            <img src="${img.src}" alt="">
+            <img src="${img.src}" alt="${imgAlt(project)}">
           </div>
           <div class="side-caption-text">
             ${img.caption || ""}
@@ -1335,11 +1346,13 @@
     }    
     
     function PairSmall(project) {
+      const alt = imgAlt(project);
+
       return `
         <div class="gallery-pair-small">
           ${project.images.map((img) => `
             <div class="pair-small-item">
-              <img src="${img.src}" alt="">
+              <img src="${img.src}" alt="${alt}">
               ${CaptionContent(img, "caption-below")}
             </div>
           `).join("")}
@@ -1348,6 +1361,7 @@
     }
 
     function renderPairFeature(project) {
+      const alt = imgAlt(project);
       const pair = project.images.slice(0, 2);
       const features = project.images.slice(2);
 
@@ -1356,7 +1370,7 @@
           <div class="pair-feature-row">
             ${pair.map((img) => `
               <div class="pair-feature-item">
-                <img src="${img.src}" alt="">
+                <img src="${img.src}" alt="${alt}">
                 ${renderCaptionContent(img, "caption-below")}
               </div>
             `).join("")}
@@ -1364,7 +1378,7 @@
 
           ${features.map((img) => `
             <div class="pair-feature-main">
-              <img src="${img.src}" alt="">
+              <img src="${img.src}" alt="${alt}">
               ${renderCaptionContent(img, "caption-below")}
             </div>
           `).join("")}
@@ -1373,6 +1387,7 @@
     }
 
     function renderSpread(project) {
+      const alt = imgAlt(project);
       const left = [];
       const right = [];
 
@@ -1390,7 +1405,7 @@
 
         return `
           <div class="spread-item fit-${fit} align-${align}"${space}>
-            <img src="${img.src}" alt="">
+            <img src="${img.src}" alt="${alt}">
             ${renderCaptionContent(img)}
           </div>
         `;
@@ -1406,13 +1421,14 @@
     }
     
     function renderEditorialScrollOverlay(project) {
+      const alt = imgAlt(project);
       const boardClass = project.boardText ? " board-text" : "";
 
       return `
         <div class="gallery-editorial-scroll">
           ${project.images.map((img) => `
             <div class="editorial-item">
-              <img src="${img.src}" alt="" class="wynn-image">
+              <img src="${img.src}" alt="${alt}" class="wynn-image">
             </div>
           `).join("")}
 
@@ -1424,11 +1440,13 @@
     }
 
     function renderTwoColumnGrid(project) {
+      const alt = imgAlt(project);
+
       return `
         <div class="gallery-two-grid">
           ${project.images.map((img) => `
             <div class="grid-item">
-              <img src="${img.src}" alt="">
+              <img src="${img.src}" alt="${alt}">
               ${renderCaptionContent(img, "caption-below")}
             </div>
           `).join("")}
@@ -1437,11 +1455,13 @@
     }
 
     function renderStaggeredStack(project) {
+      const alt = imgAlt(project);
+
       return `
         <div class="gallery-staggered">
           ${project.images.map((img, i) => `
             <div class="gallery-item stagger-${i}">
-              <img src="${img.src}" alt="">
+              <img src="${img.src}" alt="${alt}">
               ${renderCaptionContent(img)}
             </div>
           `).join("")}
@@ -1450,11 +1470,13 @@
     }
 
     function renderSingleMonument(project) {
+      const alt = imgAlt(project);
+
       return `
         <div class="gallery-monument">
           ${project.images.map((img) => `
             <div class="gallery-item monument-item">
-              <img src="${img.src}" alt="">
+              <img src="${img.src}" alt="${alt}">
               ${renderCaptionContent(img)}
             </div>
           `).join("")}
@@ -1463,11 +1485,13 @@
     }
 
     function renderCaptionLed(project) {
+      const alt = imgAlt(project);
+
       return `
         <div class="gallery-caption-led">
           ${project.images.map((img) => `
             <div class="caption-led-item">
-              <img src="${img.src}" alt="">
+              <img src="${img.src}" alt="${alt}">
               ${renderCaptionContent(img, "caption-wide")}
             </div>
           `).join("")}
@@ -1476,11 +1500,13 @@
     }
 
     function renderDiptych(project) {
+      const alt = imgAlt(project);
+
       return `
         <div class="gallery-diptych">
           ${project.images.map((img) => `
             <div class="diptych-item">
-              <img src="${img.src}" alt="">
+              <img src="${img.src}" alt="${alt}">
               ${renderCaptionContent(img, "caption-below")}
             </div>
           `).join("")}
@@ -1497,6 +1523,8 @@
     }
 
     function renderMobileLinear(project) {
+      const alt = imgAlt(project);
+
       if (project.layout === "text-page") {
         return `
           <div class="gallery-mobile-linear text-only">
@@ -1520,7 +1548,7 @@
 
             ${project.images.map((img) => `
               <div class="mobile-linear-item">
-                <img src="${img.src}" alt="" class="wynn-image">
+                <img src="${img.src}" alt="${alt}" class="wynn-image">
               </div>
             `).join("")}
           </div>
@@ -1545,7 +1573,7 @@
             </div>
           ` : `
             <div class="mobile-linear-item">
-              <img src="${item.src}" alt="">
+              <img src="${item.src}" alt="${alt}">
               ${renderCaptionContent(item, "mobile-caption")}
             </div>
           `).join("")}
@@ -1753,8 +1781,8 @@
       closeMobileMenu();
     });
 
-    // Landing-only image trail. It reuses the five images that previously
-    // appeared in the home carousel; project pages retain the sprinkle cursor.
+    // Landing-only image trail. It reuses the images from the hidden home
+    // carousel; project pages retain the sprinkle cursor.
     let landingTrailEnabled = false;
     let landingTrailIndex = 0;
     let lastTrailX = null;
@@ -1768,8 +1796,33 @@
       .filter(Boolean)
       .map((img) => img.currentSrc || img.src);
 
+    // Preload so images don't pop in on first use.
+    landingTrailSources.forEach((src) => {
+      const preload = new Image();
+      preload.src = src;
+    });
+
+    // Cached bounding boxes of the menu areas the trail must stay clear of.
+    // Recomputed lazily after a resize or when the landing mode changes.
+    let menuRectsCache = null;
+
+    function getMenuRects() {
+      if (!menuRectsCache) {
+        // .site-header is the JACK ROY button; .col-1 is the whole left
+        // menu column (category links + Services/Profile/Contact).
+        menuRectsCache = [".site-header", ".col-1"]
+          .map((selector) => document.querySelector(selector))
+          .filter(Boolean)
+          .map((element) => element.getBoundingClientRect());
+      }
+      return menuRectsCache;
+    }
+
     function updateLandingTrailMode() {
-      landingTrailEnabled = document.body.classList.contains("is-home") && !isMobile();
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      landingTrailEnabled =
+        document.body.classList.contains("is-home") && !isMobile() && !reduceMotion;
+      menuRectsCache = null;
       lastTrailX = null;
       lastTrailY = null;
       lastTrailTime = 0;
@@ -1781,7 +1834,7 @@
       }
     }
 
-    function spawnLandingImageTrail(x, y, velocityX, velocityY) {
+    function spawnLandingImageTrail(x, y) {
       if (!landingTrailEnabled || !landingTrailSources.length) return;
       const trail = document.createElement("img");
       trail.className = "cursor-image-trail";
@@ -1818,17 +1871,11 @@
 
       if (!landingTrailEnabled) return;
 
-      // Keep the visible navigation clear. The nav columns are position:fixed,
-      // so #nav-panel itself does not reliably describe their on-screen area.
-      // Check the actual header and both menu columns, expanding each boundary
-      // so the 170px cursor images cannot spill over the menu from nearby.
-      const menuRects = ["#page-nav", ".site-header"]
-        .map((selector) => document.querySelector(selector))
-        .filter(Boolean)
-        .map((element) => element.getBoundingClientRect());
-      const trailClearanceX = 90;
-      const trailClearanceY = 50;
-      const inMenuArea = menuRects.some((rect) =>
+      // Keep the menu clear. Each boundary is expanded so the 200px cursor
+      // images (100px either side of the cursor) can't spill over the menu.
+      const trailClearanceX = 110;
+      const trailClearanceY = 60;
+      const inMenuArea = getMenuRects().some((rect) =>
         e.clientX >= rect.left - trailClearanceX &&
         e.clientX <= rect.right + trailClearanceX &&
         e.clientY >= rect.top - trailClearanceY &&
@@ -1886,7 +1933,7 @@
         distanceSinceLastImage >= LANDING_TRAIL_MIN_DISTANCE &&
         now - lastTrailTime >= LANDING_TRAIL_MIN_INTERVAL
       ) {
-        spawnLandingImageTrail(e.clientX, e.clientY, dx, dy);
+        spawnLandingImageTrail(e.clientX, e.clientY);
         lastTrailX = e.clientX;
         lastTrailY = e.clientY;
         lastTrailTime = now;
@@ -1932,9 +1979,6 @@
 
       document.body.appendChild(sprinkle);
     }
-
-    let lastSprinkleX = null;
-    let lastSprinkleY = null;
 
     window.addEventListener("mousemove", (e) => {
       // The landing page uses images only; keep the original sprinkle cursor on project pages.
@@ -2110,7 +2154,7 @@
     );
 
     window.addEventListener("resize", () => {
-      updateLandingTrailMode();
+      updateLandingTrailMode(); // also clears the cached menu rects
       if (isMobile()) {
         if (mobileMode === "desktop") {
           goToMobileLanding();
