@@ -1823,10 +1823,17 @@
       if (!landingTrailEnabled) return;
 
       // Restrict the image trail to the top-left navigation area only.
-      // Include the site header and the navigation panel; movement elsewhere
-      // on the page will not create trail images and resets the distance sample.
-      const inMenuArea = e.target instanceof Element &&
-        e.target.closest(".site-header, #nav-panel") !== null;
+      // Use screen coordinates rather than e.target: much of the header/menu
+      // intentionally has pointer-events:none, so e.target can be the page
+      // underneath even when the cursor is visually over the menu.
+      const menuRects = [".site-header", ".col-1", ".col-2"]
+        .map((selector) => document.querySelector(selector))
+        .filter(Boolean)
+        .map((element) => element.getBoundingClientRect());
+      const inMenuArea = menuRects.some((rect) =>
+        e.clientX >= rect.left && e.clientX <= rect.right &&
+        e.clientY >= rect.top && e.clientY <= rect.bottom
+      );
       if (!inMenuArea) {
         lastTrailX = null;
         lastTrailY = null;
