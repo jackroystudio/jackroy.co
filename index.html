@@ -1764,6 +1764,12 @@
     let lastTrailX = null;
     let lastTrailY = null;
     let lastTrailTime = 0;
+    let lastMouseMoveX = null;
+    let lastMouseMoveY = null;
+    let lastMouseMoveTime = 0;
+    const LANDING_TRAIL_MIN_SPEED = 0.48; // pixels per millisecond (~480 px/sec)
+    const LANDING_TRAIL_MIN_DISTANCE = 28;
+    const LANDING_TRAIL_MIN_INTERVAL = 28;
     const landingTrailSources = homeBackgroundSlides
       .map((slide) => slide.querySelector("img"))
       .filter(Boolean)
@@ -1773,6 +1779,10 @@
       landingTrailEnabled = document.body.classList.contains("is-home") && !isMobile();
       lastTrailX = null;
       lastTrailY = null;
+      lastTrailTime = 0;
+      lastMouseMoveX = null;
+      lastMouseMoveY = null;
+      lastMouseMoveTime = 0;
       if (!landingTrailEnabled) {
         document.querySelectorAll(".cursor-image-trail").forEach((img) => img.remove());
       }
@@ -1809,17 +1819,43 @@
 
       if (!landingTrailEnabled) return;
       const now = performance.now();
+      if (lastMouseMoveX === null) {
+        // Establish a baseline only; don't show an image on the first move.
+        lastMouseMoveX = e.clientX;
+        lastMouseMoveY = e.clientY;
+        lastMouseMoveTime = now;
+        return;
+      }
+
+      const moveDx = e.clientX - lastMouseMoveX;
+      const moveDy = e.clientY - lastMouseMoveY;
+      const moveDistance = Math.hypot(moveDx, moveDy);
+      const moveElapsed = Math.max(1, now - lastMouseMoveTime);
+      const speed = moveDistance / moveElapsed;
+
+      // Always update the movement sample so slow movement can't build up
+      // and accidentally trigger the trail later.
+      lastMouseMoveX = e.clientX;
+      lastMouseMoveY = e.clientY;
+      lastMouseMoveTime = now;
+
+      if (speed < LANDING_TRAIL_MIN_SPEED) return;
+
       if (lastTrailX === null) {
         lastTrailX = e.clientX;
         lastTrailY = e.clientY;
         lastTrailTime = now;
-        spawnLandingImageTrail(e.clientX, e.clientY, 0, 0);
+        spawnLandingImageTrail(e.clientX, e.clientY, moveDx, moveDy);
         return;
       }
+
       const dx = e.clientX - lastTrailX;
       const dy = e.clientY - lastTrailY;
       const distance = Math.hypot(dx, dy);
-      if (distance > 28 && now - lastTrailTime > 28) {
+      if (
+        distance >= LANDING_TRAIL_MIN_DISTANCE &&
+        now - lastTrailTime >= LANDING_TRAIL_MIN_INTERVAL
+      ) {
         spawnLandingImageTrail(e.clientX, e.clientY, dx, dy);
         lastTrailX = e.clientX;
         lastTrailY = e.clientY;
