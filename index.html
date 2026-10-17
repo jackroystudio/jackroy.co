@@ -454,6 +454,7 @@
             },
             {
               src: "/images/thistles-htown-closeup-photo3-jack-roy-jackroy.webp",
+              sideImage: "/images/thistles-htown-drawing-jack-roy-jackroy.webp",
               captionHtml: `
                 <div class="editorial-caption">
                   <p class="section-title">SPATIAL CONCEPT:</p>
@@ -487,10 +488,6 @@
             },
             {
               src: "/images/Thistles-HTOWN-8-jack-roy-jackroy.webp",
-              caption: ""
-            },
-            {
-              src: "/images/thistles-htown-drawing-jack-roy-jackroy.webp",
               caption: ""
             }
           ]
@@ -1464,6 +1461,7 @@
             <div class="gallery-item stagger-${i}">
               <img src="${img.src}" alt="${alt}">
               ${renderCaptionContent(img)}
+              ${img.sideImage ? `<img class="side-drawing" src="${img.sideImage}" alt="${alt}, architectural drawing">` : ""}
             </div>
           `).join("")}
         </div>
@@ -1576,6 +1574,7 @@
             <div class="mobile-linear-item">
               <img src="${item.src}" alt="${alt}">
               ${renderCaptionContent(item, "mobile-caption")}
+              ${item.sideImage ? `<img src="${item.sideImage}" alt="${alt}, architectural drawing">` : ""}
             </div>
           `).join("")}
         </div>
