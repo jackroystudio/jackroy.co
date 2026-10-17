@@ -1889,3 +1889,48 @@ body.is-home .home-background-carousel {
     animation: none !important;
   }
 }
+
+@media (min-width: 769px) {
+  .gallery-staggered.vertical-caption .stagger-1 {
+    grid-template-columns: minmax(0, 420px) auto;
+    column-gap: 24px;
+  }
+
+  .gallery-staggered.vertical-caption .stagger-1 > div:has(> .editorial-caption) {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    align-self: end;
+    max-height: 280px;
+  }
+
+  .gallery-staggered.vertical-caption .editorial-caption {
+    max-width: none;
+    text-align: justify;
+    text-align-last: start;
+  }
+
+  .gallery-staggered.vertical-caption .editorial-caption .section-title {
+    margin-bottom: 0;
+    margin-block-end: 6px;
+  }
+
+  .gallery-staggered.vertical-caption .editorial-caption .indent,
+  .gallery-staggered.vertical-caption .editorial-caption .bullet-list {
+    margin-left: 0;
+    margin-bottom: 0;
+    margin-inline-start: 14px;
+    margin-block-end: 14px;
+  }
+
+  .gallery-staggered.vertical-caption .editorial-caption .bullet-list li {
+    padding-left: 0;
+    padding-inline-start: 10px;
+    margin-bottom: 0;
+    margin-block-end: 4px;
+  }
+
+  .gallery-staggered.vertical-caption .editorial-caption .bullet-list li::before {
+    left: auto;
+    inset-inline-start: 0;
+  }
+}
