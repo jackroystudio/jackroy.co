@@ -922,7 +922,7 @@ p,
   display: flex;
   flex-direction: column;
   gap: 34px;
-  width: min(860px, 100%);
+  width: min(700px, 100%);
   margin-left: auto;
   min-height: 100vh;
   padding: 0px 16px 16px 16px;
