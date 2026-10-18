@@ -64,7 +64,35 @@
     rel="stylesheet"
   />
 
-  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="/style.css?v=2" />
+  <link rel="stylesheet" href="/mobile.css?v=1" />
+
+  <!-- Sideways captions. Kept here as well as in style.css so they still
+       work if a cached copy of style.css is served. -->
+  <style>
+    .gallery-caption-led .caption-led-item.has-side-caption,
+    .gallery-right .gallery-item.has-side-caption {
+      position: relative;
+    }
+
+    .side-caption-left {
+      position: absolute;
+      right: 100%;
+      bottom: 0;
+      margin-right: 16px;
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      max-height: min(280px, 100%);
+      text-align: justify;
+      text-align-last: start;
+      cursor: text;
+    }
+
+    .side-caption-left.is-top {
+      top: 0;
+      bottom: auto;
+    }
+  </style>
 </head>
 
 <body>
@@ -1168,7 +1196,7 @@
       mobileMode = "category";
       mobileMenuOpen = false;
 
-      Projects(false);
+      Projects(true);
       Gallery();
       updateCategoryButtons();
       updateMobileMenuUI();
@@ -1572,15 +1600,64 @@
               </video>
             </div>
           ` : `
-            <div class="mobile-linear-item">
+            <div class="mobile-linear-item${item.sideCaption ? " has-side-caption" : ""}">
               <img src="${item.src}" alt="${alt}">
+              ${item.sideCaption ? `<div class="side-caption-mobile">${item.sideCaption}</div>` : ""}
               ${renderCaptionContent(item, "mobile-caption")}
-              ${item.sideCaption ? `<div class="mobile-caption">${item.sideCaption}</div>` : ""}
               ${item.sideImage ? `<img src="${item.sideImage}" alt="${alt}, architectural drawing">` : ""}
             </div>
           `).join("")}
         </div>
       `;
+    }
+
+    // "Next project" link at the end of a project on phones.
+    // Follows the order of the project list (newest first), then loops.
+    function renderMobileNext() {
+      const projects = portfolioData[currentCategory];
+      if (!projects || projects.length < 2) return "";
+
+      const nextIndex =
+        currentProjectIndex > 0 ? currentProjectIndex - 1 : projects.length - 1;
+      const next = projects[nextIndex];
+
+      return `
+        <div class="mobile-next-wrap">
+          <button class="mobile-next" type="button" data-next-index="${nextIndex}">
+            <span class="mobile-next-label">Next project</span>
+            <span class="mobile-next-title">${next.title}, ${next.year} &rarr;</span>
+          </button>
+        </div>
+      `;
+    }
+
+    // Phone images and captions fade up gently as they scroll into view.
+    function setupMobileReveal() {
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (reduceMotion || !("IntersectionObserver" in window)) return;
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("in-view");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { rootMargin: "0px 0px -6% 0px", threshold: 0.05 });
+
+      projectGallery.querySelectorAll(".mobile-linear-item").forEach((item) => {
+        item.classList.add("reveal");
+        const img = item.querySelector("img");
+        const watch = () => observer.observe(item);
+
+        // Wait for the image so the item has its real height first.
+        if (!img || img.complete) {
+          watch();
+        } else {
+          img.addEventListener("load", watch, { once: true });
+          img.addEventListener("error", watch, { once: true });
+        }
+      });
     }
 
     function attachWynnImageToggle() {
@@ -1622,14 +1699,25 @@
           attachWynnImageToggle();
         }
 
+        projectGallery.insertAdjacentHTML("beforeend", renderMobileNext());
+
         projectGallery.insertAdjacentHTML(
           "beforeend",
           renderFooter()
         );
 
+        const nextButton = projectGallery.querySelector(".mobile-next");
+        if (nextButton) {
+          nextButton.addEventListener("click", () => {
+            selectProject(currentCategory, Number(nextButton.dataset.nextIndex));
+            window.scrollTo(0, 0);
+          });
+        }
+
         projectGallery.scrollTop = 0;
         bindFooterLinks();
         applyImageFade();
+        setupMobileReveal();
         return;
       }
 
@@ -1786,6 +1874,9 @@
     // Landing-only image trail. It reuses the images from the hidden home
     // carousel; project pages retain the sprinkle cursor.
     let landingTrailEnabled = false;
+    let landingTouchEnabled = false;
+    let lastTouchTrailX = null;
+    let lastTouchTrailY = null;
     let landingTrailIndex = 0;
     let lastTrailX = null;
     let lastTrailY = null;
@@ -1808,17 +1899,19 @@
     // Recomputed lazily after a resize or when the landing mode changes.
     let menuRectsCache = null;
 
+    // Measure the visible buttons themselves, not the wider column.
+    function computeMenuRects() {
+      return [
+        "#home-button",
+        ".category-nav .menu-link",
+        ".page-nav .menu-link"
+      ]
+        .flatMap((selector) => Array.from(document.querySelectorAll(selector)))
+        .map((element) => element.getBoundingClientRect());
+    }
+
     function getMenuRects() {
-      if (!menuRectsCache) {
-        // Measure the visible buttons themselves, not the wider column.
-        menuRectsCache = [
-          "#home-button",
-          ".category-nav .menu-link",
-          ".page-nav .menu-link"
-        ]
-          .flatMap((selector) => Array.from(document.querySelectorAll(selector)))
-          .map((element) => element.getBoundingClientRect());
-      }
+      if (!menuRectsCache) menuRectsCache = computeMenuRects();
       return menuRectsCache;
     }
 
@@ -1826,6 +1919,11 @@
       const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       landingTrailEnabled =
         document.body.classList.contains("is-home") && !isMobile() && !reduceMotion;
+      // Phones get a touch version of the same trail.
+      landingTouchEnabled =
+        document.body.classList.contains("is-home") && isMobile() && !reduceMotion;
+      lastTouchTrailX = null;
+      lastTouchTrailY = null;
       menuRectsCache = null;
       lastTrailX = null;
       lastTrailY = null;
@@ -1833,13 +1931,13 @@
       lastMouseX = null;
       lastMouseY = null;
       lastMouseTime = 0;
-      if (!landingTrailEnabled) {
+      if (!landingTrailEnabled && !landingTouchEnabled) {
         document.querySelectorAll(".cursor-image-trail").forEach((img) => img.remove());
       }
     }
 
-    function spawnLandingImageTrail(x, y) {
-      if (!landingTrailEnabled || !landingTrailSources.length) return;
+    function spawnLandingImageTrail(x, y, width = 220) {
+      if ((!landingTrailEnabled && !landingTouchEnabled) || !landingTrailSources.length) return;
       const trail = document.createElement("img");
       trail.className = "cursor-image-trail";
       trail.src = landingTrailSources[landingTrailIndex % landingTrailSources.length];
@@ -1849,7 +1947,6 @@
 
       // Keep the trail smooth and consistent: fixed sizing, minimal rotation,
       // and almost no sideways drift so images don't appear to jitter.
-      const width = 220;
       const angle = (landingTrailIndex % 2 === 0 ? -1 : 1) * 0.8;
       trail.style.width = `${width}px`;
       trail.style.left = `${x}px`;
@@ -1944,6 +2041,57 @@
       }
     });
 
+    // Touch version of the landing trail: a tap, or a finger dragged across
+    // the screen, drops images. Stays clear of the menu buttons.
+    const TOUCH_TRAIL_MIN_DISTANCE = 80;
+    const TOUCH_TRAIL_WIDTH = 130;
+
+    function handleLandingTouch(e) {
+      if (!landingTouchEnabled) return;
+      const touch = e.touches && e.touches[0];
+      if (!touch) return;
+
+      // Fresh measurements: on a phone the menu scrolls with the page.
+      const clearX = 70;
+      const clearY = 24;
+      const inMenuArea = computeMenuRects().some((rect) =>
+        touch.clientX >= rect.left - clearX &&
+        touch.clientX <= rect.right + clearX &&
+        touch.clientY >= rect.top - clearY &&
+        touch.clientY <= rect.bottom + clearY
+      );
+      if (inMenuArea) {
+        lastTouchTrailX = null;
+        lastTouchTrailY = null;
+        return;
+      }
+
+      if (e.type === "touchstart" || lastTouchTrailX === null) {
+        spawnLandingImageTrail(touch.clientX, touch.clientY, TOUCH_TRAIL_WIDTH);
+        lastTouchTrailX = touch.clientX;
+        lastTouchTrailY = touch.clientY;
+        return;
+      }
+
+      const travelled = Math.hypot(
+        touch.clientX - lastTouchTrailX,
+        touch.clientY - lastTouchTrailY
+      );
+
+      if (travelled >= TOUCH_TRAIL_MIN_DISTANCE) {
+        spawnLandingImageTrail(touch.clientX, touch.clientY, TOUCH_TRAIL_WIDTH);
+        lastTouchTrailX = touch.clientX;
+        lastTouchTrailY = touch.clientY;
+      }
+    }
+
+    document.addEventListener("touchstart", handleLandingTouch, { passive: true });
+    document.addEventListener("touchmove", handleLandingTouch, { passive: true });
+    document.addEventListener("touchend", () => {
+      lastTouchTrailX = null;
+      lastTouchTrailY = null;
+    }, { passive: true });
+
     const SPRINKLE_STEP = 10;
 
     function randomSprinkleColor() {
@@ -2021,8 +2169,9 @@
     });
 
     document.addEventListener("click", (e) => {
-      // No sprinkle bursts on the landing page either.
-      if (isMobile() || document.body.classList.contains("is-home")) return;
+      // No sprinkle bursts on the landing page (it has the image trail).
+      // On phones this fires on tap.
+      if (document.body.classList.contains("is-home")) return;
 
       const burstCount = 8;
 
