@@ -1941,3 +1941,26 @@ body.is-home .home-background-carousel {
     inset-inline-start: 0;
   }
 }
+
+.gallery-caption-led .caption-led-item.has-side-caption,
+.gallery-right .gallery-item.has-side-caption {
+  position: relative;
+}
+
+.side-caption-left {
+  position: absolute;
+  right: 100%;
+  bottom: 0;
+  margin-right: 16px;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  max-height: min(280px, 100%);
+  text-align: justify;
+  text-align-last: start;
+  cursor: text;
+}
+
+.side-caption-left.is-top {
+  top: 0;
+  bottom: auto;
+}
