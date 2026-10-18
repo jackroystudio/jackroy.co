@@ -1,0 +1,170 @@
+/* =========================================================
+   MOBILE.CSS
+   Loaded after style.css. Every rule here applies to phones
+   (768px wide or less) only, and overrides style.css where
+   the two overlap. Desktop is untouched.
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+  /* ---------- Navigation: larger and easier to tap ---------- */
+
+  .site-header button#home-button {
+    font-size: 14px;
+    line-height: 18px;
+    letter-spacing: 0.2px;
+  }
+
+  .menu-group {
+    gap: 14px;
+  }
+
+  .menu-link,
+  .project-link,
+  .project-title,
+  .project-year {
+    font-size: 13px;
+    line-height: 1.2;
+    letter-spacing: 0.2px;
+  }
+
+  .menu-link,
+  .project-link,
+  .menu-link.active,
+  .project-link.active,
+  .menu-link.selected-category {
+    padding: 4px 9px 5px 9px;
+  }
+
+  .project-list {
+    gap: 14px;
+  }
+
+  /* ---------- Project pages: images run edge to edge ---------- */
+
+  .gallery-mobile-linear {
+    padding: 120px 0 28px 0;
+    gap: 18px;
+  }
+
+  /* captions and text stay inset from the screen edge */
+  .mobile-caption,
+  .mobile-editorial-text {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+
+  /* ---------- Sideways captions beside the image ---------- */
+
+  .mobile-linear-item.has-side-caption {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: 10px;
+    padding-left: 14px;
+    align-items: start;
+  }
+
+  .mobile-linear-item.has-side-caption > img {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .mobile-linear-item.has-side-caption > .side-caption-mobile {
+    grid-column: 1;
+    grid-row: 1;
+    align-self: end;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    max-height: min(70vw, 300px);
+    font-family: "Merriweather", serif;
+    font-size: 10px;
+    line-height: 13px;
+    letter-spacing: 0.6px;
+    color: var(--ink);
+    text-align: justify;
+    text-align-last: start;
+  }
+
+  /* a normal caption on the same image sits underneath, inset */
+  .mobile-linear-item.has-side-caption > .mobile-caption {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    padding: 0 18px 0 0;
+  }
+
+  /* ---------- Gentle fade-up as items scroll into view ---------- */
+
+  .mobile-linear-item.reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .mobile-linear-item.reveal.in-view {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* ---------- "Next project" link ---------- */
+
+  .mobile-next-wrap {
+    padding: 36px 32px 0 32px;
+  }
+
+  .mobile-next {
+    appearance: none;
+    -webkit-appearance: none;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background: transparent;
+    border: none;
+    margin: 0 0 0 -9px;
+    padding: 4px 9px 5px 9px;
+    text-align: left;
+    cursor: pointer;
+    color: var(--ink);
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    line-height: 1.3;
+    letter-spacing: 0.2px;
+    text-transform: uppercase;
+  }
+
+  .mobile-next-label {
+    font-weight: 700;
+  }
+
+  .mobile-next:active {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  /* ---------- Landing page: touch image trail ---------- */
+  /* style.css hides the trail on phones; switch it back on.
+     (The script only creates trail images when reduced motion is off.) */
+
+  .cursor-image-trail {
+    display: block !important;
+    animation: landingImageFall 0.6s ease-out forwards !important;
+  }
+
+  /* ---------- Tap sprinkles ---------- */
+
+  .cursor-burst {
+    animation: mobileBurst 0.7s ease-out forwards;
+  }
+
+  @keyframes mobileBurst {
+    0% {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform:
+        translate(calc(-50% + var(--burst-x, 0px)), calc(-50% + var(--burst-y, 0px)))
+        scale(0.3);
+    }
+  }
+}
