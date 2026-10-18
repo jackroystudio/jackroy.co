@@ -65,7 +65,7 @@
   />
 
   <link rel="stylesheet" href="/style.css?v=2" />
-  <link rel="stylesheet" href="/mobile.css?v=1" />
+  <link rel="stylesheet" href="/mobile.css?v=3" />
 
   <!-- Sideways captions. Kept here as well as in style.css so they still
        work if a cached copy of style.css is served. -->
@@ -465,7 +465,7 @@
               sideCaption: "Dynamic LED panel screen. Graphics showcase latest campaigns and remotely updated."
             },
             {
-              src: "/images/glassons-bondi-fixture-guide-jack-roy-jackroy.webp",
+              src: "/images/glassons-au-iso-mannequin-jack-roy-jackroy.webp",
               caption: ""
             }
           ]
@@ -702,6 +702,12 @@
       // The original carousel is now only a hidden image source for the
       // landing-page cursor trail. Project pages keep their existing cursor.
       document.body.classList.toggle("is-home", active);
+
+      // Every navigation function calls this first, so leaving a static page
+      // (Services / Profile / Contact) is recorded here. goToStaticPage sets
+      // it again straight afterwards.
+      currentStaticPage = null;
+
       if (homeBackgroundTimer) {
         window.clearInterval(homeBackgroundTimer);
         homeBackgroundTimer = null;
@@ -726,6 +732,7 @@
 
     let currentCategory = null;
     let currentProjectIndex = null;
+    let currentStaticPage = null;
 
     let mobileMenuOpen = isMobile();
     let mobileMode = isMobile() ? "landing" : "desktop";
@@ -1011,12 +1018,22 @@
       currentCategory = null;
       currentProjectIndex = null;
       previousMobileCategory = null;
+      currentStaticPage = page;
       activeSprinkleColors = defaultSprinkleColors;
+
+      // On phones the menu panel covers the screen, so switch to a "page"
+      // mode that hides it (the hamburger reopens it), like a project page.
+      if (isMobile()) {
+        mobileMode = "page";
+        mobileMenuOpen = false;
+      }
 
       Projects(false);
       StaticPage(page);
       updateCategoryButtons();
       updateMobileMenuUI();
+
+      if (isMobile()) window.scrollTo(0, 0);
 
       if (updateUrl) pushUrl(`/${page}`);
 
@@ -1098,6 +1115,7 @@
           "mobile-landing",
           "mobile-category-list",
           "mobile-project-open",
+          "mobile-page-open",
           "mobile-menu-open"
         );
         return;
@@ -1113,9 +1131,15 @@
         mobileMode === "category"
       );
 
+      // Static pages reuse the project-page layout (hidden menu + hamburger).
       document.body.classList.toggle(
         "mobile-project-open",
-        mobileMode === "project"
+        mobileMode === "project" || mobileMode === "page"
+      );
+
+      document.body.classList.toggle(
+        "mobile-page-open",
+        mobileMode === "page"
       );
 
       document.body.classList.toggle(
@@ -1138,7 +1162,8 @@
         return;
       }
 
-      const shouldShowHamburger = mobileMode === "project";
+      const overlayMode = mobileMode === "project" || mobileMode === "page";
+      const shouldShowHamburger = overlayMode;
 
       mobileMenuButton.classList.toggle(
         "is-visible",
@@ -1149,12 +1174,12 @@
 
       mobileBackdrop.classList.toggle(
         "open",
-        mobileMenuOpen && mobileMode === "project"
+        mobileMenuOpen && overlayMode
       );
 
       mobileMenuButton.classList.toggle(
         "open",
-        mobileMenuOpen && mobileMode === "project"
+        mobileMenuOpen && overlayMode
       );
 
       updateMobileStates();
@@ -1601,7 +1626,7 @@
             </div>
           ` : `
             <div class="mobile-linear-item${item.sideCaption ? " has-side-caption" : ""}">
-              <img src="${item.src}" alt="${alt}">
+              <img src="${item.src}" alt="${alt}" decoding="async">
               ${item.sideCaption ? `<div class="side-caption-mobile">${item.sideCaption}</div>` : ""}
               ${renderCaptionContent(item, "mobile-caption")}
               ${item.sideImage ? `<img src="${item.sideImage}" alt="${alt}, architectural drawing">` : ""}
@@ -2306,15 +2331,37 @@
       }
     );
 
+    let lastViewportWidth = window.innerWidth;
+
     window.addEventListener("resize", () => {
+      // Phones fire "resize" whenever the browser bar slides away while
+      // scrolling. Re-rendering then made images flicker and reset, so only
+      // react when the width changes (rotating the phone, resizing a window).
+      if (window.innerWidth === lastViewportWidth) return;
+      lastViewportWidth = window.innerWidth;
+
       updateLandingTrailMode(); // also clears the cached menu rects
+
+      // Redraw whatever is on screen: a static page, or the current project.
+      const redraw = () => {
+        if (currentStaticPage) {
+          StaticPage(currentStaticPage);
+        } else {
+          renderGallery();
+        }
+      };
+
       if (isMobile()) {
         if (mobileMode === "desktop") {
-          goToMobileLanding();
+          if (currentStaticPage) {
+            goToStaticPage(currentStaticPage, { updateUrl: false });
+          } else {
+            goToMobileLanding();
+          }
         } else {
           updateMobileMenuUI();
           renderProjects(false);
-          renderGallery();
+          redraw();
           updateCategoryButtons();
         }
       } else {
@@ -2322,7 +2369,7 @@
         mobileMenuOpen = false;
 
         renderProjects(false);
-        renderGallery();
+        redraw();
         updateCategoryButtons();
         updateMobileMenuUI();
       }
