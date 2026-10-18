@@ -419,7 +419,8 @@
           images: [
             {
               src: "/images/glassons4-jack-roy-jackroy.webp",
-              caption: ""
+              caption: "",
+              sideCaption: "Glassons<br>[Store type, city]<br>2024"
             },
             {
               src: "/images/glassons8-jack-roy-jackroy.webp",
@@ -427,11 +428,13 @@
             },
             {
               src: "/images/glassons1-jack-roy-jackroy.webp",
-              caption: ""
+              caption: "",
+              sideCaption: "[Caption for this view]"
             },
             {
               src: "/images/glassons3-jack-roy-jackroy.webp",
-              caption: ""
+              caption: "",
+              sideCaption: "[Caption for this view]"
             },
             {
               src: "/images/glassons-au-iso-mannequin-jack-roy-jackroy.webp",
@@ -1261,9 +1264,10 @@
               </video>
             </div>
           ` : `
-            <div class="gallery-item">
+            <div class="gallery-item${item.sideCaption ? " has-side-caption" : ""}">
               <img src="${item.src}" alt="${alt}">
               ${CaptionContent(item)}
+              ${item.sideCaption ? `<div class="side-caption-left${item.sideCaptionAlign === "top" ? " is-top" : ""}">${item.sideCaption}</div>` : ""}
             </div>
           `).join("")}
         </div>
@@ -1485,9 +1489,10 @@
       return `
         <div class="gallery-caption-led">
           ${project.images.map((img) => `
-            <div class="caption-led-item">
+            <div class="caption-led-item${img.sideCaption ? " has-side-caption" : ""}">
               <img src="${img.src}" alt="${alt}">
               ${renderCaptionContent(img, "caption-wide")}
+              ${img.sideCaption ? `<div class="side-caption-left${img.sideCaptionAlign === "top" ? " is-top" : ""}">${img.sideCaption}</div>` : ""}
             </div>
           `).join("")}
         </div>
@@ -1570,6 +1575,7 @@
             <div class="mobile-linear-item">
               <img src="${item.src}" alt="${alt}">
               ${renderCaptionContent(item, "mobile-caption")}
+              ${item.sideCaption ? `<div class="mobile-caption">${item.sideCaption}</div>` : ""}
               ${item.sideImage ? `<img src="${item.sideImage}" alt="${alt}, architectural drawing">` : ""}
             </div>
           `).join("")}
@@ -2083,7 +2089,7 @@
         el &&
         el.closest &&
         el.closest(
-          "p, .caption, .caption-below, .caption-wide, .editorial-caption, .indent, .bullet-list li, .mobile-caption, .fixed-text-paragraph, .mobile-editorial-text, .text-block p, .services-list li"
+          "p, .caption, .caption-below, .caption-wide, .editorial-caption, .indent, .bullet-list li, .mobile-caption, .fixed-text-paragraph, .mobile-editorial-text, .text-block p, .services-list li, .side-caption-left"
         )
       );
     }
