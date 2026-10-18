@@ -9,10 +9,25 @@
 
   /* ---------- Navigation: larger and easier to tap ---------- */
 
-  .site-header button#home-button {
+  /* The header and the menu panel both sit at z-index 1000, and the panel
+     comes later in the page with a solid background, so it was covering
+     JACK ROY on phones. Lift the header above it. */
+  .site-header {
+    z-index: 1003;
+  }
+
+  /* JACK ROY as a boxed chip, like the desktop hover state. Phones have no
+     hover, so the box is always on. */
+  .site-header button#home-button,
+  .site-header button#home-button:hover {
     font-size: 14px;
     line-height: 18px;
     letter-spacing: 0.2px;
+    padding: 4px 9px 5px 9px;
+    background: var(--glass);
+    -webkit-backdrop-filter: var(--glass-blur);
+    backdrop-filter: var(--glass-blur);
+    box-shadow: inset 0 0 0 1px var(--ink);
   }
 
   .menu-group {
