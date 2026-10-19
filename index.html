@@ -1961,7 +1961,7 @@
       }
     }
 
-    function spawnLandingImageTrail(x, y, width = 620) {
+    function spawnLandingImageTrail(x, y, width = 420) {
       if ((!landingTrailEnabled && !landingTouchEnabled) || !landingTrailSources.length) return;
       const trail = document.createElement("img");
       trail.className = "cursor-image-trail";
@@ -1978,7 +1978,7 @@
       trail.style.top = `${y}px`;
       trail.style.setProperty("--trail-rotate", `${angle}deg`);
       trail.style.setProperty("--trail-drift-x", "0px");
-      trail.style.setProperty("--trail-fall", "18px");
+      trail.style.setProperty("--trail-fall", "118px");
       trail.addEventListener("animationend", () => trail.remove(), { once: true });
       document.body.appendChild(trail);
     }
