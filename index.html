@@ -465,7 +465,7 @@
               sideCaption: "Dynamic LED panel screen. Graphics showcase latest campaigns and remotely updated."
             },
             {
-              src: "/images/glassons-bondi-fixture-guide-jack-roy-jackroy.webp",
+              src: "/images/glassons-au-iso-mannequin-jack-roy-jackroy.webp",
               caption: ""
             }
           ]
@@ -728,6 +728,13 @@
 
     function isMobile() {
       return window.matchMedia("(max-width: 768px)").matches;
+    }
+
+    // On phones the whole page scrolls (on desktop the gallery panel does,
+    // and renderGallery already resets that), so every move to a new screen
+    // needs to jump back to the top.
+    function scrollToTop() {
+      if (isMobile()) window.scrollTo(0, 0);
     }
 
     let currentCategory = null;
@@ -1033,7 +1040,7 @@
       updateCategoryButtons();
       updateMobileMenuUI();
 
-      if (isMobile()) window.scrollTo(0, 0);
+      scrollToTop();
 
       if (updateUrl) pushUrl(`/${page}`);
 
@@ -1211,6 +1218,7 @@
       Gallery();
       updateCategoryButtons();
       updateMobileMenuUI();
+      scrollToTop();
     }
 
     function goToMobileCategory(category) {
@@ -1225,6 +1233,7 @@
       Gallery();
       updateCategoryButtons();
       updateMobileMenuUI();
+      scrollToTop();
     }
 
     function openMobileProject(category, index) {
@@ -1239,6 +1248,7 @@
       Gallery();
       updateCategoryButtons();
       updateMobileMenuUI();
+      scrollToTop();
     }
 
     function CaptionContent(img, extraClass = "") {
@@ -1735,7 +1745,6 @@
         if (nextButton) {
           nextButton.addEventListener("click", () => {
             selectProject(currentCategory, Number(nextButton.dataset.nextIndex));
-            window.scrollTo(0, 0);
           });
         }
 
